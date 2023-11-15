@@ -17732,8 +17732,11 @@ var _hoisted_3 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "card-header"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
-    "class": "card-title"
-  }, "Basic Tabs with Bottom Line")], -1 /* HOISTED */);
+    "class": "card-title",
+    style: {
+      "font-weight": "bold"
+    }
+  }, "FORMULARIO DE CARACTERIZACIÓN POBLACIÓN AFRODESCENDIENTES")], -1 /* HOISTED */);
 });
 var _hoisted_4 = {
   "class": "card-content"
@@ -17760,7 +17763,7 @@ var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
     "aria-selected": "false"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
     style: {
-      "font-size": "20px"
+      "font-size": "25px"
     },
     "class": "fas fa-user-edit"
   })])]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
@@ -17778,7 +17781,7 @@ var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
     "aria-selected": "false"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
     style: {
-      "font-size": "20px"
+      "font-size": "25px"
     },
     "class": "fas fa-globe-americas"
   })])]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
@@ -17796,7 +17799,7 @@ var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
     "aria-selected": "false"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
     style: {
-      "font-size": "20px"
+      "font-size": "25px"
     },
     "class": "fas fa-school"
   })])]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
@@ -17814,7 +17817,7 @@ var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
     "aria-selected": "false"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
     style: {
-      "font-size": "20px"
+      "font-size": "25px"
     },
     "class": "fas fa-user-tie"
   })])]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
@@ -17832,7 +17835,7 @@ var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
     "aria-selected": "false"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
     style: {
-      "font-size": "20px"
+      "font-size": "25px"
     },
     "class": "fas fa-hospital-user"
   })])]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
@@ -17850,7 +17853,7 @@ var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
     "aria-selected": "false"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
     style: {
-      "font-size": "20px"
+      "font-size": "25px"
     },
     "class": "fas fa-people-carry"
   })])]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
@@ -17868,7 +17871,7 @@ var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
     "aria-selected": "false"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
     style: {
-      "font-size": "20px"
+      "font-size": "25px"
     },
     "class": "fas fa-house-user"
   })])])], -1 /* HOISTED */);

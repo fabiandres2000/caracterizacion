@@ -3,44 +3,44 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Basic Tabs with Bottom Line</h4>
+                    <h4 class="card-title" style="font-weight: bold">FORMULARIO DE CARACTERIZACIÓN POBLACIÓN AFRODESCENDIENTES</h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
                         <ul class="nav nav-tabs nav-underline" role="tablist">
                             <li style ="font-size: 14px" class="nav-item">
                                 <a class="nav-link active" id="baseIcon-tab21" data-toggle="tab" aria-controls="tabIcon21" href="#tabIcon21" role="tab" aria-selected="false">
-                                    <i style ="font-size: 20px" class="fas fa-user-edit"></i>
+                                    <i style ="font-size: 25px" class="fas fa-user-edit"></i>
                                 </a>
                             </li>
                             <li style ="font-size: 14px" class="nav-item">
                                 <a class="nav-link" id="baseIcon-tab22" data-toggle="tab" aria-controls="tabIcon22" href="#tabIcon22" role="tab" aria-selected="false">
-                                    <i style ="font-size: 20px" class="fas fa-globe-americas"></i>
+                                    <i style ="font-size: 25px" class="fas fa-globe-americas"></i>
                                 </a>
                             </li>
                             <li style ="font-size: 14px" class="nav-item">
                                 <a class="nav-link" id="baseIcon-tab23" data-toggle="tab" aria-controls="tabIcon23" href="#tabIcon23" role="tab" aria-selected="false">
-                                    <i style ="font-size: 20px" class="fas fa-school"></i>
+                                    <i style ="font-size: 25px" class="fas fa-school"></i>
                                 </a>
                             </li>
                             <li style ="font-size: 14px" class="nav-item">
                                 <a class="nav-link" id="baseIcon-tab24" data-toggle="tab" aria-controls="tabIcon24" href="#tabIcon24" role="tab" aria-selected="false">
-                                    <i style ="font-size: 20px" class="fas fa-user-tie"></i>
+                                    <i style ="font-size: 25px" class="fas fa-user-tie"></i>
                                 </a>
                             </li>
                             <li style ="font-size: 14px" class="nav-item">
                                 <a class="nav-link" id="baseIcon-tab25" data-toggle="tab" aria-controls="tabIcon25" href="#tabIcon25" role="tab" aria-selected="false">
-                                    <i style ="font-size: 20px" class="fas fa-hospital-user"></i>
+                                    <i style ="font-size: 25px" class="fas fa-hospital-user"></i>
                                 </a>
                             </li>
                             <li style ="font-size: 14px" class="nav-item">
                                 <a class="nav-link" id="baseIcon-tab26" data-toggle="tab" aria-controls="tabIcon26" href="#tabIcon26" role="tab" aria-selected="false">
-                                    <i style ="font-size: 20px" class="fas fa-people-carry"></i> 
+                                    <i style ="font-size: 25px" class="fas fa-people-carry"></i> 
                                 </a>
                             </li>
                             <li style ="font-size: 14px" class="nav-item">
                                 <a class="nav-link" id="baseIcon-tab27" data-toggle="tab" aria-controls="tabIcon27" href="#tabIcon27" role="tab" aria-selected="false">
-                                    <i style ="font-size: 20px" class="fas fa-house-user"></i>
+                                    <i style ="font-size: 25px" class="fas fa-house-user"></i>
                                 </a>
                             </li>
                         </ul>
