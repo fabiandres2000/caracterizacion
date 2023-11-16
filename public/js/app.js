@@ -17126,6 +17126,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.verificarLogin();
     this.consultarDepartamentos();
     this.consultarEscolaridades();
+    this.consultarOcupaciones();
   },
   data: function data() {
     return {
@@ -17172,6 +17173,44 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         barreras_educacion: "",
         descriminacion_racial: "",
         apoyo_educativo: ""
+      },
+      ocupaciones: [],
+      situacion_laboral: {
+        identificacion_individuo: null,
+        ocupacion: "",
+        situacion_laboral: "",
+        discriminacion_laboral: "",
+        ingreso_mensual: ""
+      },
+      salud: {
+        identificacion_individuo: null,
+        estado_salud: "",
+        condicion_discapacidad: "",
+        acceso_salud: "",
+        regimen: "",
+        discriminacion_salud: ""
+      },
+      culturaTradiciones: {
+        identificacion_individuo: null,
+        practica_actividades: "",
+        habla_lengua: "",
+        cual_lengua: "",
+        practicas_religiosas: ""
+      },
+      viviendaHogar: {
+        identificacion_jefe: null,
+        tipo_vivienda: "",
+        cual_tipo_vivienda: "",
+        tenencia: "",
+        numero_personas_hogar: "",
+        electricidad: "No",
+        agua_potable: "No",
+        alcantarillado: "No",
+        gas_natural: "No",
+        aseo: "No",
+        otro: "No",
+        numero_personas_trabajan: "",
+        ingresos_mensuales_hogar: ""
       }
     };
   },
@@ -17245,58 +17284,59 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       document.getElementById("tabIcon25").classList.remove("active");
       document.getElementById("tabIcon26").classList.remove("active");
       document.getElementById("tabIcon27").classList.remove("active");
+      document.getElementById("tabIcon28").classList.remove("active");
       document.getElementById(id).classList.add("active");
       document.getElementById(id2).classList.add("active");
     },
     validarCamposInformacionPersonal: function validarCamposInformacionPersonal() {
       this.errores = "";
       if (!this.informacion_personal.rol) {
-        this.errores += "<i style =\"font-size: 12px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  rol </strong> no puede estar vac\xEDo <br>";
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  rol </strong> no puede estar vac\xEDo <br>";
       }
       if (!this.informacion_personal.direccion) {
-        this.errores += "<i style =\"font-size: 12px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  direcci\xF3n </strong> no puede estar vac\xEDo <br>";
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  direcci\xF3n </strong> no puede estar vac\xEDo <br>";
       }
       if (!this.informacion_personal.nombre_completo) {
-        this.errores += "<i style =\"font-size: 12px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  nombre </strong> no puede estar vac\xEDo <br>";
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  nombre </strong> no puede estar vac\xEDo <br>";
       }
       if (this.informacion_personal.fecha_nacimiento == "") {
-        this.errores += "<i style =\"font-size: 12px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  fecha de nacimiento </strong> no puede estar vac\xEDo <br>";
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  fecha de nacimiento </strong> no puede estar vac\xEDo <br>";
       }
       if (!this.informacion_personal.tipo_identificacion) {
-        this.errores += "<i style =\"font-size: 12px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  tipo de identificaci\xF3n </strong> no puede estar vac\xEDo <br>";
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  tipo de identificaci\xF3n </strong> no puede estar vac\xEDo <br>";
       }
       if (!this.informacion_personal.numero_identificacion) {
-        this.errores += "<i style =\"font-size: 12px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  n\xFAmero de identificaci\xF3n </strong> no puede estar vac\xEDo <br>";
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  n\xFAmero de identificaci\xF3n </strong> no puede estar vac\xEDo <br>";
       }
       if (!this.informacion_personal.direccion_residencia) {
-        this.errores += "<i style =\"font-size: 12px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  direcci\xF3n de residencia </strong> no puede estar vac\xEDo <br>";
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  direcci\xF3n de residencia </strong> no puede estar vac\xEDo <br>";
       }
       if (!this.informacion_personal.sexo) {
-        this.errores += "<i style =\"font-size: 12px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  sexo </strong> no puede estar vac\xEDo <br>";
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  sexo </strong> no puede estar vac\xEDo <br>";
       }
       if (!this.informacion_personal.identidad_genero) {
-        this.errores += "<i style =\"font-size: 12px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  identidad de genero </strong> no puede estar vac\xEDo <br>";
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  identidad de genero </strong> no puede estar vac\xEDo <br>";
       }
       if (!this.informacion_personal.orientacion_sexual) {
-        this.errores += "<i style =\"font-size: 12px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  orientaci\xF3n sexual </strong> no puede estar vac\xEDo <br>";
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  orientaci\xF3n sexual </strong> no puede estar vac\xEDo <br>";
       }
       if (!this.informacion_personal.estado_civil) {
-        this.errores += "<i style =\"font-size: 12px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  estado civil </strong> no puede estar vac\xEDo <br>";
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  estado civil </strong> no puede estar vac\xEDo <br>";
       }
       if (!this.informacion_personal.creencia_religiosa) {
-        this.errores += "<i style =\"font-size: 12px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  creencia religiosa </strong> no puede estar vac\xEDo <br>";
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  creencia religiosa </strong> no puede estar vac\xEDo <br>";
       }
       if (!this.informacion_personal.adicciones) {
-        this.errores += "<i style =\"font-size: 12px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  adicciones </strong> no puede estar vac\xEDo <br>";
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  adicciones </strong> no puede estar vac\xEDo <br>";
       }
       if (!this.informacion_personal.tiempo_municipo) {
-        this.errores += "<i style =\"font-size: 12px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  tiempo de residencia </strong> no puede estar vac\xEDo <br>";
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  tiempo de residencia </strong> no puede estar vac\xEDo <br>";
       }
       if (!this.informacion_personal.desplazado) {
-        this.errores += "<i style =\"font-size: 12px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  desplazado </strong> no puede estar vac\xEDo <br>";
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  desplazado </strong> no puede estar vac\xEDo <br>";
       }
       if (this.informacion_personal.rol != "Jefe de hogar" && this.informacion_personal.id_jefe == "") {
-        this.errores += "<i style =\"font-size: 12px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  jefe de hogar </strong> no puede estar vac\xEDo <br>";
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  jefe de hogar </strong> no puede estar vac\xEDo <br>";
       }
       if (this.errores.length === 0) {
         this.guardarInformacionPersonal();
@@ -17384,13 +17424,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     validarCamposOrigenIdentidad: function validarCamposOrigenIdentidad() {
       this.errores = "";
       if (!this.origen_identidad.departamento) {
-        this.errores += "<i style =\"font-size: 12px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  departamento </strong> no puede estar vac\xEDo <br>";
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  departamento </strong> no puede estar vac\xEDo <br>";
       }
       if (!this.origen_identidad.municipio) {
-        this.errores += "<i style =\"font-size: 12px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  municipio </strong> no puede estar vac\xEDo <br>";
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  municipio </strong> no puede estar vac\xEDo <br>";
       }
       if (!this.origen_identidad.etnia) {
-        this.errores += "<i style =\"font-size: 12px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  etnia </strong> no puede estar vac\xEDo <br>";
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  etnia </strong> no puede estar vac\xEDo <br>";
       }
       if (this.errores.length === 0) {
         this.origen_identidad.identificacion_individuo = this.informacion_personal.numero_identificacion;
@@ -17461,19 +17501,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     validarCamposOrigenEducacion: function validarCamposOrigenEducacion() {
       this.errores = "";
       if (!this.educacion.apoyo_educativo) {
-        this.errores += "<i style =\"font-size: 12px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  apoyo educativo </strong> no puede estar vac\xEDo <br>";
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  apoyo educativo </strong> no puede estar vac\xEDo <br>";
       }
       if (!this.educacion.barreras_educacion) {
-        this.errores += "<i style =\"font-size: 12px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">   barreras para acceder a la educaci\xF3n </strong> no puede estar vac\xEDo <br>";
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">   barreras para acceder a la educaci\xF3n </strong> no puede estar vac\xEDo <br>";
       }
       if (!this.educacion.descriminacion_racial) {
-        this.errores += "<i style =\"font-size: 12px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  discriminaci\xF3n racial  </strong> no puede estar vac\xEDo <br>";
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  discriminaci\xF3n racial  </strong> no puede estar vac\xEDo <br>";
       }
       if (!this.educacion.educacion_especifica) {
-        this.errores += "<i style =\"font-size: 12px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  educaci\xF3n espec\xEDfica sobre la cultura  </strong> no puede estar vac\xEDo <br>";
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  educaci\xF3n espec\xEDfica sobre la cultura  </strong> no puede estar vac\xEDo <br>";
       }
       if (!this.educacion.nivel_educativo) {
-        this.errores += "<i style =\"font-size: 12px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  nivel educativo </strong> no puede estar vac\xEDo <br>";
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  nivel educativo </strong> no puede estar vac\xEDo <br>";
       }
       if (this.errores.length === 0) {
         this.educacion.identificacion_individuo = this.informacion_personal.numero_identificacion;
@@ -17523,6 +17563,255 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee8, null, [[1, 6]]);
       }))();
+    },
+    consultarOcupaciones: function consultarOcupaciones() {
+      var _this9 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+          while (1) switch (_context9.prev = _context9.next) {
+            case 0:
+              _context9.next = 2;
+              return _services_caracterizacion_service__WEBPACK_IMPORTED_MODULE_1__.ocupaciones().then(function (respuesta) {
+                _this9.ocupaciones = respuesta.data;
+              });
+            case 2:
+            case "end":
+              return _context9.stop();
+          }
+        }, _callee9);
+      }))();
+    },
+    validarCamposSituacionLaboral: function validarCamposSituacionLaboral() {
+      this.errores = "";
+      if (!this.situacion_laboral.discriminacion_laboral) {
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  discriminaci\xF3n  laboral </strong> no puede estar vac\xEDo <br>";
+      }
+      if (!this.situacion_laboral.ocupacion) {
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">   Ocupaci\xF3n </strong> no puede estar vac\xEDo <br>";
+      }
+      if (!this.situacion_laboral.ingreso_mensual) {
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  ingreso mensual </strong> no puede estar vac\xEDo <br>";
+      }
+      if (!this.situacion_laboral.situacion_laboral) {
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  situaci\xF3n laboral  </strong> no puede estar vac\xEDo <br>";
+      }
+      if (this.errores.length === 0) {
+        this.situacion_laboral.identificacion_individuo = this.informacion_personal.numero_identificacion;
+        this.guardarSituacionLaboral();
+      } else {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
+          width: 600,
+          icon: "error",
+          title: "Información Importante",
+          html: this.errores
+        });
+      }
+    },
+    guardarSituacionLaboral: function guardarSituacionLaboral() {
+      var _this10 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
+        return _regeneratorRuntime().wrap(function _callee10$(_context10) {
+          while (1) switch (_context10.prev = _context10.next) {
+            case 0:
+              _this10.loading = true;
+              _context10.prev = 1;
+              _context10.next = 4;
+              return _services_caracterizacion_service__WEBPACK_IMPORTED_MODULE_1__.guardarSituacionLaboral(_this10.situacion_laboral).then(function (respuesta) {
+                var response = respuesta.data;
+                _this10.loading = false;
+                if (response.code == 1) {
+                  toastr.success(response.mensaje);
+                  _this10.eliminarActive("baseIcon-tab25", "tabIcon25");
+                } else {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
+                    icon: "error",
+                    title: "Información Importante",
+                    text: response.mensaje
+                  });
+                }
+              });
+            case 4:
+              _context10.next = 9;
+              break;
+            case 6:
+              _context10.prev = 6;
+              _context10.t0 = _context10["catch"](1);
+              console.log(_context10.t0);
+            case 9:
+            case "end":
+              return _context10.stop();
+          }
+        }, _callee10, null, [[1, 6]]);
+      }))();
+    },
+    validarCamposSalud: function validarCamposSalud() {
+      this.errores = "";
+      if (!this.salud.acceso_salud) {
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  Acceso a servicios de salud  </strong> no puede estar vac\xEDo <br>";
+      }
+      if (!this.salud.condicion_discapacidad) {
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  condici\xF3n de discapacidad  </strong> no puede estar vac\xEDo <br>";
+      }
+      if (!this.salud.discriminacion_salud) {
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  discriminaci\xF3n en el \xE1mbito de la salud  </strong> no puede estar vac\xEDo <br>";
+      }
+      if (!this.salud.estado_salud) {
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  Estado de salud general  </strong> no puede estar vac\xEDo <br>";
+      }
+      if (!this.salud.regimen) {
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  R\xE9gimen de salud al que pertenece  </strong> no puede estar vac\xEDo <br>";
+      }
+      if (this.errores.length === 0) {
+        this.salud.identificacion_individuo = this.informacion_personal.numero_identificacion;
+        this.guardarSalud();
+      } else {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
+          width: 650,
+          icon: "error",
+          title: "Información Importante",
+          html: this.errores
+        });
+      }
+    },
+    guardarSalud: function guardarSalud() {
+      var _this11 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
+        return _regeneratorRuntime().wrap(function _callee11$(_context11) {
+          while (1) switch (_context11.prev = _context11.next) {
+            case 0:
+              _this11.loading = true;
+              _context11.prev = 1;
+              _context11.next = 4;
+              return _services_caracterizacion_service__WEBPACK_IMPORTED_MODULE_1__.guardarSalud(_this11.salud).then(function (respuesta) {
+                var response = respuesta.data;
+                _this11.loading = false;
+                if (response.code == 1) {
+                  toastr.success(response.mensaje);
+                  _this11.eliminarActive("baseIcon-tab26", "tabIcon26");
+                } else {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
+                    icon: "error",
+                    title: "Información Importante",
+                    text: response.mensaje
+                  });
+                }
+              });
+            case 4:
+              _context11.next = 9;
+              break;
+            case 6:
+              _context11.prev = 6;
+              _context11.t0 = _context11["catch"](1);
+              console.log(_context11.t0);
+            case 9:
+            case "end":
+              return _context11.stop();
+          }
+        }, _callee11, null, [[1, 6]]);
+      }))();
+    },
+    validarCamposCulturaTradiciones: function validarCamposCulturaTradiciones() {
+      this.errores = "";
+      if (!this.culturaTradiciones.habla_lengua) {
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  habla alguna lengua afrocolombiana  </strong> no puede estar vac\xEDo <br>";
+      }
+      if (!this.culturaTradiciones.practica_actividades) {
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">  Participa en actividades culturales afrocolombianas  </strong> no puede estar vac\xEDo <br>";
+      }
+      if (!this.culturaTradiciones.practicas_religiosas) {
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">   Pr\xE1cticas culturales y religiosas  </strong> no puede estar vac\xEDo <br>";
+      }
+      if (this.culturaTradiciones.habla_lengua == "Si") {
+        if (!this.culturaTradiciones.cual_lengua) {
+          this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">   \xBFCual lengua habla?  </strong> no puede estar vac\xEDo <br>";
+        }
+      }
+      if (this.errores.length === 0) {
+        this.culturaTradiciones.identificacion_individuo = this.informacion_personal.numero_identificacion;
+        this.guardarCulturaTradiciones();
+      } else {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
+          width: 710,
+          icon: "error",
+          title: "Información Importante",
+          html: this.errores
+        });
+      }
+    },
+    guardarCulturaTradiciones: function guardarCulturaTradiciones() {
+      var _this12 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
+        return _regeneratorRuntime().wrap(function _callee12$(_context12) {
+          while (1) switch (_context12.prev = _context12.next) {
+            case 0:
+              _this12.loading = true;
+              _context12.prev = 1;
+              _context12.next = 4;
+              return _services_caracterizacion_service__WEBPACK_IMPORTED_MODULE_1__.guardarCulturaTradiciones(_this12.culturaTradiciones).then(function (respuesta) {
+                var response = respuesta.data;
+                _this12.loading = false;
+                if (response.code == 1) {
+                  toastr.success(response.mensaje);
+                  if (_this12.informacion_personal.rol == "Jefe de hogar") {
+                    _this12.eliminarActive("baseIcon-tab27", "tabIcon27");
+                  } else {
+                    _this12.eliminarActive("baseIcon-tab28", "tabIcon28");
+                  }
+                } else {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
+                    icon: "error",
+                    title: "Información Importante",
+                    text: response.mensaje
+                  });
+                }
+              });
+            case 4:
+              _context12.next = 9;
+              break;
+            case 6:
+              _context12.prev = 6;
+              _context12.t0 = _context12["catch"](1);
+              console.log(_context12.t0);
+            case 9:
+            case "end":
+              return _context12.stop();
+          }
+        }, _callee12, null, [[1, 6]]);
+      }))();
+    },
+    validarCamposViviendaHogar: function validarCamposViviendaHogar() {
+      this.errores = "";
+      if (!this.viviendaHogar.tipo_vivienda) {
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\"> Tipo de vivienda </strong> no puede estar vac\xEDo <br>";
+      }
+      if (!this.viviendaHogar.tenencia) {
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\"> Tenencia de la vivienda </strong> no puede estar vac\xEDo <br>";
+      }
+      if (!this.viviendaHogar.numero_personas_hogar) {
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\"> N\xFAmero de personas que conforman el hogar </strong> no puede estar vac\xEDo <br>";
+      }
+      if (!this.viviendaHogar.numero_personas_trabajan) {
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\"> Personas trabajan en su hogar </strong> no puede estar vac\xEDo <br>";
+      }
+      if (!this.viviendaHogar.ingresos_mensuales_hogar) {
+        this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\"> Ingresos mensuales por hogar </strong> no puede estar vac\xEDo <br>";
+      }
+      if (this.viviendaHogar.tipo_vivienda == "Otro") {
+        if (!this.viviendaHogar.cual_tipo_vivienda) {
+          this.errores += "<i style =\"font-size: 8px\" class=\"fas fa-circle\"></i> El campo <strong style=\"color: #2f95a2\">   \xBFCual tipo de vivienda?  </strong> no puede estar vac\xEDo <br>";
+        }
+      }
+      if (this.errores.length === 0) {
+        this.viviendaHogar.identificacion_jefe = this.informacion_personal.numero_identificacion;
+        this.guardarViviendaHogar();
+      } else {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
+          width: 710,
+          icon: "error",
+          title: "Información Importante",
+          html: this.errores
+        });
+      }
     }
   }
 });
@@ -18852,53 +19141,898 @@ var _hoisted_257 = /*#__PURE__*/_withScopeId(function () {
     "class": "fas fa-arrow-right"
   }, null, -1 /* HOISTED */);
 });
-var _hoisted_258 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "tab-pane",
-    id: "tabIcon24",
-    role: "tabpanel",
-    "aria-labelledby": "baseIcon-tab24"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
-    style: {
-      "color": "#2f8a96"
-    }
-  }, " SITUACIÓN LABORAL "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br")], -1 /* HOISTED */);
-});
+var _hoisted_258 = {
+  "class": "tab-pane",
+  id: "tabIcon24",
+  role: "tabpanel",
+  "aria-labelledby": "baseIcon-tab24"
+};
 var _hoisted_259 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "tab-pane",
-    id: "tabIcon25",
-    role: "tabpanel",
-    "aria-labelledby": "baseIcon-tab25"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
-    style: {
-      "color": "#2f8a96"
-    }
-  }, " SALUD "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br")], -1 /* HOISTED */);
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
 });
 var _hoisted_260 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "tab-pane",
-    id: "tabIcon26",
-    role: "tabpanel",
-    "aria-labelledby": "baseIcon-tab26"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
     style: {
       "color": "#2f8a96"
     }
-  }, " CULTURA Y TRADICIONES "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br")], -1 /* HOISTED */);
+  }, " SITUACIÓN LABORAL ", -1 /* HOISTED */);
 });
 var _hoisted_261 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1 /* HOISTED */);
+});
+var _hoisted_262 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+});
+var _hoisted_263 = {
+  "class": "row"
+};
+var _hoisted_264 = {
+  "class": "col-lg-6"
+};
+var _hoisted_265 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": "input-datalist"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "1. Ocupación")], -1 /* HOISTED */);
+});
+var _hoisted_266 = {
+  "class": "form-group position-relative has-icon-left"
+};
+var _hoisted_267 = {
+  "class": "form-group"
+};
+var _hoisted_268 = {
+  id: "list-timezone"
+};
+var _hoisted_269 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "tab-pane",
-    id: "tabIcon27",
-    role: "tabpanel",
-    "aria-labelledby": "baseIcon-tab27"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+    "class": "form-control-position",
+    style: {
+      "top": "9px",
+      "left": "4px !important"
+    }
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "19px"
+    },
+    "class": "fas fa-suitcase"
+  })], -1 /* HOISTED */);
+});
+var _hoisted_270 = {
+  "class": "col-lg-6"
+};
+var _hoisted_271 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": "input-datalist"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "2. Situación laboral")], -1 /* HOISTED */);
+});
+var _hoisted_272 = {
+  "class": "form-group position-relative has-icon-left"
+};
+var _hoisted_273 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<option value=\"\" data-v-dfdbb91a>Seleccione una opción</option><option value=\"Empleado/a tiempo completo\" data-v-dfdbb91a>Empleado/a tiempo completo</option><option value=\"Empleado/a tiempo parcial\" data-v-dfdbb91a>Empleado/a tiempo parcial</option><option value=\"Desempleado/a (en búsqueda activa de empleo)\" data-v-dfdbb91a>Desempleado/a (en búsqueda activa de empleo)</option><option value=\"Desempleado/a (sin búsqueda activa de empleo en el momento)\" data-v-dfdbb91a>Desempleado/a (sin búsqueda activa de empleo en el momento)</option><option value=\"Empresario/a dueño/a de negocio\" data-v-dfdbb91a>Empresario/a dueño/a de negocio</option><option value=\"Trabajador/a independiente\" data-v-dfdbb91a>Trabajador/a independiente</option><option value=\"Jubilado/a (retirado/a del empleo remunerado)\" data-v-dfdbb91a>Jubilado/a (retirado/a del empleo remunerado)</option><option value=\"Voluntario/a (sin compensación financiera)\" data-v-dfdbb91a>Voluntario/a (sin compensación financiera)</option><option value=\"Trabajador informal\" data-v-dfdbb91a>Trabajador informal</option>", 10);
+var _hoisted_283 = [_hoisted_273];
+var _hoisted_284 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "form-control-position",
+    style: {
+      "top": "9px",
+      "left": "4px !important"
+    }
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "19px"
+    },
+    "class": "fas fa-suitcase"
+  })], -1 /* HOISTED */);
+});
+var _hoisted_285 = {
+  "class": "col-lg-6"
+};
+var _hoisted_286 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": ""
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "3. ¿ha experimentado discriminación en el ámbito laboral?")], -1 /* HOISTED */);
+});
+var _hoisted_287 = {
+  "class": "form-group position-relative has-icon-left"
+};
+var _hoisted_288 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: ""
+  }, "Seleccione una opción", -1 /* HOISTED */);
+});
+var _hoisted_289 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: "Si"
+  }, "Si", -1 /* HOISTED */);
+});
+var _hoisted_290 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: "No"
+  }, "No", -1 /* HOISTED */);
+});
+var _hoisted_291 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: "N.A"
+  }, "N.A", -1 /* HOISTED */);
+});
+var _hoisted_292 = [_hoisted_288, _hoisted_289, _hoisted_290, _hoisted_291];
+var _hoisted_293 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "form-control-position"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "19px"
+    },
+    "class": "fas fa-question"
+  })], -1 /* HOISTED */);
+});
+var _hoisted_294 = {
+  "class": "col-lg-6"
+};
+var _hoisted_295 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": "input-datalist"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "4. Ingreso mensual promedio")], -1 /* HOISTED */);
+});
+var _hoisted_296 = {
+  "class": "form-group position-relative has-icon-left"
+};
+var _hoisted_297 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<option value=\"\" data-v-dfdbb91a>Seleccione una opción</option><option value=\"menos de 500000\" data-v-dfdbb91a>Menos de $500,000</option><option value=\"500000-1160000\" data-v-dfdbb91a>$500,000 - $1,160,000</option><option value=\"1160001-2000000\" data-v-dfdbb91a>$1,160,001 - $2,000,000</option><option value=\"2000001-2500000\" data-v-dfdbb91a>$2,000,001 - $2,500,000</option><option value=\"2500001-3000000\" data-v-dfdbb91a>$2,500,001 - $3,000,000</option><option value=\"3000001-4000000\" data-v-dfdbb91a>$3,000,001 - $4,000,000</option><option value=\"mas de 4000000\" data-v-dfdbb91a>Más de $4,000,000</option><option value=\"Trabajador informal\" data-v-dfdbb91a>Trabajador informal</option>", 9);
+var _hoisted_306 = [_hoisted_297];
+var _hoisted_307 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "form-control-position",
+    style: {
+      "top": "9px",
+      "left": "4px !important"
+    }
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "19px"
+    },
+    "class": "fas fa-dollar-sign"
+  })], -1 /* HOISTED */);
+});
+var _hoisted_308 = {
+  "class": "col-lg-12 text-right",
+  style: {
+    "padding-top": "20px"
+  }
+};
+var _hoisted_309 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "13px"
+    },
+    "class": "fas fa-arrow-left"
+  }, null, -1 /* HOISTED */);
+});
+var _hoisted_310 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "13px"
+    },
+    "class": "fas fa-arrow-right"
+  }, null, -1 /* HOISTED */);
+});
+var _hoisted_311 = {
+  "class": "tab-pane",
+  id: "tabIcon25",
+  role: "tabpanel",
+  "aria-labelledby": "baseIcon-tab25"
+};
+var _hoisted_312 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+});
+var _hoisted_313 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
     style: {
       "color": "#2f8a96"
     }
-  }, " VIVIENDA Y HOGAR "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br")], -1 /* HOISTED */);
+  }, " SALUD ", -1 /* HOISTED */);
+});
+var _hoisted_314 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1 /* HOISTED */);
+});
+var _hoisted_315 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+});
+var _hoisted_316 = {
+  "class": "row"
+};
+var _hoisted_317 = {
+  "class": "col-lg-6"
+};
+var _hoisted_318 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": "input-datalist"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "1. Estado de salud general")], -1 /* HOISTED */);
+});
+var _hoisted_319 = {
+  "class": "form-group position-relative has-icon-left"
+};
+var _hoisted_320 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<option value=\"\" data-v-dfdbb91a>Seleccione una opción</option><option value=\"Bueno\" data-v-dfdbb91a>Bueno</option><option value=\"Regular\" data-v-dfdbb91a>Regular</option><option value=\"Malo\" data-v-dfdbb91a>Malo</option><option value=\"No informa\" data-v-dfdbb91a>No informa</option>", 5);
+var _hoisted_325 = [_hoisted_320];
+var _hoisted_326 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "form-control-position",
+    style: {
+      "top": "9px",
+      "left": "4px !important"
+    }
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "19px"
+    },
+    "class": "fas fa-heart"
+  })], -1 /* HOISTED */);
+});
+var _hoisted_327 = {
+  "class": "col-lg-6"
+};
+var _hoisted_328 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": "input-datalist"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "2. ¿Posee alguna condición de discapacidad? ")], -1 /* HOISTED */);
+});
+var _hoisted_329 = {
+  "class": "form-group position-relative has-icon-left"
+};
+var _hoisted_330 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<option value=\"\" data-v-dfdbb91a>Seleccione una opción</option><option value=\"Discapacidad Física\" data-v-dfdbb91a>Discapacidad Física</option><option value=\"Discapacidad Sensorial\" data-v-dfdbb91a>Discapacidad Sensorial</option><option value=\"Discapacidad Cognitiva\" data-v-dfdbb91a>Discapacidad Cognitiva</option><option value=\"Discapacidad Psicosocial o Mental\" data-v-dfdbb91a>Discapacidad Psicosocial o Mental</option><option value=\"Discapacidad del Habla o del Lenguaje\" data-v-dfdbb91a>Discapacidad del Habla o del Lenguaje</option><option value=\"Discapacidad Múltiple o Combinada\" data-v-dfdbb91a>Discapacidad Múltiple o Combinada</option><option value=\"Discapacidad Temporal\" data-v-dfdbb91a>Discapacidad Temporal</option>", 8);
+var _hoisted_338 = [_hoisted_330];
+var _hoisted_339 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "form-control-position",
+    style: {
+      "top": "9px",
+      "left": "4px !important"
+    }
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "19px"
+    },
+    "class": "fas fa-blind"
+  })], -1 /* HOISTED */);
+});
+var _hoisted_340 = {
+  "class": "col-lg-6"
+};
+var _hoisted_341 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": "input-datalist"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "3. Acceso a servicios de salud")], -1 /* HOISTED */);
+});
+var _hoisted_342 = {
+  "class": "form-group position-relative has-icon-left"
+};
+var _hoisted_343 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: ""
+  }, "Seleccione una opción", -1 /* HOISTED */);
+});
+var _hoisted_344 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: "Frecuente"
+  }, "Frecuente", -1 /* HOISTED */);
+});
+var _hoisted_345 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: "Ocasional"
+  }, "Ocasional", -1 /* HOISTED */);
+});
+var _hoisted_346 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: "No tiene acceso"
+  }, "No tiene acceso", -1 /* HOISTED */);
+});
+var _hoisted_347 = [_hoisted_343, _hoisted_344, _hoisted_345, _hoisted_346];
+var _hoisted_348 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "form-control-position",
+    style: {
+      "top": "9px",
+      "left": "4px !important"
+    }
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "19px"
+    },
+    "class": "fas fa-medkit"
+  })], -1 /* HOISTED */);
+});
+var _hoisted_349 = {
+  "class": "col-lg-6"
+};
+var _hoisted_350 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": "input-datalist"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "4. Régimen de salud al que pertenece")], -1 /* HOISTED */);
+});
+var _hoisted_351 = {
+  "class": "form-group position-relative has-icon-left"
+};
+var _hoisted_352 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<option value=\"\" data-v-dfdbb91a>Seleccione una opción</option><option value=\"Contributivo\" data-v-dfdbb91a>Contributivo</option><option value=\"Subsidiado\" data-v-dfdbb91a>Subsidiado</option><option value=\"Vinculado/ Beneficiario\" data-v-dfdbb91a>Vinculado/ Beneficiario</option><option value=\"Régimen Especial\" data-v-dfdbb91a>Régimen Especial</option><option value=\"Particular o Privado\" data-v-dfdbb91a>Particular o Privado</option>", 6);
+var _hoisted_358 = [_hoisted_352];
+var _hoisted_359 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "form-control-position",
+    style: {
+      "top": "9px",
+      "left": "4px !important"
+    }
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "19px"
+    },
+    "class": "fas fa-laptop-medical"
+  })], -1 /* HOISTED */);
+});
+var _hoisted_360 = {
+  "class": "col-lg-6"
+};
+var _hoisted_361 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": ""
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "5. ¿Ha enfrentado discriminación en el ámbito de la salud?")], -1 /* HOISTED */);
+});
+var _hoisted_362 = {
+  "class": "form-group position-relative has-icon-left"
+};
+var _hoisted_363 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: ""
+  }, "Seleccione una opción", -1 /* HOISTED */);
+});
+var _hoisted_364 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: "Si"
+  }, "Si", -1 /* HOISTED */);
+});
+var _hoisted_365 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: "No"
+  }, "No", -1 /* HOISTED */);
+});
+var _hoisted_366 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: "N.A"
+  }, "N.A", -1 /* HOISTED */);
+});
+var _hoisted_367 = [_hoisted_363, _hoisted_364, _hoisted_365, _hoisted_366];
+var _hoisted_368 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "form-control-position"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "19px"
+    },
+    "class": "fas fa-question"
+  })], -1 /* HOISTED */);
+});
+var _hoisted_369 = {
+  "class": "col-lg-12 text-right",
+  style: {
+    "padding-top": "20px"
+  }
+};
+var _hoisted_370 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "13px"
+    },
+    "class": "fas fa-arrow-left"
+  }, null, -1 /* HOISTED */);
+});
+var _hoisted_371 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "13px"
+    },
+    "class": "fas fa-arrow-right"
+  }, null, -1 /* HOISTED */);
+});
+var _hoisted_372 = {
+  "class": "tab-pane",
+  id: "tabIcon26",
+  role: "tabpanel",
+  "aria-labelledby": "baseIcon-tab26"
+};
+var _hoisted_373 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+});
+var _hoisted_374 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+    style: {
+      "color": "#2f8a96"
+    }
+  }, " CULTURA Y TRADICIONES ", -1 /* HOISTED */);
+});
+var _hoisted_375 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1 /* HOISTED */);
+});
+var _hoisted_376 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+});
+var _hoisted_377 = {
+  "class": "row"
+};
+var _hoisted_378 = {
+  "class": "col-lg-6"
+};
+var _hoisted_379 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": ""
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "1. ¿Participa en actividades culturales afrocolombianas?")], -1 /* HOISTED */);
+});
+var _hoisted_380 = {
+  "class": "form-group position-relative has-icon-left"
+};
+var _hoisted_381 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: ""
+  }, "Seleccione una opción", -1 /* HOISTED */);
+});
+var _hoisted_382 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: "Si"
+  }, "Si", -1 /* HOISTED */);
+});
+var _hoisted_383 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: "Nunca"
+  }, "Nunca", -1 /* HOISTED */);
+});
+var _hoisted_384 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: "Casi nunca"
+  }, "Casi nunca", -1 /* HOISTED */);
+});
+var _hoisted_385 = [_hoisted_381, _hoisted_382, _hoisted_383, _hoisted_384];
+var _hoisted_386 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "form-control-position"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "19px"
+    },
+    "class": "fas fa-question"
+  })], -1 /* HOISTED */);
+});
+var _hoisted_387 = {
+  "class": "col-lg-6"
+};
+var _hoisted_388 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": ""
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "2. ¿habla alguna lengua afrocolombiana?")], -1 /* HOISTED */);
+});
+var _hoisted_389 = {
+  "class": "form-group position-relative has-icon-left"
+};
+var _hoisted_390 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: ""
+  }, "Seleccione una opción", -1 /* HOISTED */);
+});
+var _hoisted_391 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: "Si"
+  }, "Si", -1 /* HOISTED */);
+});
+var _hoisted_392 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: "Nunca"
+  }, "No", -1 /* HOISTED */);
+});
+var _hoisted_393 = [_hoisted_390, _hoisted_391, _hoisted_392];
+var _hoisted_394 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "form-control-position"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "19px"
+    },
+    "class": "fas fa-question"
+  })], -1 /* HOISTED */);
+});
+var _hoisted_395 = {
+  key: 0,
+  "class": "col-lg-6"
+};
+var _hoisted_396 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": ""
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "¿Cual lengua habla?")], -1 /* HOISTED */);
+});
+var _hoisted_397 = {
+  "class": "form-group position-relative has-icon-left"
+};
+var _hoisted_398 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: ""
+  }, "Seleccione una opción", -1 /* HOISTED */);
+});
+var _hoisted_399 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: "Creole"
+  }, "Creole", -1 /* HOISTED */);
+});
+var _hoisted_400 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: "Palenquero"
+  }, "Palenquero", -1 /* HOISTED */);
+});
+var _hoisted_401 = [_hoisted_398, _hoisted_399, _hoisted_400];
+var _hoisted_402 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "form-control-position"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "19px"
+    },
+    "class": "fas fa-question"
+  })], -1 /* HOISTED */);
+});
+var _hoisted_403 = {
+  "class": "col-lg-6"
+};
+var _hoisted_404 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": ""
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "3. Prácticas culturales y religiosas")], -1 /* HOISTED */);
+});
+var _hoisted_405 = {
+  "class": "form-group position-relative has-icon-left"
+};
+var _hoisted_406 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<option value=\"\" data-v-dfdbb91a>Seleccione una opción</option><option value=\"Música y Danza\" data-v-dfdbb91a>Música y Danza</option><option value=\"Sincretismo Religioso\" data-v-dfdbb91a>Sincretismo Religioso</option><option value=\"Santería y Palenque\" data-v-dfdbb91a>Santería y Palenque</option><option value=\"Prácticas médicas tradicionales\" data-v-dfdbb91a>Prácticas médicas tradicionales</option>", 5);
+var _hoisted_411 = [_hoisted_406];
+var _hoisted_412 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "form-control-position"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "19px"
+    },
+    "class": "fas fa-question"
+  })], -1 /* HOISTED */);
+});
+var _hoisted_413 = {
+  "class": "col-lg-12 text-right",
+  style: {
+    "padding-top": "20px"
+  }
+};
+var _hoisted_414 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "13px"
+    },
+    "class": "fas fa-arrow-left"
+  }, null, -1 /* HOISTED */);
+});
+var _hoisted_415 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "13px"
+    },
+    "class": "fas fa-arrow-right"
+  }, null, -1 /* HOISTED */);
+});
+var _hoisted_416 = {
+  "class": "tab-pane",
+  id: "tabIcon27",
+  role: "tabpanel",
+  "aria-labelledby": "baseIcon-tab27"
+};
+var _hoisted_417 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+});
+var _hoisted_418 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+    style: {
+      "color": "#2f8a96"
+    }
+  }, " VIVIENDA Y HOGAR ", -1 /* HOISTED */);
+});
+var _hoisted_419 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1 /* HOISTED */);
+});
+var _hoisted_420 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+});
+var _hoisted_421 = {
+  "class": "row"
+};
+var _hoisted_422 = {
+  "class": "col-lg-6"
+};
+var _hoisted_423 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": ""
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "1. Tipo de vivienda")], -1 /* HOISTED */);
+});
+var _hoisted_424 = {
+  "class": "form-group position-relative has-icon-left"
+};
+var _hoisted_425 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<option value=\"\" data-v-dfdbb91a>Seleccione una opción</option><option value=\"Casa\" data-v-dfdbb91a>Casa</option><option value=\"Apartamento\" data-v-dfdbb91a>Apartamento</option><option value=\"Improvisada\" data-v-dfdbb91a>Improvisada</option><option value=\"Otro\" data-v-dfdbb91a>Otro</option>", 5);
+var _hoisted_430 = [_hoisted_425];
+var _hoisted_431 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "form-control-position"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "19px"
+    },
+    "class": "fas fa-home"
+  })], -1 /* HOISTED */);
+});
+var _hoisted_432 = {
+  key: 0,
+  "class": "col-lg-6"
+};
+var _hoisted_433 = {
+  key: 1,
+  "class": "col-lg-6"
+};
+var _hoisted_434 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": ""
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "¿Cual?")], -1 /* HOISTED */);
+});
+var _hoisted_435 = {
+  "class": "form-group position-relative has-icon-left"
+};
+var _hoisted_436 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "form-control-position"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "19px"
+    },
+    "class": "fas fa-question"
+  })], -1 /* HOISTED */);
+});
+var _hoisted_437 = {
+  "class": "col-lg-6"
+};
+var _hoisted_438 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": ""
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "2. Tenencia de la vivienda")], -1 /* HOISTED */);
+});
+var _hoisted_439 = {
+  "class": "form-group position-relative has-icon-left"
+};
+var _hoisted_440 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<option value=\"\" data-v-dfdbb91a>Seleccione una opción</option><option value=\"Propia\" data-v-dfdbb91a>Propia</option><option value=\"Alquilada\" data-v-dfdbb91a>Alquilada</option><option value=\"Familiar\" data-v-dfdbb91a>Familiar</option><option value=\"Copropiedad\" data-v-dfdbb91a>Copropiedad</option><option value=\"Tenencia Gratuita\" data-v-dfdbb91a>Tenencia Gratuita</option><option value=\"N.A\" data-v-dfdbb91a>N.A</option>", 7);
+var _hoisted_447 = [_hoisted_440];
+var _hoisted_448 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "form-control-position"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "19px"
+    },
+    "class": "fas fa-home"
+  })], -1 /* HOISTED */);
+});
+var _hoisted_449 = {
+  "class": "col-lg-6"
+};
+var _hoisted_450 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": ""
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "3. Número de personas que conforman el hogar")], -1 /* HOISTED */);
+});
+var _hoisted_451 = {
+  "class": "form-group position-relative has-icon-left"
+};
+var _hoisted_452 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "form-control-position"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "19px"
+    },
+    "class": "fas fa-users"
+  })], -1 /* HOISTED */);
+});
+var _hoisted_453 = {
+  "class": "col-lg-12"
+};
+var _hoisted_454 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": ""
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "4. Acceso a servicios básicos")], -1 /* HOISTED */);
+});
+var _hoisted_455 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+});
+var _hoisted_456 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+});
+var _hoisted_457 = {
+  "class": "row"
+};
+var _hoisted_458 = {
+  "class": "col-lg-2",
+  style: {
+    "margin-bottom": "20px",
+    "height": "100px"
+  }
+};
+var _hoisted_459 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "class": "lradio",
+    "for": "control_011"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Electricidad")], -1 /* HOISTED */);
+});
+var _hoisted_460 = {
+  "class": "col-lg-2",
+  style: {
+    "margin-bottom": "20px",
+    "height": "100px"
+  }
+};
+var _hoisted_461 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "class": "lradio",
+    "for": "control_012"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Agua potable")], -1 /* HOISTED */);
+});
+var _hoisted_462 = {
+  "class": "col-lg-2",
+  style: {
+    "margin-bottom": "20px",
+    "height": "100px"
+  }
+};
+var _hoisted_463 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "class": "lradio",
+    "for": "control_013"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Alcantarillado")], -1 /* HOISTED */);
+});
+var _hoisted_464 = {
+  "class": "col-lg-2",
+  style: {
+    "margin-bottom": "20px",
+    "height": "100px"
+  }
+};
+var _hoisted_465 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "class": "lradio",
+    "for": "control_014"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Gas natural")], -1 /* HOISTED */);
+});
+var _hoisted_466 = {
+  "class": "col-lg-2",
+  style: {
+    "margin-bottom": "20px",
+    "height": "100px"
+  }
+};
+var _hoisted_467 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "class": "lradio",
+    "for": "control_015"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Aseo")], -1 /* HOISTED */);
+});
+var _hoisted_468 = {
+  "class": "col-lg-2",
+  style: {
+    "margin-bottom": "20px",
+    "height": "100px"
+  }
+};
+var _hoisted_469 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "class": "lradio",
+    "for": "control_016"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Otro")], -1 /* HOISTED */);
+});
+var _hoisted_470 = {
+  "class": "col-lg-6"
+};
+var _hoisted_471 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+});
+var _hoisted_472 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": ""
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "5. ¿Cuantas personas trabajan en su hogar?")], -1 /* HOISTED */);
+});
+var _hoisted_473 = {
+  "class": "form-group position-relative has-icon-left"
+};
+var _hoisted_474 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "form-control-position"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "19px"
+    },
+    "class": "fas fa-user-shield"
+  })], -1 /* HOISTED */);
+});
+var _hoisted_475 = {
+  "class": "col-lg-6"
+};
+var _hoisted_476 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
+});
+var _hoisted_477 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": ""
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, "6. Ingresos mensuales por hogar")], -1 /* HOISTED */);
+});
+var _hoisted_478 = {
+  "class": "form-group position-relative has-icon-left"
+};
+var _hoisted_479 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<option value=\"\" data-v-dfdbb91a>Seleccione una opción</option><option value=\"Menos de un salario mínimo \" data-v-dfdbb91a>Menos de un salario mínimo </option><option value=\"Entre 1 y 2 SMLV\" data-v-dfdbb91a>Entre 1 y 2 SMLV</option><option value=\"Entre 3 y 4 SMLV\" data-v-dfdbb91a>Entre 3 y 4 SMLV</option><option value=\"Mas de 5 SMLV\" data-v-dfdbb91a>Mas de 5 SMLV</option>", 5);
+var _hoisted_484 = [_hoisted_479];
+var _hoisted_485 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "form-control-position"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "19px"
+    },
+    "class": "fas fa-dollar-sign"
+  })], -1 /* HOISTED */);
+});
+var _hoisted_486 = {
+  "class": "col-lg-12 text-right",
+  style: {
+    "padding-top": "20px"
+  }
+};
+var _hoisted_487 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "13px"
+    },
+    "class": "fas fa-arrow-left"
+  }, null, -1 /* HOISTED */);
+});
+var _hoisted_488 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    style: {
+      "font-size": "13px"
+    },
+    "class": "fas fa-arrow-right"
+  }, null, -1 /* HOISTED */);
+});
+var _hoisted_489 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "tab-pane",
+    id: "tabIcon28",
+    role: "tabpanel",
+    "aria-labelledby": "baseIcon-tab28"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    style: {
+      "padding": "95px"
+    },
+    "class": "alert alert-primary text-center",
+    role: "alert"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
+    style: {
+      "font-size": "3rem",
+      "font-weight": "500"
+    }
+  }, "¡Proceso de caracterización finalizado con éxito!"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onclick: "location.reload()",
+    "class": "btn btn-success"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Caracterizar Nuevo Individuo "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    "class": "fas fa-user-plus"
+  })]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    style: {
+      "margin-left": "20px"
+    },
+    "class": "btn btn-warning"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Ver Lista de Caracterizados "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+    "class": "fas fa-users"
+  })])])], -1 /* HOISTED */);
 });
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -19189,7 +20323,228 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $options.validarCamposOrigenEducacion();
     }),
     "class": "btn btn-success"
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Guardar y continuar "), _hoisted_257])])])]), _hoisted_258, _hoisted_259, _hoisted_260, _hoisted_261])])])])])]);
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Guardar y continuar "), _hoisted_257])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_258, [_hoisted_259, _hoisted_260, _hoisted_261, _hoisted_262, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_263, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_264, [_hoisted_265, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", _hoisted_266, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_267, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "onUpdate:modelValue": _cache[39] || (_cache[39] = function ($event) {
+      return $data.situacion_laboral.ocupacion = $event;
+    }),
+    type: "text",
+    "class": "form-control form-control-lg mb-1",
+    placeholder: "Seleccione una ocupación",
+    list: "list-timezone",
+    id: "input-datalist"
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.situacion_laboral.ocupacion]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("datalist", _hoisted_268, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.ocupaciones, function (item, index) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
+      key: index
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.descripcion), 1 /* TEXT */);
+  }), 128 /* KEYED_FRAGMENT */))])]), _hoisted_269])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_270, [_hoisted_271, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", _hoisted_272, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "onUpdate:modelValue": _cache[40] || (_cache[40] = function ($event) {
+      return $data.situacion_laboral.situacion_laboral = $event;
+    }),
+    "class": "form-control form-control-lg mb-1"
+  }, _hoisted_283, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.situacion_laboral.situacion_laboral]]), _hoisted_284])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_285, [_hoisted_286, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", _hoisted_287, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "onUpdate:modelValue": _cache[41] || (_cache[41] = function ($event) {
+      return $data.situacion_laboral.discriminacion_laboral = $event;
+    }),
+    "class": "form-control form-control-lg mb-1",
+    name: "",
+    id: ""
+  }, _hoisted_292, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.situacion_laboral.discriminacion_laboral]]), _hoisted_293])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_294, [_hoisted_295, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", _hoisted_296, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "onUpdate:modelValue": _cache[42] || (_cache[42] = function ($event) {
+      return $data.situacion_laboral.ingreso_mensual = $event;
+    }),
+    "class": "form-control form-control-lg mb-1"
+  }, _hoisted_306, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.situacion_laboral.ingreso_mensual]]), _hoisted_307])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_308, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[43] || (_cache[43] = function ($event) {
+      return $options.eliminarActive('baseIcon-tab23', 'tabIcon23');
+    }),
+    "class": "btn btn-danger",
+    style: {
+      "margin-right": "20px"
+    }
+  }, [_hoisted_309, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Anterior")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[44] || (_cache[44] = function ($event) {
+      return $options.validarCamposSituacionLaboral();
+    }),
+    "class": "btn btn-success"
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Guardar y continuar "), _hoisted_310])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_311, [_hoisted_312, _hoisted_313, _hoisted_314, _hoisted_315, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_316, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_317, [_hoisted_318, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", _hoisted_319, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "onUpdate:modelValue": _cache[45] || (_cache[45] = function ($event) {
+      return $data.salud.estado_salud = $event;
+    }),
+    "class": "form-control form-control-lg mb-1"
+  }, _hoisted_325, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.salud.estado_salud]]), _hoisted_326])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_327, [_hoisted_328, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", _hoisted_329, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "onUpdate:modelValue": _cache[46] || (_cache[46] = function ($event) {
+      return $data.salud.condicion_discapacidad = $event;
+    }),
+    "class": "form-control form-control-lg mb-1"
+  }, _hoisted_338, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.salud.condicion_discapacidad]]), _hoisted_339])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_340, [_hoisted_341, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", _hoisted_342, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "onUpdate:modelValue": _cache[47] || (_cache[47] = function ($event) {
+      return $data.salud.acceso_salud = $event;
+    }),
+    "class": "form-control form-control-lg mb-1"
+  }, _hoisted_347, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.salud.acceso_salud]]), _hoisted_348])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_349, [_hoisted_350, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", _hoisted_351, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "onUpdate:modelValue": _cache[48] || (_cache[48] = function ($event) {
+      return $data.salud.regimen = $event;
+    }),
+    "class": "form-control form-control-lg mb-1"
+  }, _hoisted_358, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.salud.regimen]]), _hoisted_359])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_360, [_hoisted_361, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", _hoisted_362, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "onUpdate:modelValue": _cache[49] || (_cache[49] = function ($event) {
+      return $data.salud.discriminacion_salud = $event;
+    }),
+    "class": "form-control form-control-lg mb-1",
+    name: "",
+    id: ""
+  }, _hoisted_367, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.salud.discriminacion_salud]]), _hoisted_368])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_369, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[50] || (_cache[50] = function ($event) {
+      return $options.eliminarActive('baseIcon-tab24', 'tabIcon24');
+    }),
+    "class": "btn btn-danger",
+    style: {
+      "margin-right": "20px"
+    }
+  }, [_hoisted_370, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Anterior")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[51] || (_cache[51] = function ($event) {
+      return $options.validarCamposSalud();
+    }),
+    "class": "btn btn-success"
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Guardar y continuar "), _hoisted_371])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_372, [_hoisted_373, _hoisted_374, _hoisted_375, _hoisted_376, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_377, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_378, [_hoisted_379, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", _hoisted_380, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "onUpdate:modelValue": _cache[52] || (_cache[52] = function ($event) {
+      return $data.culturaTradiciones.practica_actividades = $event;
+    }),
+    "class": "form-control form-control-lg mb-1",
+    name: "",
+    id: ""
+  }, _hoisted_385, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.culturaTradiciones.practica_actividades]]), _hoisted_386])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_387, [_hoisted_388, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", _hoisted_389, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "onUpdate:modelValue": _cache[53] || (_cache[53] = function ($event) {
+      return $data.culturaTradiciones.habla_lengua = $event;
+    }),
+    "class": "form-control form-control-lg mb-1",
+    name: "",
+    id: ""
+  }, _hoisted_393, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.culturaTradiciones.habla_lengua]]), _hoisted_394])]), $data.culturaTradiciones.habla_lengua == 'Si' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_395, [_hoisted_396, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", _hoisted_397, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "onUpdate:modelValue": _cache[54] || (_cache[54] = function ($event) {
+      return $data.culturaTradiciones.cual_lengua = $event;
+    }),
+    "class": "form-control form-control-lg mb-1",
+    name: "",
+    id: ""
+  }, _hoisted_401, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.culturaTradiciones.cual_lengua]]), _hoisted_402])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_403, [_hoisted_404, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", _hoisted_405, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "onUpdate:modelValue": _cache[55] || (_cache[55] = function ($event) {
+      return $data.culturaTradiciones.practicas_religiosas = $event;
+    }),
+    "class": "form-control form-control-lg mb-1",
+    name: "",
+    id: ""
+  }, _hoisted_411, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.culturaTradiciones.practicas_religiosas]]), _hoisted_412])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_413, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[56] || (_cache[56] = function ($event) {
+      return $options.eliminarActive('baseIcon-tab25', 'tabIcon25');
+    }),
+    "class": "btn btn-danger",
+    style: {
+      "margin-right": "20px"
+    }
+  }, [_hoisted_414, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Anterior")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[57] || (_cache[57] = function ($event) {
+      return $options.validarCamposCulturaTradiciones();
+    }),
+    "class": "btn btn-success"
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Guardar y continuar "), _hoisted_415])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_416, [_hoisted_417, _hoisted_418, _hoisted_419, _hoisted_420, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_421, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_422, [_hoisted_423, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", _hoisted_424, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "onUpdate:modelValue": _cache[58] || (_cache[58] = function ($event) {
+      return $data.viviendaHogar.tipo_vivienda = $event;
+    }),
+    "class": "form-control form-control-lg mb-1",
+    name: "",
+    id: ""
+  }, _hoisted_430, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.viviendaHogar.tipo_vivienda]]), _hoisted_431])]), $data.viviendaHogar.tipo_vivienda != 'Otro' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_432)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.viviendaHogar.tipo_vivienda == 'Otro' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_433, [_hoisted_434, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", _hoisted_435, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "onUpdate:modelValue": _cache[59] || (_cache[59] = function ($event) {
+      return $data.viviendaHogar.cual_tipo_vivienda = $event;
+    }),
+    type: "text",
+    "class": "form-control form-control-lg mb-1",
+    placeholder: "Cual tipo de vivienda?"
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.viviendaHogar.cual_tipo_vivienda]]), _hoisted_436])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_437, [_hoisted_438, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", _hoisted_439, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "onUpdate:modelValue": _cache[60] || (_cache[60] = function ($event) {
+      return $data.viviendaHogar.tenencia = $event;
+    }),
+    "class": "form-control form-control-lg mb-1",
+    name: "",
+    id: ""
+  }, _hoisted_447, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.viviendaHogar.tenencia]]), _hoisted_448])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_449, [_hoisted_450, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", _hoisted_451, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "onUpdate:modelValue": _cache[61] || (_cache[61] = function ($event) {
+      return $data.viviendaHogar.numero_personas_hogar = $event;
+    }),
+    "class": "form-control form-control-lg mb-1",
+    placeholder: "# de personas",
+    type: "number"
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.viviendaHogar.numero_personas_hogar]]), _hoisted_452])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_453, [_hoisted_454, _hoisted_455, _hoisted_456, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_457, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_458, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    onClick: _cache[62] || (_cache[62] = function ($event) {
+      return $data.viviendaHogar.electricidad = $data.viviendaHogar.electricidad === 'Si' ? 'No' : 'Si';
+    }),
+    type: "checkbox",
+    id: "control_011",
+    name: "select2"
+  }), _hoisted_459]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_460, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    onClick: _cache[63] || (_cache[63] = function ($event) {
+      return $data.viviendaHogar.agua_potable = $data.viviendaHogar.agua_potable === 'Si' ? 'No' : 'Si';
+    }),
+    type: "checkbox",
+    id: "control_012",
+    name: "select3"
+  }), _hoisted_461]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_462, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    onClick: _cache[64] || (_cache[64] = function ($event) {
+      return $data.viviendaHogar.alcantarillado = $data.viviendaHogar.alcantarillado === 'Si' ? 'No' : 'Si';
+    }),
+    type: "checkbox",
+    id: "control_013",
+    name: "select4"
+  }), _hoisted_463]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_464, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    onClick: _cache[65] || (_cache[65] = function ($event) {
+      return $data.viviendaHogar.gas_natural = $data.viviendaHogar.gas_natural === 'Si' ? 'No' : 'Si';
+    }),
+    type: "checkbox",
+    id: "control_014",
+    name: "select5"
+  }), _hoisted_465]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_466, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    onClick: _cache[66] || (_cache[66] = function ($event) {
+      return $data.viviendaHogar.aseo = $data.viviendaHogar.aseo === 'Si' ? 'No' : 'Si';
+    }),
+    type: "checkbox",
+    id: "control_015",
+    name: "select5"
+  }), _hoisted_467]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_468, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    onClick: _cache[67] || (_cache[67] = function ($event) {
+      return $data.viviendaHogar.otro = $data.viviendaHogar.otro === 'Si' ? 'No' : 'Si';
+    }),
+    type: "checkbox",
+    id: "control_016",
+    name: "select5"
+  }), _hoisted_469])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_470, [_hoisted_471, _hoisted_472, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", _hoisted_473, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "onUpdate:modelValue": _cache[68] || (_cache[68] = function ($event) {
+      return $data.viviendaHogar.numero_personas_trabajan = $event;
+    }),
+    "class": "form-control form-control-lg mb-1",
+    placeholder: "# de personas",
+    type: "number"
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.viviendaHogar.numero_personas_trabajan]]), _hoisted_474])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_475, [_hoisted_476, _hoisted_477, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", _hoisted_478, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "onUpdate:modelValue": _cache[69] || (_cache[69] = function ($event) {
+      return $data.viviendaHogar.ingresos_mensuales_hogar = $event;
+    }),
+    "class": "form-control form-control-lg mb-1",
+    name: "",
+    id: ""
+  }, _hoisted_484, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.viviendaHogar.ingresos_mensuales_hogar]]), _hoisted_485])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_486, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[70] || (_cache[70] = function ($event) {
+      return $options.eliminarActive('baseIcon-tab26', 'tabIcon26');
+    }),
+    "class": "btn btn-danger",
+    style: {
+      "margin-right": "20px"
+    }
+  }, [_hoisted_487, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Anterior")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[71] || (_cache[71] = function ($event) {
+      return $options.validarCamposViviendaHogar();
+    }),
+    "class": "btn btn-success"
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Guardar y continuar "), _hoisted_488])])])]), _hoisted_489])])])])])]);
 }
 
 /***/ }),
@@ -19298,10 +20653,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   departamentos: () => (/* binding */ departamentos),
 /* harmony export */   escolaridad: () => (/* binding */ escolaridad),
+/* harmony export */   guardarCulturaTradiciones: () => (/* binding */ guardarCulturaTradiciones),
 /* harmony export */   guardarEducacion: () => (/* binding */ guardarEducacion),
 /* harmony export */   guardarInformacionTemporal: () => (/* binding */ guardarInformacionTemporal),
 /* harmony export */   guardarOrigenIdentidad: () => (/* binding */ guardarOrigenIdentidad),
-/* harmony export */   municipios: () => (/* binding */ municipios)
+/* harmony export */   guardarSalud: () => (/* binding */ guardarSalud),
+/* harmony export */   guardarSituacionLaboral: () => (/* binding */ guardarSituacionLaboral),
+/* harmony export */   municipios: () => (/* binding */ municipios),
+/* harmony export */   ocupaciones: () => (/* binding */ ocupaciones)
 /* harmony export */ });
 /* harmony import */ var _http_services__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./http_services */ "./resources/js/services/http_services.js");
 
@@ -19330,6 +20689,30 @@ function escolaridad() {
 }
 function guardarEducacion($data) {
   return (0,_http_services__WEBPACK_IMPORTED_MODULE_0__.http)().post('/api/guardar-educacion', $data, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+}
+function ocupaciones() {
+  return (0,_http_services__WEBPACK_IMPORTED_MODULE_0__.http)().get('/api/ocupaciones');
+}
+function guardarSituacionLaboral($data) {
+  return (0,_http_services__WEBPACK_IMPORTED_MODULE_0__.http)().post('/api/guardar-situacion-laboral', $data, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+}
+function guardarSalud($data) {
+  return (0,_http_services__WEBPACK_IMPORTED_MODULE_0__.http)().post('/api/guardar-salud', $data, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+}
+function guardarCulturaTradiciones($data) {
+  return (0,_http_services__WEBPACK_IMPORTED_MODULE_0__.http)().post('/api/guardar-cultura-tradiciones', $data, {
     headers: {
       'Content-Type': 'application/json'
     }
@@ -21362,7 +22745,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.nav-item a.nav-link.active[data-v-dfdbb91a] {\r\n        color: #2dcee3 !important;\n}\n.nav-item a.nav-link[data-v-dfdbb91a] {\r\n        color: #4e5154 !important;\n}\ninput[type=\"radio\"][data-v-dfdbb91a] {\r\n        display: none;\n&:not(:disabled) ~ label[data-v-dfdbb91a] {\r\n            cursor: pointer;\n}\n&:disabled ~ label[data-v-dfdbb91a] {\r\n            color: hsla(150, 5%, 75%, 1);\r\n            border-color: hsla(150, 5%, 75%, 1);\r\n            box-shadow: none;\r\n            cursor: not-allowed;\n}\n}\nlabel.lradio[data-v-dfdbb91a] {\r\n        height: 100%;\r\n        display: block;\r\n        background: white;\r\n        border: 2px solid hsla(150, 75%, 50%, 1);\r\n        border-radius: 20px;\r\n        padding: 1rem;\r\n        margin-bottom: 1rem;\r\n        text-align: center;\r\n        box-shadow: 0px 3px 10px -2px hsla(150, 5%, 65%, 0.5);\r\n        position: relative;\r\n        padding-top: 19px;\r\n        font-size: 14px;\r\n        font-weight: bold;\r\n        display: flex;\r\n        justify-content: center;\r\n        align-items: center;\n}\n.lradio p[data-v-dfdbb91a] {\r\n        margin-bottom: 0px !important;\n}\ninput[type=\"radio\"]:checked + label[data-v-dfdbb91a] {\r\n        background: hsla(150, 75%, 50%, 1);\r\n        color: hsla(215, 0%, 100%, 1);\r\n        box-shadow: 0px 0px 20px hsla(150, 100%, 50%, 0.75);\n&[data-v-dfdbb91a]::after {\r\n            color: hsla(215, 5%, 25%, 1);\r\n            font-family: FontAwesome;\r\n            border: 2px solid hsla(150, 75%, 45%, 1);\r\n            content: \"\\f00c\";\r\n            font-size: 24px;\r\n            position: absolute;\r\n            top: -25px;\r\n            left: 50%;\r\n            transform: translateX(-50%);\r\n            height: 50px;\r\n            width: 50px;\r\n            line-height: 50px;\r\n            text-align: center;\r\n            border-radius: 50%;\r\n            background: white;\r\n            box-shadow: 0px 2px 5px -2px hsla(0, 0%, 0%, 0.25);\n}\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.nav-item a.nav-link.active[data-v-dfdbb91a] {\r\n        color: #2dcee3 !important;\n}\n.nav-item a.nav-link[data-v-dfdbb91a] {\r\n        color: #4e5154 !important;\n}\ninput[type=\"radio\"][data-v-dfdbb91a] {\r\n        display: none;\n&:not(:disabled) ~ label[data-v-dfdbb91a] {\r\n            cursor: pointer;\n}\n&:disabled ~ label[data-v-dfdbb91a] {\r\n            color: hsla(150, 5%, 75%, 1);\r\n            border-color: hsla(150, 5%, 75%, 1);\r\n            box-shadow: none;\r\n            cursor: not-allowed;\n}\n}\ninput[type=\"checkbox\"][data-v-dfdbb91a] {\r\n        display: none;\n&:not(:disabled) ~ label[data-v-dfdbb91a] {\r\n            cursor: pointer;\n}\n&:disabled ~ label[data-v-dfdbb91a] {\r\n            color: hsla(150, 5%, 75%, 1);\r\n            border-color: hsla(150, 5%, 75%, 1);\r\n            box-shadow: none;\r\n            cursor: not-allowed;\n}\n}\nlabel.lradio[data-v-dfdbb91a] {\r\n        height: 100%;\r\n        display: block;\r\n        background: white;\r\n        border: 2px solid hsla(150, 75%, 50%, 1);\r\n        border-radius: 20px;\r\n        padding: 1rem;\r\n        margin-bottom: 1rem;\r\n        text-align: center;\r\n        box-shadow: 0px 3px 10px -2px hsla(150, 5%, 65%, 0.5);\r\n        position: relative;\r\n        padding-top: 19px;\r\n        font-size: 14px;\r\n        font-weight: bold;\r\n        display: flex;\r\n        justify-content: center;\r\n        align-items: center;\n}\n.lradio p[data-v-dfdbb91a] {\r\n        margin-bottom: 0px !important;\n}\ninput[type=\"radio\"]:checked + label[data-v-dfdbb91a] {\r\n        background: hsla(150, 75%, 50%, 1);\r\n        color: hsla(215, 0%, 100%, 1);\r\n        box-shadow: 0px 0px 20px hsla(150, 100%, 50%, 0.75);\n&[data-v-dfdbb91a]::after {\r\n            color: hsla(215, 5%, 25%, 1);\r\n            font-family: FontAwesome;\r\n            border: 2px solid hsla(150, 75%, 45%, 1);\r\n            content: \"\\f00c\";\r\n            font-size: 24px;\r\n            position: absolute;\r\n            top: -25px;\r\n            left: 50%;\r\n            transform: translateX(-50%);\r\n            height: 50px;\r\n            width: 50px;\r\n            line-height: 50px;\r\n            text-align: center;\r\n            border-radius: 50%;\r\n            background: white;\r\n            box-shadow: 0px 2px 5px -2px hsla(0, 0%, 0%, 0.25);\n}\n}\ninput[type=\"checkbox\"]:checked + label[data-v-dfdbb91a] {\r\n        background: hsla(150, 75%, 50%, 1);\r\n        color: hsla(215, 0%, 100%, 1);\r\n        box-shadow: 0px 0px 20px hsla(150, 100%, 50%, 0.75);\n&[data-v-dfdbb91a]::after {\r\n            color: hsla(215, 5%, 25%, 1);\r\n            font-family: FontAwesome;\r\n            border: 2px solid hsla(150, 75%, 45%, 1);\r\n            content: \"\\f00c\";\r\n            font-size: 24px;\r\n            position: absolute;\r\n            top: -25px;\r\n            left: 50%;\r\n            transform: translateX(-50%);\r\n            height: 50px;\r\n            width: 50px;\r\n            line-height: 50px;\r\n            text-align: center;\r\n            border-radius: 50%;\r\n            background: white;\r\n            box-shadow: 0px 2px 5px -2px hsla(0, 0%, 0%, 0.25);\n}\n}\n.alert-primary[data-v-dfdbb91a] {\r\n        color: #004085 !important;\r\n        background-color: #cce5ff !important;\r\n        border-color: #b8daff !important;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

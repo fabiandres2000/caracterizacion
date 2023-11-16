@@ -28,12 +28,14 @@ Route::prefix('api')->group(function () {
     Route::post('/guardar-informacion-personal', [CaracterizacionController::class, 'guardarInformacionPersonal'])->name('guardarInformacionPersonal');
     Route::post('/guardar-origen-entidad', [CaracterizacionController::class, 'guardarOrigenEntidad'])->name('guardarOrigenEntidad');
     Route::post('/guardar-educacion', [CaracterizacionController::class, 'guardarEducacion'])->name('guardarEducacion');
-
+    Route::post('/guardar-situacion-laboral', [CaracterizacionController::class, 'guardarSituacionLaboral'])->name('guardarSituacionLaboral');
+    Route::post('/guardar-salud', [CaracterizacionController::class, 'guardarSalud'])->name('guardarSalud');
+    Route::post('/guardar-cultura-tradiciones', [CaracterizacionController::class, 'guardarCulturaTradiciones'])->name('guardarCulturaTradiciones');
 
     Route::get('/departamentos', [CaracterizacionController::class, 'consultarDepartamentos'])->name('consultarDepartamentos');
     Route::get('/municipios', [CaracterizacionController::class, 'consultarMunicipios'])->name('consultarMunicipios');
     Route::get('/escolaridad', [CaracterizacionController::class, 'consultarEscolaridad'])->name('consultarEscolaridad');
-
+    Route::get('/ocupaciones', [CaracterizacionController::class, 'consultarOcupaciones'])->name('consultarOcupaciones');
 
 });
 

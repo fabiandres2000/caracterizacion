@@ -32,6 +32,12 @@ class CaracterizacionController extends Controller
         return response()->json($escolaridades);
     }
 
+    public function consultarOcupaciones()
+    {
+        $ocupaciones = DB::connection('mysql')->table('ocupaciones')->get();
+        return response()->json($ocupaciones);
+    }
+
     public function guardarInformacionPersonal(Request $request){
         $timezone = new \DateTimeZone('America/Bogota');
         $fechaActual = new \DateTime('now', $timezone);
@@ -138,6 +144,72 @@ class CaracterizacionController extends Controller
         ];
 
         $insertado = DB::connection('mysql')->table('educacion')->updateOrInsert(
+            ['identificacion_individuo' => $datos['identificacion_individuo']],
+            $datos 
+        );
+
+        if($insertado){
+            return response()->json(['mensaje' => 'Datos guardados correctamente', 'code' => 1]);
+        }else{
+            return response()->json(['mensaje' => 'Ocurrió un error, intente nuevamente', 'code' => 0]);
+        }
+    }
+
+    public function guardarSituacionLaboral(Request $request){
+        $datos = [
+            'identificacion_individuo' => $request->input('identificacion_individuo'),
+            'ocupacion' => $request->input('ocupacion'),
+            'situacion_laboral' => $request->input('situacion_laboral'),
+            'discriminacion_laboral' => $request->input('discriminacion_laboral'),
+            'ingreso_mensual' => $request->input('ingreso_mensual')
+        ];
+
+        $insertado = DB::connection('mysql')->table('situacion_laboral')->updateOrInsert(
+            ['identificacion_individuo' => $datos['identificacion_individuo']],
+            $datos 
+        );
+
+        if($insertado){
+            return response()->json(['mensaje' => 'Datos guardados correctamente', 'code' => 1]);
+        }else{
+            return response()->json(['mensaje' => 'Ocurrió un error, intente nuevamente', 'code' => 0]);
+        }
+    }
+
+    public function guardarSalud(Request $request){
+      
+        $datos = [
+            'identificacion_individuo' => $request->input('identificacion_individuo'),
+            'estado_salud' => $request->input('estado_salud'),
+            'condicion_discapacidad' => $request->input('condicion_discapacidad'),
+            'acceso_salud' => $request->input('acceso_salud'),
+            'regimen' => $request->input('regimen'),
+            'discriminacion_salud' => $request->input('discriminacion_salud')
+        ];
+
+        $insertado = DB::connection('mysql')->table('salud')->updateOrInsert(
+            ['identificacion_individuo' => $datos['identificacion_individuo']],
+            $datos 
+        );
+
+        if($insertado){
+            return response()->json(['mensaje' => 'Datos guardados correctamente', 'code' => 1]);
+        }else{
+            return response()->json(['mensaje' => 'Ocurrió un error, intente nuevamente', 'code' => 0]);
+        }
+    }
+
+    public function guardarCulturaTradiciones(Request $request){
+      
+        $datos = [
+            'identificacion_individuo' => $request->input('identificacion_individuo'),
+            'practica_actividades' => $request->input('practica_actividades'),
+            'habla_lengua' => $request->input('habla_lengua'),
+            'cual_lengua' => $request->input('cual_lengua'),
+            'practicas_religiosas' => $request->input('practicas_religiosas'),
+        ];
+
+        $insertado = DB::connection('mysql')->table('cultura_tradiciones')->updateOrInsert(
             ['identificacion_individuo' => $datos['identificacion_individuo']],
             $datos 
         );

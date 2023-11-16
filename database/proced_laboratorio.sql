@@ -16,6 +16,21 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`caracterizacion` /*!40100 DEFAULT CHARA
 
 USE `caracterizacion`;
 
+/*Table structure for table `cultura_tradiciones` */
+
+DROP TABLE IF EXISTS `cultura_tradiciones`;
+
+CREATE TABLE `cultura_tradiciones` (
+  `identificacion_individuo` double NOT NULL,
+  `practica_actividades` text,
+  `habla_lengua` text,
+  `cual_lengua` text,
+  `practicas_religiosas` text,
+  PRIMARY KEY (`identificacion_individuo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*Data for the table `cultura_tradiciones` */
+
 /*Table structure for table `dptos` */
 
 DROP TABLE IF EXISTS `dptos`;
@@ -11315,6 +11330,37 @@ CREATE TABLE `origen_etnia` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `origen_etnia` */
+
+/*Table structure for table `salud` */
+
+DROP TABLE IF EXISTS `salud`;
+
+CREATE TABLE `salud` (
+  `identificacion_individuo` double NOT NULL,
+  `estado_salud` text,
+  `condicion_discapacidad` text,
+  `acceso_salud` text,
+  `regimen` text,
+  `discriminacion_salud` text,
+  PRIMARY KEY (`identificacion_individuo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*Data for the table `salud` */
+
+/*Table structure for table `situacion_laboral` */
+
+DROP TABLE IF EXISTS `situacion_laboral`;
+
+CREATE TABLE `situacion_laboral` (
+  `identificacion_individuo` double NOT NULL,
+  `ocupacion` text,
+  `situacion_laboral` text,
+  `discriminacion_laboral` text,
+  `ingreso_mensual` text,
+  PRIMARY KEY (`identificacion_individuo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*Data for the table `situacion_laboral` */
 
 /*Table structure for table `users` */
 

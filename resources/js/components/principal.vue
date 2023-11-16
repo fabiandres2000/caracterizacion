@@ -471,25 +471,377 @@
                                 <br>
                                 <h2 style="color: #2f8a96"> SITUACIÓN LABORAL </h2>
                                 <hr>
-                                <br>                            
+                                <br>    
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label for="input-datalist"><strong>1. Ocupación</strong></label>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <div class="form-group">
+                                                <input v-model="situacion_laboral.ocupacion" type="text" class="form-control form-control-lg mb-1" placeholder="Seleccione una ocupación" list="list-timezone" id="input-datalist">
+                                                <datalist id="list-timezone">
+                                                    <option v-for="(item, index) in ocupaciones" :key="index">{{ item.descripcion }}</option>
+                                                </datalist>
+                                            </div>
+                                            <div class="form-control-position" style="top: 9px; left: 4px !important;">
+                                                <i style ="font-size: 19px" class="fas fa-suitcase"></i>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="input-datalist"><strong>2. Situación laboral</strong></label>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <select v-model="situacion_laboral.situacion_laboral" class="form-control form-control-lg mb-1">
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="Empleado/a tiempo completo">Empleado/a tiempo completo</option>
+                                                <option value="Empleado/a tiempo parcial">Empleado/a tiempo parcial</option>
+                                                <option value="Desempleado/a (en búsqueda activa de empleo)">Desempleado/a (en búsqueda activa de empleo)</option>
+                                                <option value="Desempleado/a (sin búsqueda activa de empleo en el momento)">Desempleado/a (sin búsqueda activa de empleo en el momento)</option>
+                                                <option value="Empresario/a dueño/a de negocio">Empresario/a dueño/a de negocio</option>
+                                                <option value="Trabajador/a independiente">Trabajador/a independiente</option>
+                                                <option value="Jubilado/a (retirado/a del empleo remunerado)">Jubilado/a (retirado/a del empleo remunerado)</option>
+                                                <option value="Voluntario/a (sin compensación financiera)">Voluntario/a (sin compensación financiera)</option>
+                                                <option value="Trabajador informal">Trabajador informal</option>
+                                            </select>
+                                            <div class="form-control-position" style="top: 9px; left: 4px !important;">
+                                                <i style ="font-size: 19px" class="fas fa-suitcase"></i>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for=""><strong>3. ¿ha experimentado discriminación en el ámbito laboral?</strong></label>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <select v-model="situacion_laboral.discriminacion_laboral" class="form-control form-control-lg mb-1" name="" id="">
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="Si">Si</option>
+                                                <option value="No">No</option>
+                                                <option value="N.A">N.A</option>
+                                            </select>                                            
+                                            <div class="form-control-position">
+                                                <i style="font-size: 19px" class="fas fa-question"></i>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="input-datalist"><strong>4. Ingreso mensual promedio</strong></label>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <select v-model="situacion_laboral.ingreso_mensual" class="form-control form-control-lg mb-1">
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="menos de 500000">Menos de $500,000</option>
+                                                <option value="500000-1160000">$500,000 - $1,160,000</option>
+                                                <option value="1160001-2000000">$1,160,001 - $2,000,000</option>
+                                                <option value="2000001-2500000">$2,000,001 - $2,500,000</option>
+                                                <option value="2500001-3000000">$2,500,001 - $3,000,000</option>
+                                                <option value="3000001-4000000">$3,000,001 - $4,000,000</option>
+                                                <option value="mas de 4000000">Más de $4,000,000</option>
+                                                <option value="Trabajador informal">Trabajador informal</option>
+                                            </select>
+                                            <div class="form-control-position" style="top: 9px; left: 4px !important;">
+                                                <i style ="font-size: 19px" class="fas fa-dollar-sign"></i>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-12 text-right" style="padding-top: 20px">
+                                        <button @click="eliminarActive('baseIcon-tab23', 'tabIcon23')" class="btn btn-danger" style="margin-right: 20px"><i style="font-size: 13px" class="fas fa-arrow-left"></i> Anterior</button>
+                                        <button @click="validarCamposSituacionLaboral()" class="btn btn-success">Guardar y continuar <i style="font-size: 13px" class="fas fa-arrow-right"></i></button>
+                                    </div>
+                                </div>                        
                             </div>
                             <div class="tab-pane" id="tabIcon25" role="tabpanel" aria-labelledby="baseIcon-tab25">
                                 <br>
                                 <h2 style="color: #2f8a96"> SALUD </h2>
                                 <hr>
                                 <br>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label for="input-datalist"><strong>1. Estado de salud general</strong></label>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <select v-model="salud.estado_salud" class="form-control form-control-lg mb-1">
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="Bueno">Bueno</option>
+                                                <option value="Regular">Regular</option>
+                                                <option value="Malo">Malo</option>
+                                                <option value="No informa">No informa</option>
+                                            </select>
+                                            <div class="form-control-position" style="top: 9px; left: 4px !important;">
+                                                <i style ="font-size: 19px" class="fas fa-heart"></i>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="input-datalist"><strong>2. ¿Posee alguna condición de discapacidad? </strong></label>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <select v-model="salud.condicion_discapacidad" class="form-control form-control-lg mb-1">
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="Discapacidad Física">Discapacidad Física</option>
+                                                <option value="Discapacidad Sensorial">Discapacidad Sensorial</option>
+                                                <option value="Discapacidad Cognitiva">Discapacidad Cognitiva</option>
+                                                <option value="Discapacidad Psicosocial o Mental">Discapacidad Psicosocial o Mental</option>
+                                                <option value="Discapacidad del Habla o del Lenguaje">Discapacidad del Habla o del Lenguaje</option>
+                                                <option value="Discapacidad Múltiple o Combinada">Discapacidad Múltiple o Combinada</option>
+                                                <option value="Discapacidad Temporal">Discapacidad Temporal</option>
+                                            </select>
+                                            <div class="form-control-position" style="top: 9px; left: 4px !important;">
+                                                <i style ="font-size: 19px" class="fas fa-blind"></i>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="input-datalist"><strong>3. Acceso a servicios de salud</strong></label>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <select v-model="salud.acceso_salud" class="form-control form-control-lg mb-1">
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="Frecuente">Frecuente</option>
+                                                <option value="Ocasional">Ocasional</option>
+                                                <option value="No tiene acceso">No tiene acceso</option>
+                                            </select>
+                                            <div class="form-control-position" style="top: 9px; left: 4px !important;">
+                                                <i style ="font-size: 19px" class="fas fa-medkit"></i>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="input-datalist"><strong>4. Régimen de salud al que pertenece</strong></label>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <select v-model="salud.regimen" class="form-control form-control-lg mb-1">
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="Contributivo">Contributivo</option>
+                                                <option value="Subsidiado">Subsidiado</option>
+                                                <option value="Vinculado/ Beneficiario">Vinculado/ Beneficiario</option>
+                                                <option value="Régimen Especial">Régimen Especial</option>
+                                                <option value="Particular o Privado">Particular o Privado</option>
+                                            </select>
+                                            <div class="form-control-position" style="top: 9px; left: 4px !important;">
+                                                <i style ="font-size: 19px" class="fas fa-laptop-medical"></i>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for=""><strong>5. ¿Ha enfrentado discriminación en el ámbito de la salud?</strong></label>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <select v-model="salud.discriminacion_salud" class="form-control form-control-lg mb-1" name="" id="">
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="Si">Si</option>
+                                                <option value="No">No</option>
+                                                <option value="N.A">N.A</option>
+                                            </select>                                            
+                                            <div class="form-control-position">
+                                                <i style="font-size: 19px" class="fas fa-question"></i>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-12 text-right" style="padding-top: 20px">
+                                        <button @click="eliminarActive('baseIcon-tab24', 'tabIcon24')" class="btn btn-danger" style="margin-right: 20px"><i style="font-size: 13px" class="fas fa-arrow-left"></i> Anterior</button>
+                                        <button @click="validarCamposSalud()" class="btn btn-success">Guardar y continuar <i style="font-size: 13px" class="fas fa-arrow-right"></i></button>
+                                    </div>
+                                </div>
                             </div>
                             <div class="tab-pane" id="tabIcon26" role="tabpanel" aria-labelledby="baseIcon-tab26">
                                 <br>
                                 <h2 style="color: #2f8a96"> CULTURA Y TRADICIONES </h2>
                                 <hr>
                                 <br>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label for=""><strong>1. ¿Participa en actividades culturales afrocolombianas?</strong></label>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <select v-model="culturaTradiciones.practica_actividades" class="form-control form-control-lg mb-1" name="" id="">
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="Si">Si</option>
+                                                <option value="Nunca">Nunca</option>
+                                                <option value="Casi nunca">Casi nunca</option>
+                                            </select>                                            
+                                            <div class="form-control-position">
+                                                <i style="font-size: 19px" class="fas fa-question"></i>
+                                            </div>
+                                        </fieldset>
+                                    </div>    
+                                    <div class="col-lg-6">
+                                        <label for=""><strong>2. ¿habla alguna lengua afrocolombiana?</strong></label>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <select v-model="culturaTradiciones.habla_lengua" class="form-control form-control-lg mb-1" name="" id="">
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="Si">Si</option>
+                                                <option value="Nunca">No</option>
+                                            </select>                                            
+                                            <div class="form-control-position">
+                                                <i style="font-size: 19px" class="fas fa-question"></i>
+                                            </div>
+                                        </fieldset>
+                                    </div>    
+                                    <div class="col-lg-6" v-if="culturaTradiciones.habla_lengua == 'Si'">
+                                        <label for=""><strong>¿Cual lengua habla?</strong></label>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <select v-model="culturaTradiciones.cual_lengua" class="form-control form-control-lg mb-1" name="" id="">
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="Creole">Creole</option>
+                                                <option value="Palenquero">Palenquero</option>
+                                            </select>  
+                                            <div class="form-control-position">
+                                                <i style="font-size: 19px" class="fas fa-question"></i>
+                                            </div>
+                                        </fieldset>
+                                    </div> 
+                                    <div class="col-lg-6">
+                                        <label for=""><strong>3. Prácticas culturales y religiosas</strong></label>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <select v-model="culturaTradiciones.practicas_religiosas" class="form-control form-control-lg mb-1" name="" id="">
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="Música y Danza">Música y Danza</option>
+                                                <option value="Sincretismo Religioso">Sincretismo Religioso</option>
+                                                <option value="Santería y Palenque">Santería y Palenque</option>
+                                                <option value="Prácticas médicas tradicionales">Prácticas médicas tradicionales</option>
+                                            </select>  
+                                            <div class="form-control-position">
+                                                <i style="font-size: 19px" class="fas fa-question"></i>
+                                            </div>
+                                        </fieldset>
+                                    </div>    
+                                    <div class="col-lg-12 text-right" style="padding-top: 20px">
+                                        <button @click="eliminarActive('baseIcon-tab25', 'tabIcon25')" class="btn btn-danger" style="margin-right: 20px"><i style="font-size: 13px" class="fas fa-arrow-left"></i> Anterior</button>
+                                        <button @click="validarCamposCulturaTradiciones()" class="btn btn-success">Guardar y continuar <i style="font-size: 13px" class="fas fa-arrow-right"></i></button>
+                                    </div>   
+                                </div>
                             </div>
                             <div class="tab-pane" id="tabIcon27" role="tabpanel" aria-labelledby="baseIcon-tab27">
                                 <br>
                                 <h2 style="color: #2f8a96"> VIVIENDA Y HOGAR </h2>
                                 <hr>
                                 <br>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label for=""><strong>1. Tipo de vivienda</strong></label>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <select v-model="viviendaHogar.tipo_vivienda" class="form-control form-control-lg mb-1" name="" id="">
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="Casa">Casa</option>
+                                                <option value="Apartamento">Apartamento</option>
+                                                <option value="Improvisada">Improvisada</option>
+                                                <option value="Otro">Otro</option>
+                                            </select>                                            
+                                            <div class="form-control-position">
+                                                <i style="font-size: 19px" class="fas fa-home"></i>
+                                            </div>
+                                        </fieldset>
+                                    </div> 
+                                    <div class="col-lg-6" v-if="viviendaHogar.tipo_vivienda != 'Otro'">
+
+                                    </div>
+                                    <div class="col-lg-6" v-if="viviendaHogar.tipo_vivienda == 'Otro'">
+                                        <label for=""><strong>¿Cual?</strong></label>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <input v-model="viviendaHogar.cual_tipo_vivienda" type="text" class="form-control form-control-lg mb-1"  placeholder="Cual tipo de vivienda?">                                    
+                                            <div class="form-control-position">
+                                                <i style="font-size: 19px" class="fas fa-question"></i>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for=""><strong>2. Tenencia de la vivienda</strong></label>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <select v-model="viviendaHogar.tenencia" class="form-control form-control-lg mb-1" name="" id="">
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="Propia">Propia</option>
+                                                <option value="Alquilada">Alquilada</option>
+                                                <option value="Familiar">Familiar</option>
+                                                <option value="Copropiedad">Copropiedad</option>
+                                                <option value="Tenencia Gratuita">Tenencia Gratuita</option>
+                                                <option value="N.A">N.A</option>
+                                            </select>                                            
+                                            <div class="form-control-position">
+                                                <i style="font-size: 19px" class="fas fa-home"></i>
+                                            </div>
+                                        </fieldset>
+                                    </div>  
+                                    <div class="col-lg-6">
+                                        <label for=""><strong>3. Número de personas que conforman el hogar</strong></label>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <input v-model="viviendaHogar.numero_personas_hogar" class="form-control form-control-lg mb-1" placeholder="# de personas" type="number">                                           
+                                            <div class="form-control-position">
+                                                <i style="font-size: 19px" class="fas fa-users"></i>
+                                            </div>
+                                        </fieldset>
+                                    </div>    
+                                    <div class="col-lg-12">
+                                        <label for=""><strong>4. Acceso a servicios básicos</strong></label>
+                                        <br><br>
+                                        <div class="row">
+                                            <div class="col-lg-2" style="margin-bottom: 20px; height: 100px">
+                                                <input @click="viviendaHogar.electricidad = viviendaHogar.electricidad === 'Si' ? 'No' : 'Si'" type="checkbox" id="control_011" name="select2">
+                                                <label class="lradio" for="control_011">
+                                                    <p>Electricidad</p>
+                                                </label>
+                                            </div>
+                                            <div class="col-lg-2" style="margin-bottom: 20px; height: 100px">
+                                                <input @click="viviendaHogar.agua_potable = viviendaHogar.agua_potable === 'Si' ? 'No' : 'Si'" type="checkbox" id="control_012" name="select3">
+                                                <label class="lradio" for="control_012">
+                                                    <p>Agua potable</p>
+                                                </label>
+                                            </div>
+                                            <div class="col-lg-2" style="margin-bottom: 20px; height: 100px">
+                                                <input @click="viviendaHogar.alcantarillado = viviendaHogar.alcantarillado === 'Si' ? 'No' : 'Si'" type="checkbox" id="control_013" name="select4">
+                                                <label class="lradio" for="control_013">
+                                                    <p>Alcantarillado</p>
+                                                </label>
+                                            </div>
+                                            <div class="col-lg-2" style="margin-bottom: 20px; height: 100px">
+                                                <input @click="viviendaHogar.gas_natural = viviendaHogar.gas_natural === 'Si' ? 'No' : 'Si'" type="checkbox" id="control_014" name="select5">
+                                                <label class="lradio" for="control_014">
+                                                    <p>Gas natural</p>
+                                                </label>
+                                            </div>
+                                            <div class="col-lg-2" style="margin-bottom: 20px; height: 100px">
+                                                <input @click="viviendaHogar.aseo = viviendaHogar.aseo === 'Si' ? 'No' : 'Si'" type="checkbox" id="control_015" name="select5">
+                                                <label class="lradio" for="control_015">
+                                                    <p>Aseo</p>
+                                                </label>
+                                            </div>
+                                            <div class="col-lg-2" style="margin-bottom: 20px; height: 100px">
+                                                <input @click="viviendaHogar.otro = viviendaHogar.otro === 'Si' ? 'No' : 'Si'" type="checkbox" id="control_016" name="select5">
+                                                <label class="lradio" for="control_016">
+                                                    <p>Otro</p>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-6">
+                                        <br>
+                                        <label for=""><strong>5. ¿Cuantas personas trabajan en su hogar?</strong></label>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <input v-model="viviendaHogar.numero_personas_trabajan" class="form-control form-control-lg mb-1" placeholder="# de personas" type="number">                                           
+                                            <div class="form-control-position">
+                                                <i style="font-size: 19px" class="fas fa-user-shield"></i>
+                                            </div>
+                                        </fieldset>
+                                    </div> 
+                                    <div class="col-lg-6">
+                                        <br>
+                                        <label for=""><strong>6. Ingresos mensuales por hogar</strong></label>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <select v-model="viviendaHogar.ingresos_mensuales_hogar" class="form-control form-control-lg mb-1" name="" id="">
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="Menos de un salario mínimo ">Menos de un salario mínimo </option>
+                                                <option value="Entre 1 y 2 SMLV">Entre 1 y 2 SMLV</option>
+                                                <option value="Entre 3 y 4 SMLV">Entre 3 y 4 SMLV</option>
+                                                <option value="Mas de 5 SMLV">Mas de 5 SMLV</option>
+                                            </select>                                            
+                                            <div class="form-control-position">
+                                                <i style="font-size: 19px" class="fas fa-dollar-sign"></i>
+                                            </div>
+                                        </fieldset>
+                                    </div>   
+                                    <div class="col-lg-12 text-right" style="padding-top: 20px">
+                                        <button @click="eliminarActive('baseIcon-tab26', 'tabIcon26')" class="btn btn-danger" style="margin-right: 20px"><i style="font-size: 13px" class="fas fa-arrow-left"></i> Anterior</button>
+                                        <button @click="validarCamposViviendaHogar()" class="btn btn-success">Guardar y continuar <i style="font-size: 13px" class="fas fa-arrow-right"></i></button>
+                                    </div>    
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tabIcon28" role="tabpanel" aria-labelledby="baseIcon-tab28">
+                                <div style="padding: 95px" class="alert alert-primary text-center" role="alert">
+                                    <h1 style="font-size: 3rem; font-weight: 500;">¡Proceso de caracterización finalizado con éxito!</h1>
+                                    <hr>
+                                    <button onclick="location.reload()" class="btn btn-success">Caracterizar Nuevo Individuo <i class="fas fa-user-plus"></i></button>
+                                    <button style="margin-left: 20px" class="btn btn-warning">Ver Lista de Caracterizados <i class="fas fa-users"></i></button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -511,6 +863,7 @@ export default {
         this.verificarLogin();
         this.consultarDepartamentos();
         this.consultarEscolaridades();
+        this.consultarOcupaciones();
     },
     data() {
         return {
@@ -557,6 +910,44 @@ export default {
                 barreras_educacion: "",
                 descriminacion_racial: "",
                 apoyo_educativo: ""
+            },
+            ocupaciones: [],
+            situacion_laboral: {
+                identificacion_individuo: null,
+                ocupacion: "",
+                situacion_laboral: "",
+                discriminacion_laboral: "",
+                ingreso_mensual: "",
+            },
+            salud: {
+                identificacion_individuo: null,
+                estado_salud: "",
+                condicion_discapacidad: "",
+                acceso_salud: "",
+                regimen: "",
+                discriminacion_salud: ""
+            },
+            culturaTradiciones: {
+                identificacion_individuo: null,
+                practica_actividades: "",
+                habla_lengua: "",
+                cual_lengua: "",
+                practicas_religiosas: "",
+            },
+            viviendaHogar: {
+                identificacion_jefe: null,
+                tipo_vivienda: "",
+                cual_tipo_vivienda: "",
+                tenencia: "",
+                numero_personas_hogar: "",
+                electricidad: "No",
+                agua_potable: "No",
+                alcantarillado: "No",
+                gas_natural: "No",
+                aseo: "No",
+                otro: "No",
+                numero_personas_trabajan: "",
+                ingresos_mensuales_hogar: "",
             }
         }
     },
@@ -589,6 +980,7 @@ export default {
             document.getElementById("baseIcon-tab26").classList.remove("active");
             document.getElementById("baseIcon-tab27").classList.remove("active");
 
+
             document.getElementById("tabIcon21").classList.remove("active");
             document.getElementById("tabIcon22").classList.remove("active");
             document.getElementById("tabIcon23").classList.remove("active");
@@ -596,6 +988,8 @@ export default {
             document.getElementById("tabIcon25").classList.remove("active");
             document.getElementById("tabIcon26").classList.remove("active");
             document.getElementById("tabIcon27").classList.remove("active");
+            document.getElementById("tabIcon28").classList.remove("active");
+
 
             document.getElementById(id).classList.add("active");
             document.getElementById(id2).classList.add("active");
@@ -604,69 +998,69 @@ export default {
             this.errores = "";
 
             if (!this.informacion_personal.rol) {
-                this.errores += `<i style ="font-size: 12px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  rol </strong> no puede estar vacío <br>`;
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  rol </strong> no puede estar vacío <br>`;
             }
 
 
             if (!this.informacion_personal.direccion) {
-                this.errores += `<i style ="font-size: 12px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  dirección </strong> no puede estar vacío <br>`;
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  dirección </strong> no puede estar vacío <br>`;
             }
 
             if (!this.informacion_personal.nombre_completo) {
-                this.errores += `<i style ="font-size: 12px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  nombre </strong> no puede estar vacío <br>`;
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  nombre </strong> no puede estar vacío <br>`;
             }
 
             if (this.informacion_personal.fecha_nacimiento == "") {
-                this.errores += `<i style ="font-size: 12px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  fecha de nacimiento </strong> no puede estar vacío <br>`;
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  fecha de nacimiento </strong> no puede estar vacío <br>`;
             }
 
             if (!this.informacion_personal.tipo_identificacion) {
-                this.errores += `<i style ="font-size: 12px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  tipo de identificación </strong> no puede estar vacío <br>`;
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  tipo de identificación </strong> no puede estar vacío <br>`;
             }
 
             if (!this.informacion_personal.numero_identificacion) {
-                this.errores += `<i style ="font-size: 12px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  número de identificación </strong> no puede estar vacío <br>`;
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  número de identificación </strong> no puede estar vacío <br>`;
             }
 
             if (!this.informacion_personal.direccion_residencia) {
-                this.errores += `<i style ="font-size: 12px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  dirección de residencia </strong> no puede estar vacío <br>`;
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  dirección de residencia </strong> no puede estar vacío <br>`;
             }
 
             if (!this.informacion_personal.sexo) {
-                this.errores += `<i style ="font-size: 12px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  sexo </strong> no puede estar vacío <br>`;
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  sexo </strong> no puede estar vacío <br>`;
             }
 
             if (!this.informacion_personal.identidad_genero) {
-                this.errores += `<i style ="font-size: 12px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  identidad de genero </strong> no puede estar vacío <br>`;
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  identidad de genero </strong> no puede estar vacío <br>`;
             }
 
             if (!this.informacion_personal.orientacion_sexual) {
-                this.errores += `<i style ="font-size: 12px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  orientación sexual </strong> no puede estar vacío <br>`;
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  orientación sexual </strong> no puede estar vacío <br>`;
             }
 
             if (!this.informacion_personal.estado_civil) {
-                this.errores += `<i style ="font-size: 12px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  estado civil </strong> no puede estar vacío <br>`;
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  estado civil </strong> no puede estar vacío <br>`;
             }
 
             if (!this.informacion_personal.creencia_religiosa) {
-                this.errores += `<i style ="font-size: 12px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  creencia religiosa </strong> no puede estar vacío <br>`;
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  creencia religiosa </strong> no puede estar vacío <br>`;
             }
 
             if (!this.informacion_personal.adicciones) {
-                this.errores += `<i style ="font-size: 12px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  adicciones </strong> no puede estar vacío <br>`;
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  adicciones </strong> no puede estar vacío <br>`;
             }
 
             if (!this.informacion_personal.tiempo_municipo) {
-                this.errores += `<i style ="font-size: 12px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  tiempo de residencia </strong> no puede estar vacío <br>`;
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  tiempo de residencia </strong> no puede estar vacío <br>`;
             }
 
             if (!this.informacion_personal.desplazado) {
-                this.errores += `<i style ="font-size: 12px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  desplazado </strong> no puede estar vacío <br>`;
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  desplazado </strong> no puede estar vacío <br>`;
             }
 
 
             if (this.informacion_personal.rol != "Jefe de hogar" && this.informacion_personal.id_jefe == "") {
-                this.errores += `<i style ="font-size: 12px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  jefe de hogar </strong> no puede estar vacío <br>`;
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  jefe de hogar </strong> no puede estar vacío <br>`;
             }
 
 
@@ -718,16 +1112,16 @@ export default {
             this.errores = "";
 
             if (!this.origen_identidad.departamento) {
-                this.errores += `<i style ="font-size: 12px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  departamento </strong> no puede estar vacío <br>`;
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  departamento </strong> no puede estar vacío <br>`;
             }
 
 
             if (!this.origen_identidad.municipio) {
-                this.errores += `<i style ="font-size: 12px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  municipio </strong> no puede estar vacío <br>`;
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  municipio </strong> no puede estar vacío <br>`;
             }
 
             if (!this.origen_identidad.etnia) {
-                this.errores += `<i style ="font-size: 12px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  etnia </strong> no puede estar vacío <br>`;
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  etnia </strong> no puede estar vacío <br>`;
             }
 
             if (this.errores.length === 0) {
@@ -772,23 +1166,23 @@ export default {
             this.errores = "";
 
             if (!this.educacion.apoyo_educativo) {
-                this.errores += `<i style ="font-size: 12px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  apoyo educativo </strong> no puede estar vacío <br>`;
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  apoyo educativo </strong> no puede estar vacío <br>`;
             }
 
             if (!this.educacion.barreras_educacion) {
-                this.errores += `<i style ="font-size: 12px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">   barreras para acceder a la educación </strong> no puede estar vacío <br>`;
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">   barreras para acceder a la educación </strong> no puede estar vacío <br>`;
             }
 
             if (!this.educacion.descriminacion_racial) {
-                this.errores += `<i style ="font-size: 12px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  discriminación racial  </strong> no puede estar vacío <br>`;
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  discriminación racial  </strong> no puede estar vacío <br>`;
             }
 
             if (!this.educacion.educacion_especifica) {
-                this.errores += `<i style ="font-size: 12px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  educación específica sobre la cultura  </strong> no puede estar vacío <br>`;
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  educación específica sobre la cultura  </strong> no puede estar vacío <br>`;
             }
 
             if (!this.educacion.nivel_educativo) {
-                this.errores += `<i style ="font-size: 12px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  nivel educativo </strong> no puede estar vacío <br>`;
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  nivel educativo </strong> no puede estar vacío <br>`;
             }
 
             if (this.errores.length === 0) {
@@ -824,6 +1218,218 @@ export default {
             } catch (error) {
                 console.log(error);
             }
+        },
+        async consultarOcupaciones(){
+            await caracterizacionService.ocupaciones().then(respuesta => {
+                this.ocupaciones = respuesta.data;
+            });
+        },
+        validarCamposSituacionLaboral(){
+            this.errores = "";
+
+            if (!this.situacion_laboral.discriminacion_laboral) {
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  discriminación  laboral </strong> no puede estar vacío <br>`;
+            }
+
+            if (!this.situacion_laboral.ocupacion) {
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">   Ocupación </strong> no puede estar vacío <br>`;
+            }
+
+            if (!this.situacion_laboral.ingreso_mensual) {
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  ingreso mensual </strong> no puede estar vacío <br>`;
+            }
+
+            if (!this.situacion_laboral.situacion_laboral) {
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  situación laboral  </strong> no puede estar vacío <br>`;
+            }
+
+            if (this.errores.length === 0) {
+                this.situacion_laboral.identificacion_individuo = this.informacion_personal.numero_identificacion;
+                this.guardarSituacionLaboral();
+            } else {
+                Swal.fire({
+                    width: 600,
+                    icon: "error",
+                    title: "Información Importante",
+                    html: this.errores,
+                });
+            }
+        },
+        async guardarSituacionLaboral(){
+            this.loading = true;
+            try {
+                await caracterizacionService.guardarSituacionLaboral(this.situacion_laboral).then(respuesta => {
+                    var response = respuesta.data;
+                    this.loading = false;
+                    if(response.code == 1){
+                        toastr.success(response.mensaje);
+                        this.eliminarActive("baseIcon-tab25", "tabIcon25");
+                    }else{
+                        Swal.fire({
+                            icon: "error",
+                            title: "Información Importante",
+                            text: response.mensaje,
+                        });
+                    }
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        validarCamposSalud(){
+            this.errores = "";
+
+            if (!this.salud.acceso_salud) {
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  Acceso a servicios de salud  </strong> no puede estar vacío <br>`;
+            }
+
+            if (!this.salud.condicion_discapacidad) {
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  condición de discapacidad  </strong> no puede estar vacío <br>`;
+            }
+
+            if (!this.salud.discriminacion_salud) {
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  discriminación en el ámbito de la salud  </strong> no puede estar vacío <br>`;
+            }
+
+            if (!this.salud.estado_salud) {
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  Estado de salud general  </strong> no puede estar vacío <br>`;
+            }
+
+            if (!this.salud.regimen) {
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  Régimen de salud al que pertenece  </strong> no puede estar vacío <br>`;
+            }
+
+            if (this.errores.length === 0) {
+                this.salud.identificacion_individuo = this.informacion_personal.numero_identificacion;
+                this.guardarSalud();
+            } else {
+                Swal.fire({
+                    width: 650,
+                    icon: "error",
+                    title: "Información Importante",
+                    html: this.errores,
+                });
+            }
+        },
+        async guardarSalud(){
+            this.loading = true;
+            try {
+                await caracterizacionService.guardarSalud(this.salud).then(respuesta => {
+                    var response = respuesta.data;
+                    this.loading = false;
+                    if(response.code == 1){
+                        toastr.success(response.mensaje);
+                        this.eliminarActive("baseIcon-tab26", "tabIcon26");
+                    }else{
+                        Swal.fire({
+                            icon: "error",
+                            title: "Información Importante",
+                            text: response.mensaje,
+                        });
+                    }
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        validarCamposCulturaTradiciones(){
+            this.errores = "";
+
+            if (!this.culturaTradiciones.habla_lengua) {
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  habla alguna lengua afrocolombiana  </strong> no puede estar vacío <br>`;
+            }
+
+            if (!this.culturaTradiciones.practica_actividades) {
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  Participa en actividades culturales afrocolombianas  </strong> no puede estar vacío <br>`;
+            }
+
+            if (!this.culturaTradiciones.practicas_religiosas) {
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">   Prácticas culturales y religiosas  </strong> no puede estar vacío <br>`;
+            }
+
+            if(this.culturaTradiciones.habla_lengua == "Si"){
+                if (!this.culturaTradiciones.cual_lengua) {
+                    this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">   ¿Cual lengua habla?  </strong> no puede estar vacío <br>`;
+                }
+            }
+            
+            if (this.errores.length === 0) {
+                this.culturaTradiciones.identificacion_individuo = this.informacion_personal.numero_identificacion;
+                this.guardarCulturaTradiciones();
+            } else {
+                Swal.fire({
+                    width: 710,
+                    icon: "error",
+                    title: "Información Importante",
+                    html: this.errores,
+                });
+            }
+        },
+        async guardarCulturaTradiciones(){
+            this.loading = true;
+            try {
+                await caracterizacionService.guardarCulturaTradiciones(this.culturaTradiciones).then(respuesta => {
+                    var response = respuesta.data;
+                    this.loading = false;
+                    if(response.code == 1){
+                        toastr.success(response.mensaje);
+                        if(this.informacion_personal.rol == "Jefe de hogar"){
+                            this.eliminarActive("baseIcon-tab27", "tabIcon27");
+                        }else{
+                            this.eliminarActive("baseIcon-tab28", "tabIcon28");
+                        }
+                    }else{
+                        Swal.fire({
+                            icon: "error",
+                            title: "Información Importante",
+                            text: response.mensaje,
+                        });
+                    }
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        validarCamposViviendaHogar(){
+            this.errores = "";
+
+            if (!this.viviendaHogar.tipo_vivienda) {
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2"> Tipo de vivienda </strong> no puede estar vacío <br>`;
+            }
+
+            if (!this.viviendaHogar.tenencia) {
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2"> Tenencia de la vivienda </strong> no puede estar vacío <br>`;
+            }
+
+            if (!this.viviendaHogar.numero_personas_hogar) {
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2"> Número de personas que conforman el hogar </strong> no puede estar vacío <br>`;
+            }
+
+            if (!this.viviendaHogar.numero_personas_trabajan) {
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2"> Personas trabajan en su hogar </strong> no puede estar vacío <br>`;
+            }
+
+            if (!this.viviendaHogar.ingresos_mensuales_hogar) {
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2"> Ingresos mensuales por hogar </strong> no puede estar vacío <br>`;
+            }
+
+            if(this.viviendaHogar.tipo_vivienda == "Otro"){
+                if (!this.viviendaHogar.cual_tipo_vivienda) {
+                    this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">   ¿Cual tipo de vivienda?  </strong> no puede estar vacío <br>`;
+                }
+            }
+            
+            if (this.errores.length === 0) {
+                this.viviendaHogar.identificacion_jefe = this.informacion_personal.numero_identificacion;
+                this.guardarViviendaHogar();
+            } else {
+                Swal.fire({
+                    width: 710,
+                    icon: "error",
+                    title: "Información Importante",
+                    html: this.errores,
+                });
+            }
         }
     },
 }
@@ -838,6 +1444,19 @@ export default {
 
   
     input[type="radio"] {
+        display: none;
+        &:not(:disabled) ~ label {
+            cursor: pointer;
+        }
+        &:disabled ~ label {
+            color: hsla(150, 5%, 75%, 1);
+            border-color: hsla(150, 5%, 75%, 1);
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+    }
+
+    input[type="checkbox"] {
         display: none;
         &:not(:disabled) ~ label {
             cursor: pointer;
@@ -897,4 +1516,33 @@ export default {
         }
     }
 
+    input[type="checkbox"]:checked + label {
+        background: hsla(150, 75%, 50%, 1);
+        color: hsla(215, 0%, 100%, 1);
+        box-shadow: 0px 0px 20px hsla(150, 100%, 50%, 0.75);
+        &::after {
+            color: hsla(215, 5%, 25%, 1);
+            font-family: FontAwesome;
+            border: 2px solid hsla(150, 75%, 45%, 1);
+            content: "\f00c";
+            font-size: 24px;
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 50px;
+            width: 50px;
+            line-height: 50px;
+            text-align: center;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0px 2px 5px -2px hsla(0, 0%, 0%, 0.25);
+        }
+    }
+
+    .alert-primary {
+        color: #004085 !important;
+        background-color: #cce5ff !important;
+        border-color: #b8daff !important;
+    }
 </style>
