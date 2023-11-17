@@ -24,6 +24,11 @@ Route::prefix('api')->group(function () {
     Route::get('/iniciar-sesion', [UsuarioController::class, 'loginUsuario'])->name('loginUsuario');
     Route::get('/mis-datos', [UsuarioController::class, 'misDatos'])->name('misDatos');
     Route::get('/verificarLogin', [UsuarioController::class, 'verificarLogin'])->name('verificarLogin');
+    Route::post('/editar-usuario', [UsuarioController::class, 'editarUsuario'])->name('editarUsuario');
+    Route::post('/cambiar-password', [UsuarioController::class, 'cambiarPassword'])->name('cambiarPassword');
+
+    Route::get('/caracterizados', [CaracterizacionController::class, 'listarCaracterizados'])->name('listarCaracterizados');
+    Route::get('/datos-individuo', [CaracterizacionController::class, 'consultarDatosIndividuo'])->name('consultarDatosIndividuo');
 
     Route::post('/guardar-informacion-personal', [CaracterizacionController::class, 'guardarInformacionPersonal'])->name('guardarInformacionPersonal');
     Route::post('/guardar-origen-entidad', [CaracterizacionController::class, 'guardarOrigenEntidad'])->name('guardarOrigenEntidad');
@@ -31,7 +36,9 @@ Route::prefix('api')->group(function () {
     Route::post('/guardar-situacion-laboral', [CaracterizacionController::class, 'guardarSituacionLaboral'])->name('guardarSituacionLaboral');
     Route::post('/guardar-salud', [CaracterizacionController::class, 'guardarSalud'])->name('guardarSalud');
     Route::post('/guardar-cultura-tradiciones', [CaracterizacionController::class, 'guardarCulturaTradiciones'])->name('guardarCulturaTradiciones');
+    Route::post('/guardar-vivienda-hogar', [CaracterizacionController::class, 'guardarViviendaHogar'])->name('guardarViviendaHogar');
 
+    Route::get('/jefes-hogar', [CaracterizacionController::class, 'consultarJefesHogar'])->name('consultarJefesHogar');
     Route::get('/departamentos', [CaracterizacionController::class, 'consultarDepartamentos'])->name('consultarDepartamentos');
     Route::get('/municipios', [CaracterizacionController::class, 'consultarMunicipios'])->name('consultarMunicipios');
     Route::get('/escolaridad', [CaracterizacionController::class, 'consultarEscolaridad'])->name('consultarEscolaridad');

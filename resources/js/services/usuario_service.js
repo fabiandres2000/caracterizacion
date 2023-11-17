@@ -8,3 +8,28 @@ export function verificarLogin() {
     return http().get('/api/verificarLogin');
 }
 
+
+export function editar_usuario($data) {
+    return http().post(
+        '/api/editar-usuario', 
+        $data, 
+        {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            }
+        }
+    );
+}
+
+
+export function cambiar_password($data) {
+    return http().post(
+        '/api/cambiar-password', 
+        $data, 
+        {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+    );
+}

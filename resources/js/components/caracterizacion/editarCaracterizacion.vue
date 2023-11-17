@@ -59,7 +59,7 @@
                                                 <option value="Jefe de hogar">Jefe de Hogar</option>
                                                 <option value="Madre Soltera">Madre Soltera</option>
                                                 <option value="Padre soltero">Padre soltero</option>
-                                                <option value="Padre soltero">Integrante de hogar</option>
+                                                <option value="Integrante de hogar">Integrante de hogar</option>
                                             </select>
                                             <div class="form-control-position">
                                                 <i style ="font-size: 14px" class="feather icon-unlock  font-medium-4"></i>
@@ -69,7 +69,7 @@
                                     <div class="col-lg-6" v-if="informacion_personal.rol != 'Jefe de hogar'">
                                         <label for=""><strong>Jefe de Hogar</strong></label>
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <input v-model="informacion_personal.nombre_jefe" style="cursor: pointer" type="text" class="form-control form-control-lg mb-1"  placeholder="Seleccione su jefe de hogar">
+                                            <input data-toggle="modal" data-target="#exampleModalCenter"  v-model="informacion_personal.nombre_jefe" style="cursor: pointer" type="text" class="form-control form-control-lg mb-1"  placeholder="Seleccione su jefe de hogar">
                                             <div class="form-control-position">
                                                 <i style="font-size: 19px" class="fas fa-user-tie"></i>
                                             </div>
@@ -261,6 +261,7 @@
                                                 <option value="Juegos">Juegos</option>
                                                 <option value="Drogas">Drogas</option>
                                                 <option value="Otros">Otros</option>
+                                                <option value="No">No</option>
                                             </select>                                            
                                             <div class="form-control-position">
                                                 <i style="font-size: 19px" class="fas fa-people-arrows"></i>
@@ -501,6 +502,7 @@
                                                 <option value="Jubilado/a (retirado/a del empleo remunerado)">Jubilado/a (retirado/a del empleo remunerado)</option>
                                                 <option value="Voluntario/a (sin compensación financiera)">Voluntario/a (sin compensación financiera)</option>
                                                 <option value="Trabajador informal">Trabajador informal</option>
+                                                <option value="N.A">N.A</option>
                                             </select>
                                             <div class="form-control-position" style="top: 9px; left: 4px !important;">
                                                 <i style ="font-size: 19px" class="fas fa-suitcase"></i>
@@ -534,6 +536,7 @@
                                                 <option value="3000001-4000000">$3,000,001 - $4,000,000</option>
                                                 <option value="mas de 4000000">Más de $4,000,000</option>
                                                 <option value="Trabajador informal">Trabajador informal</option>
+                                                <option value="N.A">N.A</option>
                                             </select>
                                             <div class="form-control-position" style="top: 9px; left: 4px !important;">
                                                 <i style ="font-size: 19px" class="fas fa-dollar-sign"></i>
@@ -579,6 +582,7 @@
                                                 <option value="Discapacidad del Habla o del Lenguaje">Discapacidad del Habla o del Lenguaje</option>
                                                 <option value="Discapacidad Múltiple o Combinada">Discapacidad Múltiple o Combinada</option>
                                                 <option value="Discapacidad Temporal">Discapacidad Temporal</option>
+                                                <option value="Ninguna">Ninguna</option>
                                             </select>
                                             <div class="form-control-position" style="top: 9px; left: 4px !important;">
                                                 <i style ="font-size: 19px" class="fas fa-blind"></i>
@@ -661,7 +665,7 @@
                                             <select v-model="culturaTradiciones.habla_lengua" class="form-control form-control-lg mb-1" name="" id="">
                                                 <option value="">Seleccione una opción</option>
                                                 <option value="Si">Si</option>
-                                                <option value="Nunca">No</option>
+                                                <option value="No">No</option>
                                             </select>                                            
                                             <div class="form-control-position">
                                                 <i style="font-size: 19px" class="fas fa-question"></i>
@@ -840,7 +844,7 @@
                                     <h1 style="font-size: 3rem; font-weight: 500;">¡Proceso de caracterización finalizado con éxito!</h1>
                                     <hr>
                                     <button onclick="location.reload()" class="btn btn-success">Caracterizar Nuevo Individuo <i class="fas fa-user-plus"></i></button>
-                                    <button style="margin-left: 20px" class="btn btn-warning">Ver Lista de Caracterizados <i class="fas fa-users"></i></button>
+                                    <router-link to="/lista-caracterizados"><button style="margin-left: 20px" class="btn btn-warning">Ver Lista de Caracterizados <i class="fas fa-users"></i></button></router-link>
                                 </div>
                             </div>
                         </div>
@@ -848,19 +852,58 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="exampleModalCenterTitle">Jefes de Hogar Registrados</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Seleccione su jefe de hogar</h4>
+                        <hr>
+                        <table id="miTabla" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>Tipo Identificación</th>
+                                    <th>Identificación</th>
+                                    <th>Nombre Completo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(item, index) in jefes_hogar" :key="index" @click="seleccionarJefe(item)">
+                                    <td>{{ item.tipo_identificacion }}</td>
+                                    <td>{{ item.identificacion }}</td>
+                                    <td>{{ item.nombre_completo }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" data-dismiss="modal">Seleccionar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
-import * as usuarioService from "../services/usuario_service.js";
-import * as caracterizacionService from "../services/caracterizacion_service";
+import * as usuarioService from "../../services/usuario_service.js";
+import * as caracterizacionService from "../../services/caracterizacion_service";
 import Swal from 'sweetalert2';
 
 export default {
-    components: {
-    },
+    props: ['identificacion_editar'],
     mounted() {
         this.misDatos();
         this.verificarLogin();
+        this.consultarJefes();
+        this.consultarDatosIndividuo();
         this.consultarDepartamentos();
         this.consultarEscolaridades();
         this.consultarOcupaciones();
@@ -948,10 +991,129 @@ export default {
                 otro: "No",
                 numero_personas_trabajan: "",
                 ingresos_mensuales_hogar: "",
-            }
+            },
+            jefes_hogar: []
         }
     },
     methods: {
+        async consultarDatosIndividuo(){
+            await caracterizacionService.consultarDatosIndividuo(this.identificacion_editar).then(async respuesta => {
+               var data = respuesta.data;
+               this.informacion_personal.rol = data.informacion_personal.rol;
+               this.informacion_personal.id_jefe = data.informacion_personal.id_jefe;
+               this.informacion_personal.direccion = data.informacion_personal.direccion;
+               this.informacion_personal.nombre_completo = data.informacion_personal.nombre_completo;
+               this.informacion_personal.fecha_nacimiento = data.informacion_personal.fecha_nacimiento;
+               this.informacion_personal.tipo_identificacion = data.informacion_personal.tipo_identificacion;
+               this.informacion_personal.numero_identificacion = data.informacion_personal.identificacion;
+               this.informacion_personal.direccion_residencia = data.informacion_personal.direccion_residencia;
+               this.informacion_personal.sexo = data.informacion_personal.sexo;
+               this.informacion_personal.identidad_genero = data.informacion_personal.identidad_genero;
+               this.informacion_personal.orientacion_sexual = data.informacion_personal.orientacion_sexual;
+               this.informacion_personal.estado_civil = data.informacion_personal.estado_civil;
+               this.informacion_personal.creencia_religiosa = data.informacion_personal.creencia_religiosa;
+               this.informacion_personal.adicciones = data.informacion_personal.adicciones;
+               this.informacion_personal.tiempo_municipo = data.informacion_personal.tiempo_municipio;
+               this.informacion_personal.desplazado = data.informacion_personal.desplazado;
+               this.informacion_personal.cual_adicciones = data.informacion_personal.cual_adicciones;
+               this.informacion_personal.cual_creencia_religiosa = data.informacion_personal.cual_creencia_religiosa;
+               this.informacion_personal.cual_estado_civil = data.informacion_personal.cual_estado_civil;
+               this.informacion_personal.cual_sexo = data.informacion_personal.cual_sexo;
+
+                if(this.informacion_personal.rol != "Jefe de hogar"){
+                    var item_jefe = this.jefes_hogar.filter(item => item.identificacion == this.informacion_personal.id_jefe)[0];
+                    this.seleccionarJefe(item_jefe);
+                }
+
+                this.origen_identidad.identificacion_individuo = data.origen_identidad.identificacion_individuo;
+                this.origen_identidad.pais = data.origen_identidad.pais_nacimiento;
+                this.origen_identidad.departamento = data.origen_identidad.departamento_nacimiento;
+                await this.consultarMunicipios(this.origen_identidad.departamento);
+                this.origen_identidad.municipio = data.origen_identidad.municipio_nacimiento;
+                this.origen_identidad.etnia = data.origen_identidad.etnia;
+
+                this.educacion = data.educacion;
+
+                this.situacion_laboral = data.situacion_laboral;
+
+                this.salud = data.salud;
+
+                this.culturaTradiciones = data.cultura_tradiciones;
+
+                if(this.informacion_personal.rol == "Jefe de hogar"){
+                    this.viviendaHogar = data.vivienda_hogar;
+                    if(this.viviendaHogar.electricidad == "Si"){
+                        $("#control_011").prop( "checked", true );
+                    }
+                    if(this.viviendaHogar.agua_potable == "Si"){
+                        $("#control_012").prop( "checked", true );
+                    }
+                    if(this.viviendaHogar.alcantarillado == "Si"){
+                        $("#control_013").prop( "checked", true );
+                    }
+                    if(this.viviendaHogar.gas_natural == "Si"){
+                        $("#control_014").prop( "checked", true );
+                    }
+                    if(this.viviendaHogar.aseo == "Si"){
+                        $("#control_015").prop( "checked", true );
+                    }
+                    if(this.viviendaHogar.otro == "Si"){
+                        $("#control_016").prop( "checked", true );
+                    }
+                }
+              
+            });
+        },
+        clickTabla(){
+            var table = document.getElementById('miTabla');
+            var rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+            for (var i = 0; i < rows.length; i++) {
+                rows[i].onclick = function() {
+                    var isSelected = this.style.backgroundColor === 'rgb(255, 255, 153)';
+                    
+                    for (var j = 0; j < rows.length; j++) {
+                        rows[j].style.backgroundColor = '';
+                    }
+
+                    if (!isSelected) {
+                        this.style.backgroundColor = '#ffff99';
+                    }
+                };
+            }
+
+            setTimeout(()=>{
+                this.dataTables();
+            }, 200)
+        },
+        dataTables() {
+            $("#miTabla").DataTable({
+                ordering: false,
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                },
+            });
+
+            setTimeout(()=>{
+                this.loading = false;
+            }, 300)
+        },
         async verificarLogin(){
             var navigate = this.$router;
             await usuarioService.verificarLogin().then(respuesta => {
@@ -970,6 +1132,24 @@ export default {
             } catch (error) {
                 console.log(error);
             }
+        },
+        async consultarJefes(){
+            this.loading = true;
+            try {
+                await caracterizacionService.jefesHogar().then(respuesta => {
+                    this.jefes_hogar = respuesta.data;
+                    this.loading = false;
+                    setTimeout(()=>{
+                        this.clickTabla();
+                    }, 200)
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        seleccionarJefe(item){
+            this.informacion_personal.id_jefe = item.identificacion;
+            this.informacion_personal.nombre_jefe = item.tipo_identificacion+" - "+item.identificacion+" - "+item.nombre_completo;
         },
         eliminarActive(id, id2){
             document.getElementById("baseIcon-tab21").classList.remove("active");
@@ -990,9 +1170,12 @@ export default {
             document.getElementById("tabIcon27").classList.remove("active");
             document.getElementById("tabIcon28").classList.remove("active");
 
+            if(id != "baseIcon-tab28"){
+                document.getElementById(id).classList.add("active");
+            }
 
-            document.getElementById(id).classList.add("active");
             document.getElementById(id2).classList.add("active");
+
         },
         validarCamposInformacionPersonal() {
             this.errores = "";
@@ -1080,18 +1263,9 @@ export default {
             this.loading = true;
             try {
                 await caracterizacionService.guardarInformacionTemporal(this.informacion_personal).then(respuesta => {
-                    var response = respuesta.data;
                     this.loading = false;
-                    if(response.code == 1){
-                        toastr.success(response.mensaje);
-                        this.eliminarActive("baseIcon-tab22", "tabIcon22");
-                    }else{
-                        Swal.fire({
-                            icon: "error",
-                            title: "Información Importante",
-                            text: response.mensaje,
-                        });
-                    }
+                    toastr.success("Datos guardados correctamente");
+                    this.eliminarActive("baseIcon-tab22", "tabIcon22");
                 });
             } catch (error) {
                 console.log(error);
@@ -1140,18 +1314,9 @@ export default {
             this.loading = true;
             try {
                 await caracterizacionService.guardarOrigenIdentidad(this.origen_identidad).then(respuesta => {
-                    var response = respuesta.data;
                     this.loading = false;
-                    if(response.code == 1){
-                        toastr.success(response.mensaje);
-                        this.eliminarActive("baseIcon-tab23", "tabIcon23");
-                    }else{
-                        Swal.fire({
-                            icon: "error",
-                            title: "Información Importante",
-                            text: response.mensaje,
-                        });
-                    }
+                    toastr.success("Datos guardados correctamente");
+                    this.eliminarActive("baseIcon-tab23", "tabIcon23");
                 });
             } catch (error) {
                 console.log(error);
@@ -1202,18 +1367,9 @@ export default {
             this.loading = true;
             try {
                 await caracterizacionService.guardarEducacion(this.educacion).then(respuesta => {
-                    var response = respuesta.data;
                     this.loading = false;
-                    if(response.code == 1){
-                        toastr.success(response.mensaje);
-                        this.eliminarActive("baseIcon-tab24", "tabIcon24");
-                    }else{
-                        Swal.fire({
-                            icon: "error",
-                            title: "Información Importante",
-                            text: response.mensaje,
-                        });
-                    }
+                    toastr.success("Datos guardados correctamente");
+                    this.eliminarActive("baseIcon-tab24", "tabIcon24");
                 });
             } catch (error) {
                 console.log(error);
@@ -1259,18 +1415,9 @@ export default {
             this.loading = true;
             try {
                 await caracterizacionService.guardarSituacionLaboral(this.situacion_laboral).then(respuesta => {
-                    var response = respuesta.data;
                     this.loading = false;
-                    if(response.code == 1){
-                        toastr.success(response.mensaje);
-                        this.eliminarActive("baseIcon-tab25", "tabIcon25");
-                    }else{
-                        Swal.fire({
-                            icon: "error",
-                            title: "Información Importante",
-                            text: response.mensaje,
-                        });
-                    }
+                    toastr.success("Datos guardados correctamente");
+                    this.eliminarActive("baseIcon-tab25", "tabIcon25");
                 });
             } catch (error) {
                 console.log(error);
@@ -1315,18 +1462,9 @@ export default {
             this.loading = true;
             try {
                 await caracterizacionService.guardarSalud(this.salud).then(respuesta => {
-                    var response = respuesta.data;
                     this.loading = false;
-                    if(response.code == 1){
-                        toastr.success(response.mensaje);
-                        this.eliminarActive("baseIcon-tab26", "tabIcon26");
-                    }else{
-                        Swal.fire({
-                            icon: "error",
-                            title: "Información Importante",
-                            text: response.mensaje,
-                        });
-                    }
+                    toastr.success("Datos guardados correctamente");
+                    this.eliminarActive("baseIcon-tab26", "tabIcon26");
                 });
             } catch (error) {
                 console.log(error);
@@ -1369,22 +1507,9 @@ export default {
             this.loading = true;
             try {
                 await caracterizacionService.guardarCulturaTradiciones(this.culturaTradiciones).then(respuesta => {
-                    var response = respuesta.data;
                     this.loading = false;
-                    if(response.code == 1){
-                        toastr.success(response.mensaje);
-                        if(this.informacion_personal.rol == "Jefe de hogar"){
-                            this.eliminarActive("baseIcon-tab27", "tabIcon27");
-                        }else{
-                            this.eliminarActive("baseIcon-tab28", "tabIcon28");
-                        }
-                    }else{
-                        Swal.fire({
-                            icon: "error",
-                            title: "Información Importante",
-                            text: response.mensaje,
-                        });
-                    }
+                    toastr.success("Datos guardados correctamente");
+                    this.eliminarActive("baseIcon-tab27", "tabIcon27");
                 });
             } catch (error) {
                 console.log(error);
@@ -1430,7 +1555,19 @@ export default {
                     html: this.errores,
                 });
             }
-        }
+        },
+        async guardarViviendaHogar(){
+            this.loading = true;
+            try {
+                await caracterizacionService.guardarViviendaHogar(this.viviendaHogar).then(respuesta => {
+                    this.loading = false;
+                    toastr.success("Datos guardados correctamente");
+                    this.eliminarActive("baseIcon-tab28", "tabIcon28");
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        },
     },
 }
 </script>
@@ -1544,5 +1681,11 @@ export default {
         color: #004085 !important;
         background-color: #cce5ff !important;
         border-color: #b8daff !important;
+    }
+
+    td, th {
+        padding: 4px !important;
+        font-size: 18px !important;
+        cursor: pointer;
     }
 </style>

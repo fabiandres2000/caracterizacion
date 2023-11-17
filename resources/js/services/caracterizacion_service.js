@@ -87,3 +87,27 @@ export function guardarCulturaTradiciones($data) {
         }
     );
 }
+
+export function guardarViviendaHogar($data) {
+    return http().post(
+        '/api/guardar-vivienda-hogar', 
+        $data, 
+        {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+    );
+}
+
+export function jefesHogar() {
+    return http().get('/api/jefes-hogar');
+}
+
+export function consultarCaracterizados() {
+    return http().get('/api/caracterizados');
+}
+
+export function consultarDatosIndividuo(id) {
+    return http().get('/api/datos-individuo?identificacion='+id);
+}

@@ -38,6 +38,16 @@ class CaracterizacionController extends Controller
         return response()->json($ocupaciones);
     }
 
+    public function consultarJefesHogar()
+    {
+        $departamentos = DB::connection('mysql')->table('informacion_personal')
+        ->select("tipo_identificacion", "identificacion", "nombre_completo")
+        ->where("rol", "Jefe de hogar")
+        ->get();
+
+        return response()->json($departamentos);
+    }
+
     public function guardarInformacionPersonal(Request $request){
         $timezone = new \DateTimeZone('America/Bogota');
         $fechaActual = new \DateTime('now', $timezone);
@@ -84,11 +94,25 @@ class CaracterizacionController extends Controller
         );
 
         if($insertado){
+            self::guardarUsuarioEncuesta($numero_caracterizacion);
             return response()->json(['mensaje' => 'Datos guardados correctamente', 'code' => 1]);
         }else{
             return response()->json(['mensaje' => 'Ocurrió un error, intente nuevamente', 'code' => 0]);
         }
        
+    }
+
+    public function guardarUsuarioEncuesta($numero_caracterizacion){
+        $idUsuario = Session::get('id');
+
+        $datos = [
+            'usuario_encuesta' => $idUsuario,
+            'numero_caracterizacion' => $numero_caracterizacion,
+        ];
+
+        DB::connection('mysql')->table('user_encuesta')->Insert(
+            $datos 
+        );
     }
 
 
@@ -219,5 +243,87 @@ class CaracterizacionController extends Controller
         }else{
             return response()->json(['mensaje' => 'Ocurrió un error, intente nuevamente', 'code' => 0]);
         }
+    }
+
+    public function guardarViviendaHogar(Request $request){
+      
+        $datos = [
+            'identificacion_jefe' => $request->input('identificacion_jefe'),
+            'tipo_vivienda' => $request->input('tipo_vivienda'),
+            'cual_tipo_vivienda' => $request->input('cual_tipo_vivienda'),
+            'tenencia' => $request->input('tenencia'),
+            'numero_personas_hogar' => $request->input('numero_personas_hogar'),
+            'electricidad' => $request->input('electricidad'),
+            'agua_potable' => $request->input('agua_potable'),
+            'alcantarillado' => $request->input('alcantarillado'),
+            'gas_natural' => $request->input('gas_natural'),
+            'aseo' => $request->input('aseo'),
+            'otro' => $request->input('otro'),
+            'numero_personas_trabajan' => $request->input('numero_personas_trabajan'),
+            'ingresos_mensuales_hogar' => $request->input('ingresos_mensuales_hogar'),
+        ];
+
+        $insertado = DB::connection('mysql')->table('vivienda_hogar')->updateOrInsert(
+            ['identificacion_jefe' => $datos['identificacion_jefe']],
+            $datos 
+        );
+
+        if($insertado){
+            return response()->json(['mensaje' => 'Datos guardados correctamente', 'code' => 1]);
+        }else{
+            return response()->json(['mensaje' => 'Ocurrió un error, intente nuevamente', 'code' => 0]);
+        }
+    }
+
+    public function listarCaracterizados(){
+        $caracterizados = DB::connection('mysql')->table('informacion_personal')
+        ->where("estado", 1)
+        ->get();
+        return response()->json($caracterizados);
+    }
+
+    public function consultarDatosIndividuo(Request $request)
+    {
+        $identificacion = $request->input('identificacion');
+
+        $datos = [];
+
+        $informacion_personal = DB::connection('mysql')->table('informacion_personal')
+        ->where("identificacion", $identificacion)
+        ->first();
+
+        $origen_etnia = DB::connection('mysql')->table('origen_etnia')
+        ->where("identificacion_individuo", $identificacion)
+        ->first();
+
+        $educacion = DB::connection('mysql')->table('educacion')
+        ->where("identificacion_individuo", $identificacion)
+        ->first();
+
+        $situacion_laboral = DB::connection('mysql')->table('situacion_laboral')
+        ->where("identificacion_individuo", $identificacion)
+        ->first();
+
+        $salud = DB::connection('mysql')->table('salud')
+        ->where("identificacion_individuo", $identificacion)
+        ->first();
+
+        $cultura_tradiciones = DB::connection('mysql')->table('cultura_tradiciones')
+        ->where("identificacion_individuo", $identificacion)
+        ->first();
+
+        $vivienda_hogar = DB::connection('mysql')->table('vivienda_hogar')
+        ->where("identificacion_jefe", $identificacion)
+        ->first();
+
+        $datos['informacion_personal'] = $informacion_personal;
+        $datos['origen_identidad'] = $origen_etnia;
+        $datos['educacion'] = $educacion;
+        $datos['situacion_laboral'] = $situacion_laboral;
+        $datos['salud'] = $salud;
+        $datos['cultura_tradiciones'] = $cultura_tradiciones;
+        $datos['vivienda_hogar'] = $vivienda_hogar;
+
+        return response()->json($datos);
     }
 }

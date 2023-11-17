@@ -164,6 +164,7 @@ CREATE TABLE `informacion_personal` (
   `fecha_caracterizacion` text,
   `hora_caracterizacion` text,
   `id_jefe` int DEFAULT NULL,
+  `estado` int DEFAULT '1',
   PRIMARY KEY (`identificacion`),
   KEY `id_jefe` (`id_jefe`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -11362,6 +11363,20 @@ CREATE TABLE `situacion_laboral` (
 
 /*Data for the table `situacion_laboral` */
 
+/*Table structure for table `user_encuesta` */
+
+DROP TABLE IF EXISTS `user_encuesta`;
+
+CREATE TABLE `user_encuesta` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `usuario_encuesta` text,
+  `numero_caracterizacion` text,
+  `estado` int DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*Data for the table `user_encuesta` */
+
 /*Table structure for table `users` */
 
 DROP TABLE IF EXISTS `users`;
@@ -11387,7 +11402,30 @@ CREATE TABLE `users` (
 /*Data for the table `users` */
 
 insert  into `users`(`id`,`identificacion`,`nombre`,`usuario`,`email`,`password`,`celular`,`direccion`,`rol`,`imagen`,`estado`,`created_at`,`updated_at`) values 
-(1,'1111','admin','admin','admin@gmail.com','81dc9bdb52d04dc20036dbd8313ed055','0',NULL,'administrador','admin.png','1',NULL,NULL);
+(1,'1111222','admin','admin','admin@gmail.com','81dc9bdb52d04dc20036dbd8313ed055','3012321546','manzana 2 casa 8 - valledupar','administrador','1700253243_mobile-07.jpg','1',NULL,NULL);
+
+/*Table structure for table `vivienda_hogar` */
+
+DROP TABLE IF EXISTS `vivienda_hogar`;
+
+CREATE TABLE `vivienda_hogar` (
+  `identificacion_jefe` double NOT NULL,
+  `tipo_vivienda` text,
+  `cual_tipo_vivienda` text,
+  `tenencia` text,
+  `numero_personas_hogar` text,
+  `electricidad` text,
+  `agua_potable` text,
+  `alcantarillado` text,
+  `gas_natural` text,
+  `aseo` text,
+  `otro` text,
+  `numero_personas_trabajan` text,
+  `ingresos_mensuales_hogar` text,
+  PRIMARY KEY (`identificacion_jefe`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*Data for the table `vivienda_hogar` */
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

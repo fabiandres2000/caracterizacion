@@ -90,7 +90,7 @@
                         if (response[1] == 1) {
                             toastr.success(response[0]);
                             setTimeout(() => {
-                                location.href = "/dashboard";
+                                location.href = "/lista-caracterizados";
                             }, 2000);
                         } else {
                             toastr.error(response[0]);
