@@ -1025,40 +1025,52 @@ export default {
                     this.seleccionarJefe(item_jefe);
                 }
 
-                this.origen_identidad.identificacion_individuo = data.origen_identidad.identificacion_individuo;
-                this.origen_identidad.pais = data.origen_identidad.pais_nacimiento;
-                this.origen_identidad.departamento = data.origen_identidad.departamento_nacimiento;
-                await this.consultarMunicipios(this.origen_identidad.departamento);
-                this.origen_identidad.municipio = data.origen_identidad.municipio_nacimiento;
-                this.origen_identidad.etnia = data.origen_identidad.etnia;
+                if(data.origen_identidad != null){
+                    this.origen_identidad.identificacion_individuo = data.origen_identidad.identificacion_individuo;
+                    this.origen_identidad.pais = data.origen_identidad.pais_nacimiento;
+                    this.origen_identidad.departamento = data.origen_identidad.departamento_nacimiento;
+                    await this.consultarMunicipios(this.origen_identidad.departamento);
+                    this.origen_identidad.municipio = data.origen_identidad.municipio_nacimiento;
+                    this.origen_identidad.etnia = data.origen_identidad.etnia;
+                }
+                
+                if(data.educacion != null){
+                    this.educacion = data.educacion;
+                }
 
-                this.educacion = data.educacion;
+                if(data.situacion_laboral != null){
+                    this.situacion_laboral = data.situacion_laboral;
+                }
 
-                this.situacion_laboral = data.situacion_laboral;
-
-                this.salud = data.salud;
-
-                this.culturaTradiciones = data.cultura_tradiciones;
+                if(data.salud != null){
+                    this.salud = data.salud;
+                }
+                
+                if(data.culturaTradiciones != null){
+                    this.culturaTradiciones = data.cultura_tradiciones;
+                }
 
                 if(this.informacion_personal.rol == "Jefe de hogar"){
-                    this.viviendaHogar = data.vivienda_hogar;
-                    if(this.viviendaHogar.electricidad == "Si"){
-                        $("#control_011").prop( "checked", true );
-                    }
-                    if(this.viviendaHogar.agua_potable == "Si"){
-                        $("#control_012").prop( "checked", true );
-                    }
-                    if(this.viviendaHogar.alcantarillado == "Si"){
-                        $("#control_013").prop( "checked", true );
-                    }
-                    if(this.viviendaHogar.gas_natural == "Si"){
-                        $("#control_014").prop( "checked", true );
-                    }
-                    if(this.viviendaHogar.aseo == "Si"){
-                        $("#control_015").prop( "checked", true );
-                    }
-                    if(this.viviendaHogar.otro == "Si"){
-                        $("#control_016").prop( "checked", true );
+                    if(data.vivienda_hogar != null){
+                        this.viviendaHogar = data.vivienda_hogar;
+                        if(this.viviendaHogar.electricidad == "Si"){
+                            $("#control_011").prop( "checked", true );
+                        }
+                        if(this.viviendaHogar.agua_potable == "Si"){
+                            $("#control_012").prop( "checked", true );
+                        }
+                        if(this.viviendaHogar.alcantarillado == "Si"){
+                            $("#control_013").prop( "checked", true );
+                        }
+                        if(this.viviendaHogar.gas_natural == "Si"){
+                            $("#control_014").prop( "checked", true );
+                        }
+                        if(this.viviendaHogar.aseo == "Si"){
+                            $("#control_015").prop( "checked", true );
+                        }
+                        if(this.viviendaHogar.otro == "Si"){
+                            $("#control_016").prop( "checked", true );
+                        }
                     }
                 }
               

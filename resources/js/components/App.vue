@@ -59,11 +59,19 @@
                                 </a>
                             </router-link>
                         </li>
-                        <li :class="tipo_ruta == '/caracterizacion' ? 'nav-item open' : 'nav-item'">
-                            <router-link to="/caracterizacion">
+                        <li :class="tipo_ruta == '/lista-caracterizados' ? 'nav-item open' : 'nav-item'">
+                            <router-link to="/lista-caracterizados">
                                 <a href="#">
                                     <i class="fas fa-user-check"></i>
                                     <span class="menu-title" data-i18n="Email Application">caracterización</span>
+                                </a>
+                            </router-link>
+                        </li>
+                        <li :class="tipo_ruta == '/usuarios' ? 'nav-item open' : 'nav-item'">
+                            <router-link to="/usuarios">
+                                <a href="#">
+                                    <i class="fas fa-users"></i>
+                                    <span class="menu-title" data-i18n="Email Application">Gestión Usuarios</span>
                                 </a>
                             </router-link>
                         </li>

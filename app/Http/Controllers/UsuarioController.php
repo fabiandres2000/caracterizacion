@@ -60,8 +60,7 @@ class UsuarioController extends Controller
         }
     }
 
-    public function editarUsuario(Request $request)
-    {
+    public function editarUsuario(Request $request){
 
         $datos = [
             'id' => $request->input('id'),
@@ -124,4 +123,86 @@ class UsuarioController extends Controller
 
     }
 
+    public function consultarUsuarios(){
+        $usuario = DB::connection("mysql")->table("users")
+        ->select('id', 'identificacion', 'nombre', 'usuario', 'email', 'celular', 'direccion', 'estado', 'password')
+        ->get();
+        
+        return response()->json($usuario, 200);
+    }
+
+    public function registrarUsuario(Request $request){
+
+        $datos = [
+            'identificacion' => $request->input('identificacion'),
+            'nombre' => $request->input('nombre'),
+            'usuario' => $request->input('usuario'),
+            'email' => $request->input('email'),
+            'password' => md5($request->input('password')),
+            'celular' => $request->input('celular'),
+            'direccion' => $request->input('direccion'),
+            'rol' => 'encuestador',
+            'imagen' => 'default.png',
+        ];
+
+        $insertado = DB::connection('mysql')->table('users')->Insert(
+            $datos 
+        );
+
+        if ($insertado) {
+            return response()->json(["¡Datos actualizados correctamente!", 1], 200);
+        }else{
+            return response()->json(["¡Ocurrió un error, intente nuevamente!", 1], 200);
+        }
+     
+    }
+
+    public function editarUsuarioAdmin(Request $request){
+
+        $datos = [
+            'identificacion' => $request->input('identificacion'),
+            'nombre' => $request->input('nombre'),
+            'usuario' => $request->input('usuario'),
+            'email' => $request->input('email'),
+            'password' => md5($request->input('password')),
+            'celular' => $request->input('celular'),
+            'direccion' => $request->input('direccion'),
+            'rol' => 'encuestador',
+            'imagen' => 'default.png',
+        ];
+
+        $insertado = DB::connection('mysql')->table('users')
+        ->where('id', $request->input('id'))
+        ->update(
+            $datos 
+        );
+
+        if ($insertado) {
+            return response()->json(["¡Datos actualizados correctamente!", 1], 200);
+        }else{
+            return response()->json(["¡Ocurrió un error, intente nuevamente!", 1], 200);
+        }
+     
+    }
+
+    public function cambiarEstadoUsuario(Request $request){
+        $id = $request->input('id');
+        $estado_actual = $request->input('estado_actual');
+    
+        $datos = [
+            'estado' => $estado_actual,
+        ];
+
+        $insertado = DB::connection('mysql')->table('users')
+        ->where('id', $request->input('id'))
+        ->update(
+            $datos 
+        );
+
+        if ($insertado) {
+            return response()->json(["¡Se cambio el estado del usuario correctamente!", 1], 200);
+        }else{
+            return response()->json(["¡Ocurrió un error, intente nuevamente!", 1], 200);
+        }
+    }
 }

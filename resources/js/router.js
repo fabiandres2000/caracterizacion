@@ -4,6 +4,8 @@ import editarCaracterizacion from './components/caracterizacion/editarCaracteriz
 import listaCaracterizados from './components/caracterizacion/listaCaracterizados';
 import dashboard from './components/admin/dashboard';
 import miPerfil from './components/miPerfil';
+import usuarios from './components/usuarios/usuarios';
+
 
 const routes = [
   {
@@ -35,6 +37,11 @@ const routes = [
     path: '/mi-perfil',
     name: 'miPerfil',
     component: miPerfil
+  },
+  {
+    path: '/usuarios',
+    name: 'usuarios',
+    component: usuarios
   },
 ]
 
