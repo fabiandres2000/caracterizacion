@@ -63,3 +63,7 @@ export function editarUsuario($data) {
 export function cambiarEstadoUsuario(id, estado) {
     return http().get('/api/cambiar-estado-usuario?id='+id+"&estado_actual="+estado);
 }
+
+export function cerrarSesion() {
+    return http().get('/api/cerrar-sesion');
+}

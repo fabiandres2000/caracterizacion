@@ -52,7 +52,16 @@ class CaracterizacionController extends Controller
         $timezone = new \DateTimeZone('America/Bogota');
         $fechaActual = new \DateTime('now', $timezone);
 
-        $numero_caracterizacion = self::generarNumeroCaracterizacion();
+        $hayUsuario =  DB::connection('mysql')->table('informacion_personal')
+        ->where('identificacion', $request->input('numero_identificacion'))
+        ->first();
+
+        if($hayUsuario){
+            $numero_caracterizacion = $hayUsuario->numero_caracterizacion;
+        }else{
+           $numero_caracterizacion = self::generarNumeroCaracterizacion(); 
+        }
+        
         $dia_caracterizacion = $fechaActual->format('d');
         $mes_caracterizacion = $fechaActual->format('m');
         $anio_caracterizacion = $fechaActual->format('Y');
@@ -94,7 +103,9 @@ class CaracterizacionController extends Controller
         );
 
         if($insertado){
-            self::guardarUsuarioEncuesta($numero_caracterizacion);
+            if($hayUsuario == null){
+                self::guardarUsuarioEncuesta($numero_caracterizacion);
+            }
             return response()->json(['mensaje' => 'Datos guardados correctamente', 'code' => 1]);
         }else{
             return response()->json(['mensaje' => 'Ocurrió un error, intente nuevamente', 'code' => 0]);
@@ -261,12 +272,17 @@ class CaracterizacionController extends Controller
             'otro' => $request->input('otro'),
             'numero_personas_trabajan' => $request->input('numero_personas_trabajan'),
             'ingresos_mensuales_hogar' => $request->input('ingresos_mensuales_hogar'),
+            'posecion_baldia' => $request->input('posecion_baldia'),
+            'propiedad_titulo' => $request->input('propiedad_titulo'),
+            'area_total' => $request->input('area_total'),
         ];
 
         $insertado = DB::connection('mysql')->table('vivienda_hogar')->updateOrInsert(
             ['identificacion_jefe' => $datos['identificacion_jefe']],
             $datos 
         );
+
+        self::guardarActividadesViviendaHogar($request->input('actividades_economicas'), $request->input('identificacion_jefe'));
 
         if($insertado){
             return response()->json(['mensaje' => 'Datos guardados correctamente', 'code' => 1]);
@@ -275,10 +291,41 @@ class CaracterizacionController extends Controller
         }
     }
 
+    public function guardarActividadesViviendaHogar($listaActividades, $id_jefe){
+
+        DB::connection('mysql')->table('actividades_vivienda_hogar')
+        ->where("identificacion_jefe", $id_jefe)
+        ->delete();
+
+        foreach ($listaActividades as $key) {
+            DB::connection('mysql')->table('actividades_vivienda_hogar')->Insert(
+               [
+                'identificacion_jefe' => $id_jefe,
+                'linea' => $key["linea"],
+                'actividad' => $key["actividad"],
+                'area_destinada' => $key["area_destinada"],
+               ]
+            );
+        }
+    }
+
+
     public function listarCaracterizados(){
-        $caracterizados = DB::connection('mysql')->table('informacion_personal')
-        ->where("estado", 1)
-        ->get();
+        $idUsuario = Session::get('id');
+        $rolUsuario = Session::get('rol');
+
+        if($rolUsuario == "administrador"){
+            $caracterizados = DB::connection('mysql')->table('informacion_personal')
+            ->where("estado", 1)
+            ->get();
+        }else{
+            $caracterizados = DB::connection('mysql')->table('informacion_personal')
+            ->leftJoin("user_encuesta", "user_encuesta.numero_caracterizacion", "informacion_personal.numero_caracterizacion")
+            ->where("user_encuesta.usuario_encuesta", $idUsuario)
+            ->where("informacion_personal.estado", 1)
+            ->get();
+        }
+       
         return response()->json($caracterizados);
     }
 
@@ -316,12 +363,23 @@ class CaracterizacionController extends Controller
         ->where("identificacion_jefe", $identificacion)
         ->first();
 
+        if($vivienda_hogar != null){
+            $vivienda_hogar->actividades_economicas = DB::connection('mysql')->table('actividades_vivienda_hogar')
+            ->where("identificacion_jefe", $identificacion)
+            ->get();
+        }else{
+            $vivienda_hogar = [];
+            $vivienda_hogar['actividades_economicas'] = [];
+        }
+       
+
         $datos['informacion_personal'] = $informacion_personal;
         $datos['origen_identidad'] = $origen_etnia;
         $datos['educacion'] = $educacion;
         $datos['situacion_laboral'] = $situacion_laboral;
         $datos['salud'] = $salud;
         $datos['cultura_tradiciones'] = $cultura_tradiciones;
+        $datos['vivienda_hogar'] = $vivienda_hogar;
         $datos['vivienda_hogar'] = $vivienda_hogar;
 
         return response()->json($datos);

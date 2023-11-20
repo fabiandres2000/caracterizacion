@@ -205,4 +205,9 @@ class UsuarioController extends Controller
             return response()->json(["¡Ocurrió un error, intente nuevamente!", 1], 200);
         }
     }
+
+    public function cerrarSesion(){
+        Session::flush();
+        return 1;
+    }
 }

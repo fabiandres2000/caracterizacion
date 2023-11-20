@@ -12,24 +12,53 @@ MySQL - 8.0.30 : Database - caracterizacion
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`caracterizacion` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+/*Table structure for table `actividades_vivienda_hogar` */
 
-USE `caracterizacion`;
+DROP TABLE IF EXISTS `actividades_vivienda_hogar`;
+
+CREATE TABLE `actividades_vivienda_hogar` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `identificacion_jefe` text,
+  `linea` text,
+  `actividad` text,
+  `area_destinada` double DEFAULT NULL,
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*Data for the table `actividades_vivienda_hogar` */
+
+insert  into `actividades_vivienda_hogar`(`id`,`identificacion_jefe`,`linea`,`actividad`,`area_destinada`) values 
+(11,'134543433','Cultivos agrícolas','Frijol',10000),
+(12,'134543433','Cultivos agrícolas','Arvejas',1000),
+(13,'43423423423','Cultivos agrícolas','Arvejas',10000),
+(14,'43423423423','Pecuarias - especie animal con perspectiva comercial','Apicultura',3000),
+(15,'43423423423','Cultivos forestales con perspectiva comercial','Ciprés',20000),
+(16,'43423423423','Pecuarias - especie animal con perspectiva comercial','Ganado equino',12000),
+(17,'10090908978','Cultivos agrícolas','Maíz',50000),
+(18,'10090908978','Pecuarias - especie animal con perspectiva comercial','Ganado vacuno o bovino',20000);
 
 /*Table structure for table `cultura_tradiciones` */
 
 DROP TABLE IF EXISTS `cultura_tradiciones`;
 
 CREATE TABLE `cultura_tradiciones` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `identificacion_individuo` double NOT NULL,
   `practica_actividades` text,
   `habla_lengua` text,
   `cual_lengua` text,
   `practicas_religiosas` text,
-  PRIMARY KEY (`identificacion_individuo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`identificacion_individuo`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `cultura_tradiciones` */
+
+insert  into `cultura_tradiciones`(`id`,`identificacion_individuo`,`practica_actividades`,`habla_lengua`,`cual_lengua`,`practicas_religiosas`) values 
+(4,100212124,'Si','No',NULL,'Música y Danza'),
+(1,134543433,'Si','Si','Palenquero','Música y Danza'),
+(3,10090908978,'Si','No',NULL,'Música y Danza'),
+(2,43423423423,'Nunca','No',NULL,'Música y Danza');
 
 /*Table structure for table `dptos` */
 
@@ -84,6 +113,7 @@ insert  into `dptos`(`codigo`,`descripcion`,`id`) values
 DROP TABLE IF EXISTS `educacion`;
 
 CREATE TABLE `educacion` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `identificacion_individuo` double NOT NULL,
   `nivel_educativo` text,
   `cual_nivel_educativo` text,
@@ -91,10 +121,17 @@ CREATE TABLE `educacion` (
   `barreras_educacion` text,
   `descriminacion_racial` text,
   `apoyo_educativo` text,
-  PRIMARY KEY (`identificacion_individuo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`identificacion_individuo`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `educacion` */
+
+insert  into `educacion`(`id`,`identificacion_individuo`,`nivel_educativo`,`cual_nivel_educativo`,`educacion_especifica`,`barreras_educacion`,`descriminacion_racial`,`apoyo_educativo`) values 
+(4,100212124,'14',NULL,'Si','No','Si','Si'),
+(1,134543433,'13',NULL,'Si','Si','No','No'),
+(3,10090908978,'12',NULL,'No','No','Si','Si'),
+(2,43423423423,'6',NULL,'Si','Si','Si','Si');
 
 /*Table structure for table `escolaridad` */
 
@@ -138,6 +175,7 @@ insert  into `escolaridad`(`id`,`descripcion`) values
 DROP TABLE IF EXISTS `informacion_personal`;
 
 CREATE TABLE `informacion_personal` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `identificacion` double NOT NULL,
   `tipo_identificacion` text,
   `rol` text,
@@ -163,13 +201,20 @@ CREATE TABLE `informacion_personal` (
   `dia_caracterizacion` int DEFAULT NULL,
   `fecha_caracterizacion` text,
   `hora_caracterizacion` text,
-  `id_jefe` int DEFAULT NULL,
+  `id_jefe` double DEFAULT NULL,
   `estado` int DEFAULT '1',
   PRIMARY KEY (`identificacion`),
-  KEY `id_jefe` (`id_jefe`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `id_jefe` (`id_jefe`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `informacion_personal` */
+
+insert  into `informacion_personal`(`id`,`identificacion`,`tipo_identificacion`,`rol`,`direccion`,`nombre_completo`,`fecha_nacimiento`,`direccion_residencia`,`sexo`,`cual_sexo`,`identidad_genero`,`orientacion_sexual`,`estado_civil`,`cual_estado_civil`,`creencia_religiosa`,`cual_creencia_religiosa`,`adicciones`,`cual_adicciones`,`tiempo_municipio`,`desplazado`,`numero_caracterizacion`,`anio_caracterizacion`,`mes_caracterizacion`,`dia_caracterizacion`,`fecha_caracterizacion`,`hora_caracterizacion`,`id_jefe`,`estado`) values 
+(4,100212124,'TI','Hijo(a)','transversal 28a #45-87','Andres gaviria','2020-01-22','transversal 28a #45-87','Masculino',NULL,'Hombre','Heterosexual','Soltero',NULL,'Católicos',NULL,'Cigarrillo',NULL,'12','Si','CA0004',2023,11,20,'20-11-2023','15:08:43',10090908978,1),
+(1,134543433,'CC','Jefe de hogar','manzana 2 casa 8 - Fundadores','Fabian Andres Quintero Mendez','2001-01-22','manzana 2 casa 8 - Fundadores','Masculino',NULL,'Hombre','Heterosexual','Unión Libre',NULL,'Católicos',NULL,'No',NULL,'12','Si','CA0001',2023,11,20,'20-11-2023','13:55:04',NULL,1),
+(3,10090908978,'CC','Jefe de hogar','transversal 28a #45-87','Obdulio Josefino Gaviria','1965-05-22','transversal 28a #45-87','Masculino',NULL,'Hombre','Heterosexual','>Viudo(a)',NULL,'Católicos',NULL,'Cigarrillo',NULL,'84','Si','CA0003',2023,11,20,'20-11-2023','14:34:28',NULL,1),
+(2,43423423423,'TI','Jefe de hogar','manzana 12 casa 18 - Primero de mayo','Daniela Quintero','2005-01-22','manzana 12 casa 18 - Primero de mayo','Femenino',NULL,'Mujer','Heterosexual','Soltero',NULL,'Católicos',NULL,'No',NULL,'23','Si','CA0002',2023,11,20,'20-11-2023','14:32:52',NULL,1);
 
 /*Table structure for table `muni` */
 
@@ -11322,46 +11367,70 @@ insert  into `ocupaciones`(`id`,`descripcion`) values
 DROP TABLE IF EXISTS `origen_etnia`;
 
 CREATE TABLE `origen_etnia` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `identificacion_individuo` double NOT NULL,
   `pais_nacimiento` text,
   `departamento_nacimiento` text,
   `municipio_nacimiento` text,
   `etnia` text,
-  PRIMARY KEY (`identificacion_individuo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`identificacion_individuo`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `origen_etnia` */
+
+insert  into `origen_etnia`(`id`,`identificacion_individuo`,`pais_nacimiento`,`departamento_nacimiento`,`municipio_nacimiento`,`etnia`) values 
+(4,100212124,'COLOMBIA','23','464','Afrocolombianos de la región caribe'),
+(1,134543433,'COLOMBIA','47','460','Afrocolombianos del pacifico'),
+(3,10090908978,'COLOMBIA','27','205','Afrocolombianos del pacifico'),
+(2,43423423423,'COLOMBIA','27','160','Afrocolombianos del pacifico');
 
 /*Table structure for table `salud` */
 
 DROP TABLE IF EXISTS `salud`;
 
 CREATE TABLE `salud` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `identificacion_individuo` double NOT NULL,
   `estado_salud` text,
   `condicion_discapacidad` text,
   `acceso_salud` text,
   `regimen` text,
   `discriminacion_salud` text,
-  PRIMARY KEY (`identificacion_individuo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`identificacion_individuo`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `salud` */
+
+insert  into `salud`(`id`,`identificacion_individuo`,`estado_salud`,`condicion_discapacidad`,`acceso_salud`,`regimen`,`discriminacion_salud`) values 
+(4,100212124,'Bueno','Ninguna','Ocasional','Subsidiado','N.A'),
+(1,134543433,'Bueno','Ninguna','Frecuente','Subsidiado','No'),
+(3,10090908978,'Bueno','Ninguna','Frecuente','Subsidiado','Si'),
+(2,43423423423,'Bueno','Discapacidad Física','Frecuente','Contributivo','Si');
 
 /*Table structure for table `situacion_laboral` */
 
 DROP TABLE IF EXISTS `situacion_laboral`;
 
 CREATE TABLE `situacion_laboral` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `identificacion_individuo` double NOT NULL,
   `ocupacion` text,
   `situacion_laboral` text,
   `discriminacion_laboral` text,
   `ingreso_mensual` text,
-  PRIMARY KEY (`identificacion_individuo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`identificacion_individuo`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `situacion_laboral` */
+
+insert  into `situacion_laboral`(`id`,`identificacion_individuo`,`ocupacion`,`situacion_laboral`,`discriminacion_laboral`,`ingreso_mensual`) values 
+(4,100212124,'Desempleado Sin Busqueda de Empleo','N.A','N.A','N.A'),
+(1,134543433,'Desempleado Buscando empleo','Desempleado/a (en búsqueda activa de empleo)','No','500000-1160000'),
+(3,10090908978,'Agricultor cultivador','Trabajador/a independiente','Si','1160001-2000000'),
+(2,43423423423,'Desempleado Sin Busqueda de Empleo','Desempleado/a (sin búsqueda activa de empleo en el momento)','Si','menos de 500000');
 
 /*Table structure for table `user_encuesta` */
 
@@ -11373,9 +11442,15 @@ CREATE TABLE `user_encuesta` (
   `numero_caracterizacion` text,
   `estado` int DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `user_encuesta` */
+
+insert  into `user_encuesta`(`id`,`usuario_encuesta`,`numero_caracterizacion`,`estado`) values 
+(1,'1','CA0001',1),
+(2,'1','CA0002',1),
+(3,'1','CA0003',1),
+(4,'1','CA0004',1);
 
 /*Table structure for table `users` */
 
@@ -11392,23 +11467,26 @@ CREATE TABLE `users` (
   `direccion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `rol` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `imagen` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `estado` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `estado` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `users` */
 
 insert  into `users`(`id`,`identificacion`,`nombre`,`usuario`,`email`,`password`,`celular`,`direccion`,`rol`,`imagen`,`estado`,`created_at`,`updated_at`) values 
-(1,'1111222','admin','admin','admin@gmail.com','81dc9bdb52d04dc20036dbd8313ed055','3012321546','manzana 2 casa 8 - valledupar','administrador','1700253243_mobile-07.jpg','1',NULL,NULL);
+(1,'1111222','admin','admin','admin@gmail.com','81dc9bdb52d04dc20036dbd8313ed055','3012321546','manzana 2 casa 8 - valledupar','administrador','1700253243_mobile-07.jpg','1',NULL,NULL),
+(2,'213213123','Fabian Quintero','fabian','fabian222000@live.com','2b1e84480019a2289d11981937cf550b','3048493940','manzana 2 casa 8-65','encuestador','default.png','1',NULL,NULL),
+(11,'1009090898','Cristian Quintero','cristian','cristian@gmail.com','e91b02d11a10b17a88ebfcfa76db3517','3012032215','transversal 27 a','encuestador','default.png','1',NULL,NULL);
 
 /*Table structure for table `vivienda_hogar` */
 
 DROP TABLE IF EXISTS `vivienda_hogar`;
 
 CREATE TABLE `vivienda_hogar` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `identificacion_jefe` double NOT NULL,
   `tipo_vivienda` text,
   `cual_tipo_vivienda` text,
@@ -11422,10 +11500,19 @@ CREATE TABLE `vivienda_hogar` (
   `otro` text,
   `numero_personas_trabajan` text,
   `ingresos_mensuales_hogar` text,
-  PRIMARY KEY (`identificacion_jefe`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `posecion_baldia` text,
+  `propiedad_titulo` text,
+  `area_total` text,
+  PRIMARY KEY (`identificacion_jefe`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `vivienda_hogar` */
+
+insert  into `vivienda_hogar`(`id`,`identificacion_jefe`,`tipo_vivienda`,`cual_tipo_vivienda`,`tenencia`,`numero_personas_hogar`,`electricidad`,`agua_potable`,`alcantarillado`,`gas_natural`,`aseo`,`otro`,`numero_personas_trabajan`,`ingresos_mensuales_hogar`,`posecion_baldia`,`propiedad_titulo`,`area_total`) values 
+(1,134543433,'Parcela',NULL,'Propia','2','Si','Si','Si','No','No','No','2','Entre 1 y 2 SMLV','Si','No','15000'),
+(3,10090908978,'Finca',NULL,'Propia','2','Si','Si','No','No','No','No','2','Entre 3 y 4 SMLV','No','Si','200000'),
+(2,43423423423,'Finca',NULL,'Propia','6','Si','Si','No','No','No','No','5','Entre 3 y 4 SMLV','Si','Si','50000');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

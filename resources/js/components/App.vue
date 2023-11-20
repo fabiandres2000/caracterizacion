@@ -35,7 +35,7 @@
                                             <i class="feather icon-message-square"></i> Chats
                                         </a>
                                         <div class="dropdown-divider"></div>
-                                        <a style="color: red" class="dropdown-item" href="login-with-bg-image.html">
+                                        <a style="color: red" class="dropdown-item" @click="cerrarSesion()" href="#">
                                             <i class="feather icon-power"></i> Cerrar Sesión
                                         </a>
                                     </div>
@@ -67,7 +67,7 @@
                                 </a>
                             </router-link>
                         </li>
-                        <li :class="tipo_ruta == '/usuarios' ? 'nav-item open' : 'nav-item'">
+                        <li v-if="datos.rol == 'administrador'" :class="tipo_ruta == '/usuarios' ? 'nav-item open' : 'nav-item'">
                             <router-link to="/usuarios">
                                 <a href="#">
                                     <i class="fas fa-users"></i>
@@ -101,8 +101,10 @@ export default {
             tipo_ruta: "",
             datos: {
                 nombre: "",
-                imagen: ""
-            }
+                imagen: "",
+                rol: ""
+            },
+            loading: false
         }
     },
     mounted() {
@@ -125,6 +127,15 @@ export default {
                 console.log(error);
             }
         },
+        async cerrarSesion(){
+            this.loading = true;
+            await usuarioService.cerrarSesion().then(respuesta => {
+                this.loading = false;
+                setTimeout(() => {
+                    location.href = "/";
+                }, 1000);
+            });
+        }
     }
 }
 </script>

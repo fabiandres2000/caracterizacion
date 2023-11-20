@@ -55,11 +55,24 @@
                                         <label for=""><strong>Rol del individuo</strong></label>
                                         <fieldset class="form-group position-relative has-icon-left">
                                             <select v-model="informacion_personal.rol" class="form-control form-control-lg mb-1" name="" id="">
-                                                <option value="">Seleccione el rol del individuo</option>
+                                                <option value=""><strong>Seleccione el rol del individuo</strong></option>
                                                 <option value="Jefe de hogar">Jefe de Hogar</option>
-                                                <option value="Madre Soltera">Madre Soltera</option>
+                                                <option value="Esposo(a), Compañero(a)">Esposo(a), Compañero(a)</option>
+                                                <option value="Hijo(a)">Hijo(a)</option>
+                                                <option value="Hijastro(a)">Hijastro(a)</option>
+                                                <option value="Yerno(a)">Yerno(a)</option>
+                                                <option value="Cuñado(a)">Cuñado(a)</option>
+                                                <option value="Nieto(a)">Nieto(a)</option>
+                                                <option value="Padre">Padre</option>
                                                 <option value="Padre soltero">Padre soltero</option>
-                                                <option value="Integrante de hogar">Integrante de hogar</option>
+                                                <option value="Madre">Madre</option>
+                                                <option value="Madre Soltera">Madre Soltera</option>
+                                                <option value="Padrastro o Madrastra">Padrastro o Madrastra</option>
+                                                <option value="Abuelo(a)">Abuelo(a)</option>
+                                                <option value="Suegro(a)">Suegro(a)</option>
+                                                <option value="Hermano(a)">Hermano(a)</option>
+                                                <option value="Hermanastro(a)">Hermanastro(a)</option>
+                                                <option value="Otro Pariente">Otro Pariente</option>
                                             </select>
                                             <div class="form-control-position">
                                                 <i style ="font-size: 14px" class="feather icon-unlock  font-medium-4"></i>
@@ -720,6 +733,8 @@
                                                 <option value="Casa">Casa</option>
                                                 <option value="Apartamento">Apartamento</option>
                                                 <option value="Improvisada">Improvisada</option>
+                                                <option value="Finca">Finca</option>
+                                                <option value="Parcela">Parcela</option>
                                                 <option value="Otro">Otro</option>
                                             </select>                                            
                                             <div class="form-control-position">
@@ -823,7 +838,7 @@
                                         <fieldset class="form-group position-relative has-icon-left">
                                             <select v-model="viviendaHogar.ingresos_mensuales_hogar" class="form-control form-control-lg mb-1" name="" id="">
                                                 <option value="">Seleccione una opción</option>
-                                                <option value="Menos de un salario mínimo ">Menos de un salario mínimo </option>
+                                                <option value="Menos de un salario mínimo">Menos de un salario mínimo </option>
                                                 <option value="Entre 1 y 2 SMLV">Entre 1 y 2 SMLV</option>
                                                 <option value="Entre 3 y 4 SMLV">Entre 3 y 4 SMLV</option>
                                                 <option value="Mas de 5 SMLV">Mas de 5 SMLV</option>
@@ -832,10 +847,121 @@
                                                 <i style="font-size: 19px" class="fas fa-dollar-sign"></i>
                                             </div>
                                         </fieldset>
+                                    </div>
+                                    <div class="col-lg-12" v-if="viviendaHogar.tipo_vivienda == 'Finca' || viviendaHogar.tipo_vivienda == 'Parcela'">
+                                        <hr>
+                                        <h2 style="color: #2f8a96"> TENENCIA DE TIERRAS</h2>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <label for=""><strong>Posesión baldía</strong></label>
+                                                    <fieldset class="form-group position-relative has-icon-left">
+                                                        <select v-model="viviendaHogar.posecion_baldia" class="form-control form-control-lg mb-1" name="" id="">
+                                                            <option value="">Seleccione una opción</option>
+                                                            <option value="Si">Si</option>
+                                                            <option value="No">No</option>
+                                                        </select>                                            
+                                                        <div class="form-control-position">
+                                                            <i style="font-size: 19px" class="fas fa-question"></i>
+                                                        </div>
+                                                    </fieldset>
+                                            </div>   
+                                            <div class="col-lg-6">
+                                                <label for=""><strong>Propiedad con título</strong></label>
+                                                    <fieldset class="form-group position-relative has-icon-left">
+                                                        <select v-model="viviendaHogar.propiedad_titulo" class="form-control form-control-lg mb-1" name="" id="">
+                                                            <option value="">Seleccione una opción</option>
+                                                            <option value="Si">Si</option>
+                                                            <option value="No">No</option>
+                                                        </select>                                            
+                                                        <div class="form-control-position">
+                                                            <i style="font-size: 19px" class="fas fa-question"></i>
+                                                        </div>
+                                                    </fieldset>
+                                            </div> 
+                                            <div class="col-lg-6">
+                                                <label for=""><strong>Área Total (Metros cuadrados)</strong></label>
+                                                    <fieldset class="form-group position-relative has-icon-left">
+                                                        <input placeholder="ejemplo: 2000" v-model="viviendaHogar.area_total" class="form-control form-control-lg mb-1" type="number">                                                                                                    
+                                                        <div class="form-control-position">
+                                                            <i style="font-size: 19px" class="far fa-square"></i>
+                                                        </div>
+                                                    </fieldset>
+                                            </div>   
+                                            <div class="col-lg-12">
+                                                <h3><strong>Actividades económicas</strong></h3>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label for="input-datalist"><strong>Linea economica</strong></label>
+                                                <fieldset class="form-group position-relative has-icon-left">
+                                                    <div class="form-group">
+                                                        <select v-model="lineaSeleccionada" @change="seleccionarLinea()" class="form-control form-control-lg mb-1" name="" id="">
+                                                            <option value="">Seleccione una opción</option>
+                                                            <option v-for="(item, index) in lineas_economicas" :key="index" :value="index+1">{{ item.texto }}</option>
+                                                        </select>  
+                                                    </div>
+                                                    <div class="form-control-position" style="top: 9px; left: 4px !important;">
+                                                        <i style ="font-size: 19px" class="fab fa-pagelines"></i>
+                                                    </div>
+                                                </fieldset>
+                                            </div> 
+                                            <div class="col-lg-4">
+                                                <label for="input-datalist"><strong>Actividad economica</strong></label>
+                                                <fieldset class="form-group position-relative has-icon-left">
+                                                    <div class="form-group">
+                                                        <select v-model="actividadSeleccionada" class="form-control form-control-lg mb-1" name="" id="">
+                                                            <option value="">Seleccione una opción</option>
+                                                            <option v-for="(item, index) in datoslineaSeleccionada" :key="index" :value="item.texto">{{ item.texto }}</option>
+                                                        </select>  
+                                                    </div>
+                                                    <div class="form-control-position" style="top: 9px; left: 4px !important;">
+                                                        <i style ="font-size: 19px" class="fas fa-tree"></i>
+                                                    </div>
+                                                </fieldset>
+                                            </div> 
+                                            <div class="col-lg-3">
+                                                <label for="input-datalist"><strong>Área destinada a la actividad (m<sup>2</sup>)</strong></label>
+                                                <fieldset class="form-group position-relative has-icon-left">
+                                                    <div class="form-group">
+                                                        <input v-model="areaDestinada" type="number" class="form-control form-control-lg mb-1">
+                                                    </div>
+                                                    <div class="form-control-position" style="top: 9px; left: 4px !important;">
+                                                        <i style ="font-size: 19px" class="fas fa-superscript"></i>
+                                                    </div>
+                                                </fieldset>
+                                            </div> 
+                                            <div class="col-lg-1" style="display: flex; justify-content: center; align-items: center">
+                                                <button class="btn btn-success" @click="agregarActividad()">
+                                                    <i class="fas fa-plus"></i>
+                                                </button>
+                                            </div> 
+                                            <div class="col-lg-12" v-if="viviendaHogar.actividades_economicas.length > 0">
+                                                <br>
+                                                <table style="width: 100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Linea</th>
+                                                            <th>Actividad</th>
+                                                            <th>Área destinada</th>
+                                                            <th>Opciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for="(item, index) in viviendaHogar.actividades_economicas" :key="index">
+                                                            <td>{{ item.linea }}</td>
+                                                            <td>{{ item.actividad }}</td>
+                                                            <td>{{ item.area_destinada }}</td>
+                                                            <td><button class="btn btn-danger" @click="eliminarActividad(index)"><i class="fas fa-trash-alt"></i></button></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>   
                                     <div class="col-lg-12 text-right" style="padding-top: 20px">
+                                        <hr>
                                         <button @click="eliminarActive('baseIcon-tab26', 'tabIcon26')" class="btn btn-danger" style="margin-right: 20px"><i style="font-size: 13px" class="fas fa-arrow-left"></i> Anterior</button>
-                                        <button @click="validarCamposViviendaHogar()" class="btn btn-success">Guardar y continuar <i style="font-size: 13px" class="fas fa-arrow-right"></i></button>
+                                        <button @click="validarCamposViviendaHogar()" class="btn btn-success">Guardar y finalizar <i style="font-size: 13px" class="fas fa-arrow-right"></i></button>
                                     </div>    
                                 </div>
                             </div>
@@ -899,6 +1025,8 @@ import Swal from 'sweetalert2';
 
 export default {
     props: ['identificacion_editar'],
+    components: {
+    },
     mounted() {
         this.misDatos();
         this.verificarLogin();
@@ -991,8 +1119,195 @@ export default {
                 otro: "No",
                 numero_personas_trabajan: "",
                 ingresos_mensuales_hogar: "",
+                posecion_baldia: "",
+                propiedad_titulo: "",
+                area_total: "",
+                actividades_economicas: []
             },
-            jefes_hogar: []
+            jefes_hogar: [],
+            lineas_economicas: [
+                { value: 1, texto: "Cultivos agrícolas" },
+                { value: 2, texto: "Pecuarias - especie animal con perspectiva comercial" },
+                { value: 3, texto: "Cultivos forestales con perspectiva comercial" }
+            ],  
+            linea1: [
+                {texto: "Maíz"},
+                {texto: "Trigo"},
+                {texto: "Arroz"},
+                {texto: "Cebada"},
+                {texto: "Centeno"},
+                {texto: "Alpiste"},
+                {texto: "Sorgo"},
+                {texto: "Mijo"},
+                {texto: "Avena"},
+                {texto: "Trigo Espelta"},
+                {texto: "Trigo kamut"},
+                {texto: "Frijoles rojo"},
+                {texto: "Frijol negro"},
+                {texto: "Frijol cabecita negra"},
+                {texto: "Frijol"},
+                {texto: "Arvejas"},
+                {texto: "Habas"},
+                {texto: "Lenteja"},
+                {texto: "Garbanzo"},
+                {texto: "Gandul"},
+                {texto: "Alfalfa"},
+                {texto: "Almorta"},
+                {texto: "Soya"},
+                {texto: "Canola"},
+                {texto: "Girasol"},
+                {texto: "Olivo"},
+                {texto: "Maíz"},
+                {texto: "Ajonjolí"},
+                {texto: "Palma de aceite"},
+                {texto: "Acelga"},
+                {texto: "Ajo"},
+                {texto: "Albahaca"},
+                {texto: "Apio"},
+                {texto: "Alcachofa"},
+                {texto: "Brócoli"},
+                {texto: "Calabacín"},
+                {texto: "Calabaza"},
+                {texto: "Cebolla"},
+                {texto: "Col"},
+                {texto: "Coliflor"},
+                {texto: "Espinacas"},
+                {texto: "Pepino"},
+                {texto: "Perejil"},
+                {texto: "Pimiento"},
+                {texto: "Puerro"},
+                {texto: "Rábano"},
+                {texto: "Remolacha"},
+                {texto: "Tomate"},
+                {texto: "Zanahoria"},
+                {texto: "Auyama"},
+                {texto: "Plátano"},
+                {texto: "Cana"},
+                {texto: "coco"},
+                {texto: "Aguacate"},
+                {texto: "Naranja"},
+                {texto: "Mango"},
+                {texto: "Limón"},
+                {texto: "Banano"},
+                {texto: "Mandarina"},
+                {texto: "Sandia"},
+                {texto: "Papaya"},
+                {texto: "Marañón"},
+                {texto: "Guanábana"},
+                {texto: "Guayaba"},
+                {texto: "Piña"},
+                {texto: "Lulo"},
+                {texto: "Maracuyá"},
+                {texto: "Granadilla"},
+                {texto: "Curuba"},
+                {texto: "Níspero"},
+                {texto: "Borojó"},
+                {texto: "Zapote"},
+                {texto: "Carambola"},
+                {texto: "Tomate de árbol"},
+                {texto: "Melón"},
+                {texto: "Nueces"},
+                {texto: "Arracacha"},
+                {texto: "Papa amarilla"},
+                {texto: "Batata"},
+                {texto: "Yuca"},
+                {texto: "Papa criolla"},
+                {texto: "Ñame"},
+                {texto: "Papa sabanera"},
+                {texto: "Papa"},
+                {texto: "Jengibre"},
+                {texto: "Malanga"},
+                {texto: "Yacón"},
+                {texto: "Ornamentales de exteriores"},
+                {texto: "Ornamentales de Interiores"},
+                {texto: "Otros floricultivos"},
+                {texto: "Rosas"},
+                {texto: "Girasoles"},
+                {texto: "Crisantemo"},
+                {texto: "Tulipan"},
+                {texto: "Clavel"},
+                {texto: "Gerbera"},
+                {texto: "Gladiolo"},
+                {texto: "Acroclinio"},
+                {texto: "Aster"},
+                {texto: "Caléndula"},
+                {texto: "Lavanda"},
+                {texto: "Aloe vera"},
+                {texto: "Romero"},
+                {texto: "Manzanilla"},
+                {texto: "Menta"},
+                {texto: "Calendula"},
+                {texto: "Diente de leon"},
+                {texto: "Albahaca"},
+                {texto: "Algarrobo"},
+                {texto: "Boldo"},
+                {texto: "Acacia"},
+                {texto: "Toronjil"},
+                {texto: "Paja limón"},
+                {texto: "Cidrón"},
+                {texto: "Achiote"},
+                {texto: "Arnica"},
+                {texto: "Canela"},
+                {texto: "Tomillo"},
+                {texto: "Caña de azucar"},
+                {texto: "Tabaco"},
+                {texto: "Pasto"},
+                {texto: "Café"},
+                {texto: "Cacao"},
+                {texto: "Otro"}
+            ],
+            linea2: [
+                { texto: "Ganado vacuno o bovino" },
+                { texto: "Ganado ovino" },
+                { texto: "Ganado porcino" },
+                { texto: "Ganado caprino" },
+                { texto: "Ganado equino" },
+                { texto: "Avicultura" },
+                { texto: "Apicultura" },
+                { texto: "Acuicultura" },
+                { texto: "Helicicultura" },
+                { texto: "Cunicultura" },
+                { texto: "Sericicultura" },
+                { texto: "Otros" }
+            ],
+            linea3: [
+                {texto: "Chiche"},
+                {texto: "Palo Maria"},
+                {texto: "Guayabo Volador"},
+                {texto: "Roble"},
+                {texto: "Caoba"},
+                {texto: "Pino"},
+                {texto: "Cedro"},
+                {texto: "Árbol de Caucho"},
+                {texto: "Álamo"},
+                {texto: "Primavera"},
+                {texto: "Hormiguillo colorado"},
+                {texto: "Palo mulato"},
+                {texto: "Bambú"},
+                {texto: "Eucalipto"},
+                {texto: "Canela"},
+                {texto: "Neem"},
+                {texto: "Ciprés"},
+                {texto: "Paulownia"},
+                {texto: "Ceiba"},
+                {texto: "Guariuba"},
+                {texto: "Figueira"},
+                {texto: "Pashaco"},
+                {texto: "Chicalá"},
+                {texto: "Nogal"},
+                {texto: "Abarco"},
+                {texto: "Palo rosa"},
+                {texto: "Campanos"},
+                {texto: "Melina"},
+                {texto: "Igua"},
+                {texto: "Caracolí"},
+                {texto: "Chanul"},
+                {texto: "Dinde"}
+            ],
+            lineaSeleccionada: "",
+            actividadSeleccionada: "",
+            areaDestinada: "",
+            datoslineaSeleccionada: []
         }
     },
     methods: {
@@ -1046,7 +1361,7 @@ export default {
                     this.salud = data.salud;
                 }
                 
-                if(data.culturaTradiciones != null){
+                if(data.cultura_tradiciones != null){
                     this.culturaTradiciones = data.cultura_tradiciones;
                 }
 
@@ -1520,8 +1835,13 @@ export default {
             try {
                 await caracterizacionService.guardarCulturaTradiciones(this.culturaTradiciones).then(respuesta => {
                     this.loading = false;
-                    toastr.success("Datos guardados correctamente");
-                    this.eliminarActive("baseIcon-tab27", "tabIcon27");
+                    if(this.informacion_personal.rol == "Jefe de hogar"){
+                        toastr.success("Datos guardados correctamente");
+                        this.eliminarActive("baseIcon-tab27", "tabIcon27");
+                    }else{
+                        toastr.success("Datos guardados correctamente");
+                        this.eliminarActive("baseIcon-tab28", "tabIcon28");
+                    }
                 });
             } catch (error) {
                 console.log(error);
@@ -1556,6 +1876,20 @@ export default {
                 }
             }
             
+            if(this.viviendaHogar.tipo_vivienda == 'Finca' || this.viviendaHogar.tipo_vivienda == 'Parcela'){
+                if (!this.viviendaHogar.posecion_baldia) {
+                    this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">   Posesión baldía  </strong> no puede estar vacío <br>`;
+                }
+
+                if (!this.viviendaHogar.propiedad_titulo) {
+                    this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">   Propiedad con título  </strong> no puede estar vacío <br>`;
+                }
+
+                if (!this.viviendaHogar.area_total) {
+                    this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">   Área Total  </strong> no puede estar vacío <br>`;
+                }
+            }
+
             if (this.errores.length === 0) {
                 this.viviendaHogar.identificacion_jefe = this.informacion_personal.numero_identificacion;
                 this.guardarViviendaHogar();
@@ -1580,6 +1914,46 @@ export default {
                 console.log(error);
             }
         },
+        seleccionarLinea(){
+            switch (this.lineaSeleccionada) {
+                case 1:
+                    this.datoslineaSeleccionada = this.linea1
+                    break;
+                case 2:
+                    this.datoslineaSeleccionada = this.linea2
+                    break;
+                case 3:
+                    this.datoslineaSeleccionada = this.linea3
+                    break;
+            }
+        },
+        agregarActividad(){
+            var object = {
+                linea: this.lineas_economicas[this.lineaSeleccionada-1].texto,
+                actividad: this.actividadSeleccionada,
+                area_destinada: parseFloat(this.areaDestinada)
+            }
+
+            this.viviendaHogar.actividades_economicas.push(object);
+
+            this.lineaSeleccionada = "";
+            this.actividadSeleccionada = "";
+            this.areaDestinada = "";
+        },
+        eliminarActividad(index){
+            Swal.fire({
+                title: "¿Desea eliminar esta actividad?",
+                showCancelButton: true,
+                confirmButtonText: "Si",
+                cancelButtonText: "No",
+                cancelButtonColor: "#D70040"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.viviendaHogar.actividades_economicas.splice(index, 1);
+                } 
+            });
+           
+        }
     },
 }
 </script>

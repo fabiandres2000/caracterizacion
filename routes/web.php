@@ -30,6 +30,7 @@ Route::prefix('api')->group(function () {
     Route::post('/registrar-usuario', [UsuarioController::class, 'registrarUsuario'])->name('registrarUsuario');
     Route::post('/editar-usuario-admin', [UsuarioController::class, 'editarUsuarioAdmin'])->name('editarUsuarioAdmin');
     Route::get('/cambiar-estado-usuario', [UsuarioController::class, 'cambiarEstadoUsuario'])->name('cambiarEstadoUsuario');
+    Route::get('/cerrar-sesion', [UsuarioController::class, 'cerrarSesion'])->name('cerrarSesion');
 
     Route::get('/caracterizados', [CaracterizacionController::class, 'listarCaracterizados'])->name('listarCaracterizados');
     Route::get('/datos-individuo', [CaracterizacionController::class, 'consultarDatosIndividuo'])->name('consultarDatosIndividuo');
@@ -47,7 +48,6 @@ Route::prefix('api')->group(function () {
     Route::get('/municipios', [CaracterizacionController::class, 'consultarMunicipios'])->name('consultarMunicipios');
     Route::get('/escolaridad', [CaracterizacionController::class, 'consultarEscolaridad'])->name('consultarEscolaridad');
     Route::get('/ocupaciones', [CaracterizacionController::class, 'consultarOcupaciones'])->name('consultarOcupaciones');
-
 });
 
 Route::get('/', function () {
