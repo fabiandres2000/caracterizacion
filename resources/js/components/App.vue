@@ -75,6 +75,14 @@
                                 </a>
                             </router-link>
                         </li>
+                        <li v-if="datos.rol == 'administrador'" :class="tipo_ruta == '/corregimientos' ? 'nav-item open' : 'nav-item'">
+                            <router-link to="/corregimientos">
+                                <a href="#">
+                                    <i class="fas fa-globe-americas"></i>
+                                    <span class="menu-title" data-i18n="Email Application">Gestión corregimientos</span>
+                                </a>
+                            </router-link>
+                        </li>
                     </ul>
                 </div>
             </div>

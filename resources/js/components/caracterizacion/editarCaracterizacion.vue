@@ -89,6 +89,46 @@
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <label for=""><strong>Departamento</strong></label>
+                                                <fieldset class="form-group position-relative has-icon-left">
+                                                    <select @change="consultarMunicipiosIP()" v-model="informacion_personal.departamento" class="form-control form-control-lg mb-1" name="" id="">
+                                                        <option value="">Seleccione una opción</option>
+                                                        <option v-for="(item, index) in departamentos" :key="index" :value="item.codigo">{{ item.descripcion }}</option>
+                                                    </select>                                            
+                                                    <div class="form-control-position">
+                                                        <i style="font-size: 19px" class="fas fa-map-marked-alt"></i>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label for=""><strong>Municipio</strong></label>
+                                                <fieldset class="form-group position-relative has-icon-left">
+                                                    <select @change="listarCorregimientosPorMuni()" v-model="informacion_personal.municipio" class="form-control form-control-lg mb-1" name="" id="">
+                                                        <option value="">Seleccione una opción</option>
+                                                        <option v-for="(item, index) in municipiosIP" :key="index" :value="item.id">{{ item.descripcion }}</option>
+                                                    </select>                                            
+                                                    <div class="form-control-position">
+                                                        <i style="font-size: 19px" class="fas fa-city"></i>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label for=""><strong>Corregimiento</strong></label>
+                                                <fieldset class="form-group position-relative has-icon-left">
+                                                    <select v-model="informacion_personal.corregimiento" class="form-control form-control-lg mb-1" name="" id="">
+                                                        <option value="">Seleccione una opción</option>
+                                                        <option v-for="(item, index) in corregimientos" :key="index" :value="item.id">{{ item.nombre }}</option>
+                                                    </select>                                            
+                                                    <div class="form-control-position">
+                                                        <i style="font-size: 19px" class="fas fa-city"></i>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
                                         <label for=""><strong>Dirección</strong></label>
                                         <fieldset class="form-group position-relative has-icon-left">
                                             <input v-model="informacion_personal.direccion" type="text" class="form-control form-control-lg mb-1"  placeholder="Dirección">
@@ -220,7 +260,7 @@
                                                 <option value="Soltero">Soltero</option>
                                                 <option value="Casado">Casado</option>
                                                 <option value="Divorciado">Divorciado</option>
-                                                <option value=">Viudo(a)">Viudo(a)</option>
+                                                <option value="Viudo(a)">Viudo(a)</option>
                                                 <option value="Unión Libre">Unión Libre</option>
                                                 <option value="Otro">Otro</option>
                                             </select>                                            
@@ -352,7 +392,7 @@
                                         <fieldset class="form-group position-relative has-icon-left">
                                             <select v-model="origen_identidad.municipio" class="form-control form-control-lg mb-1" name="" id="">
                                                 <option value="">Seleccione una opción</option>
-                                                <option v-for="(item, index) in municipios" :key="index" :value="item.codmun">{{ item.descripcion }}</option>
+                                                <option v-for="(item, index) in municipios" :key="index" :value="item.id">{{ item.descripcion }}</option>
                                             </select>                                            
                                             <div class="form-control-position">
                                                 <i style="font-size: 19px" class="fas fa-city"></i>
@@ -1021,6 +1061,8 @@
 <script>
 import * as usuarioService from "../../services/usuario_service.js";
 import * as caracterizacionService from "../../services/caracterizacion_service";
+import * as corregimientosService from "../../services/corregimientos";
+
 import Swal from 'sweetalert2';
 
 export default {
@@ -1059,7 +1101,10 @@ export default {
                 adicciones: "",
                 cual_adicciones: "",
                 tiempo_municipo: "",
-                desplazado: ""
+                desplazado: "",
+                departamento: "",
+                municipio: "",
+                corregimiento: ""
             },
             errores: "",
             loading: false,
@@ -1307,33 +1352,40 @@ export default {
             lineaSeleccionada: "",
             actividadSeleccionada: "",
             areaDestinada: "",
-            datoslineaSeleccionada: []
+            datoslineaSeleccionada: [],
+            corregimientos: [],
+            municipiosIP: []
         }
     },
     methods: {
         async consultarDatosIndividuo(){
             await caracterizacionService.consultarDatosIndividuo(this.identificacion_editar).then(async respuesta => {
-               var data = respuesta.data;
-               this.informacion_personal.rol = data.informacion_personal.rol;
-               this.informacion_personal.id_jefe = data.informacion_personal.id_jefe;
-               this.informacion_personal.direccion = data.informacion_personal.direccion;
-               this.informacion_personal.nombre_completo = data.informacion_personal.nombre_completo;
-               this.informacion_personal.fecha_nacimiento = data.informacion_personal.fecha_nacimiento;
-               this.informacion_personal.tipo_identificacion = data.informacion_personal.tipo_identificacion;
-               this.informacion_personal.numero_identificacion = data.informacion_personal.identificacion;
-               this.informacion_personal.direccion_residencia = data.informacion_personal.direccion_residencia;
-               this.informacion_personal.sexo = data.informacion_personal.sexo;
-               this.informacion_personal.identidad_genero = data.informacion_personal.identidad_genero;
-               this.informacion_personal.orientacion_sexual = data.informacion_personal.orientacion_sexual;
-               this.informacion_personal.estado_civil = data.informacion_personal.estado_civil;
-               this.informacion_personal.creencia_religiosa = data.informacion_personal.creencia_religiosa;
-               this.informacion_personal.adicciones = data.informacion_personal.adicciones;
-               this.informacion_personal.tiempo_municipo = data.informacion_personal.tiempo_municipio;
-               this.informacion_personal.desplazado = data.informacion_personal.desplazado;
-               this.informacion_personal.cual_adicciones = data.informacion_personal.cual_adicciones;
-               this.informacion_personal.cual_creencia_religiosa = data.informacion_personal.cual_creencia_religiosa;
-               this.informacion_personal.cual_estado_civil = data.informacion_personal.cual_estado_civil;
-               this.informacion_personal.cual_sexo = data.informacion_personal.cual_sexo;
+                var data = respuesta.data;
+                this.informacion_personal.rol = data.informacion_personal.rol;
+                this.informacion_personal.id_jefe = data.informacion_personal.id_jefe;
+                this.informacion_personal.direccion = data.informacion_personal.direccion;
+                this.informacion_personal.nombre_completo = data.informacion_personal.nombre_completo;
+                this.informacion_personal.fecha_nacimiento = data.informacion_personal.fecha_nacimiento;
+                this.informacion_personal.tipo_identificacion = data.informacion_personal.tipo_identificacion;
+                this.informacion_personal.numero_identificacion = data.informacion_personal.identificacion;
+                this.informacion_personal.direccion_residencia = data.informacion_personal.direccion_residencia;
+                this.informacion_personal.sexo = data.informacion_personal.sexo;
+                this.informacion_personal.identidad_genero = data.informacion_personal.identidad_genero;
+                this.informacion_personal.orientacion_sexual = data.informacion_personal.orientacion_sexual;
+                this.informacion_personal.estado_civil = data.informacion_personal.estado_civil;
+                this.informacion_personal.creencia_religiosa = data.informacion_personal.creencia_religiosa;
+                this.informacion_personal.adicciones = data.informacion_personal.adicciones;
+                this.informacion_personal.tiempo_municipo = data.informacion_personal.tiempo_municipio;
+                this.informacion_personal.desplazado = data.informacion_personal.desplazado;
+                this.informacion_personal.cual_adicciones = data.informacion_personal.cual_adicciones;
+                this.informacion_personal.cual_creencia_religiosa = data.informacion_personal.cual_creencia_religiosa;
+                this.informacion_personal.cual_estado_civil = data.informacion_personal.cual_estado_civil;
+                this.informacion_personal.cual_sexo = data.informacion_personal.cual_sexo;
+                this.informacion_personal.departamento = data.informacion_personal.departamento;
+                await this.consultarMunicipiosIP(this.informacion_personal.departamento);
+                this.informacion_personal.municipio = data.informacion_personal.municipio;
+                await this.listarCorregimientosPorMuni(this.informacion_personal.municipio);
+                this.informacion_personal.corregimiento = data.informacion_personal.corregimiento;
 
                 if(this.informacion_personal.rol != "Jefe de hogar"){
                     var item_jefe = this.jefes_hogar.filter(item => item.identificacion == this.informacion_personal.id_jefe)[0];
@@ -1607,6 +1659,17 @@ export default {
             this.origen_identidad.municipio = "";
             await caracterizacionService.municipios(this.origen_identidad.departamento).then(respuesta => {
                 this.municipios = respuesta.data;
+            });
+        },
+        async consultarMunicipiosIP(){
+            this.informacion_personal.municipio = "";
+            await caracterizacionService.municipios(this.informacion_personal.departamento).then(respuesta => {
+                this.municipiosIP = respuesta.data;
+            });
+        },
+        async listarCorregimientosPorMuni(){
+            await corregimientosService.listarCorregimientosPorMuni( this.informacion_personal.municipio).then(respuesta => {
+                this.corregimientos = respuesta.data;
             });
         },
         validarCamposOrigenIdentidad(){

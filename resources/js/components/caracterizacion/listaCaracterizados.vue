@@ -9,6 +9,7 @@
                 <div class="card-content">
                     <div class="card-body">
                         <router-link to="/caracterizacion"><button class="btn btn-info"><i class="fas fa-user-check"></i> Nueva Caracterización </button></router-link>
+                        <router-link style="margin-left: 20px" to="/consolidado"><button class="btn btn-warning"><i class="fas fa-file-excel"></i> Consolidado </button></router-link>
                         <div style="margin-top: 40px">
                             <table id="tablaCaracterizados" style="width: 100%" v-if="loading == false">
                                 <thead>

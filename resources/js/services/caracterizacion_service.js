@@ -111,3 +111,12 @@ export function consultarCaracterizados() {
 export function consultarDatosIndividuo(id) {
     return http().get('/api/datos-individuo?identificacion='+id);
 }
+
+
+export function consolidado(id) {
+    return http().get('/api/consolidado?corregimiento='+id);
+}
+
+export function municipiosConsolidado() {
+    return http().get('/api/municipios-consolidado');
+}

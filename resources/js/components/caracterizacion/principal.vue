@@ -89,6 +89,46 @@
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <label for=""><strong>Departamento</strong></label>
+                                                <fieldset class="form-group position-relative has-icon-left">
+                                                    <select @change="consultarMunicipiosIP()" v-model="informacion_personal.departamento" class="form-control form-control-lg mb-1" name="" id="">
+                                                        <option value="">Seleccione una opción</option>
+                                                        <option v-for="(item, index) in departamentos" :key="index" :value="item.codigo">{{ item.descripcion }}</option>
+                                                    </select>                                            
+                                                    <div class="form-control-position">
+                                                        <i style="font-size: 19px" class="fas fa-map-marked-alt"></i>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label for=""><strong>Municipio</strong></label>
+                                                <fieldset class="form-group position-relative has-icon-left">
+                                                    <select @change="listarCorregimientosPorMuni()" v-model="informacion_personal.municipio" class="form-control form-control-lg mb-1" name="" id="">
+                                                        <option value="">Seleccione una opción</option>
+                                                        <option v-for="(item, index) in municipiosIP" :key="index" :value="item.id">{{ item.descripcion }}</option>
+                                                    </select>                                            
+                                                    <div class="form-control-position">
+                                                        <i style="font-size: 19px" class="fas fa-city"></i>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label for=""><strong>Corregimiento</strong></label>
+                                                <fieldset class="form-group position-relative has-icon-left">
+                                                    <select v-model="informacion_personal.corregimiento" class="form-control form-control-lg mb-1" name="" id="">
+                                                        <option value="">Seleccione una opción</option>
+                                                        <option v-for="(item, index) in corregimientos" :key="index" :value="item.id">{{ item.nombre }}</option>
+                                                    </select>                                            
+                                                    <div class="form-control-position">
+                                                        <i style="font-size: 19px" class="fas fa-city"></i>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
                                         <label for=""><strong>Dirección</strong></label>
                                         <fieldset class="form-group position-relative has-icon-left">
                                             <input v-model="informacion_personal.direccion" type="text" class="form-control form-control-lg mb-1"  placeholder="Dirección">
@@ -220,7 +260,7 @@
                                                 <option value="Soltero">Soltero</option>
                                                 <option value="Casado">Casado</option>
                                                 <option value="Divorciado">Divorciado</option>
-                                                <option value=">Viudo(a)">Viudo(a)</option>
+                                                <option value="Viudo(a)">Viudo(a)</option>
                                                 <option value="Unión Libre">Unión Libre</option>
                                                 <option value="Otro">Otro</option>
                                             </select>                                            
@@ -352,7 +392,7 @@
                                         <fieldset class="form-group position-relative has-icon-left">
                                             <select v-model="origen_identidad.municipio" class="form-control form-control-lg mb-1" name="" id="">
                                                 <option value="">Seleccione una opción</option>
-                                                <option v-for="(item, index) in municipios" :key="index" :value="item.codmun">{{ item.descripcion }}</option>
+                                                <option v-for="(item, index) in municipios" :key="index" :value="item.id">{{ item.descripcion }}</option>
                                             </select>                                            
                                             <div class="form-control-position">
                                                 <i style="font-size: 19px" class="fas fa-city"></i>
@@ -1021,6 +1061,8 @@
 <script>
 import * as usuarioService from "../../services/usuario_service.js";
 import * as caracterizacionService from "../../services/caracterizacion_service";
+import * as corregimientosService from "../../services/corregimientos";
+
 import Swal from 'sweetalert2';
 
 export default {
@@ -1057,7 +1099,10 @@ export default {
                 adicciones: "",
                 cual_adicciones: "",
                 tiempo_municipo: "",
-                desplazado: ""
+                desplazado: "",
+                departamento: "",
+                municipio: "",
+                corregimiento: ""
             },
             errores: "",
             loading: false,
@@ -1305,7 +1350,9 @@ export default {
             lineaSeleccionada: "",
             actividadSeleccionada: "",
             areaDestinada: "",
-            datoslineaSeleccionada: []
+            datoslineaSeleccionada: [],
+            corregimientos: [],
+            municipiosIP: []
         }
     },
     methods: {
@@ -1534,6 +1581,17 @@ export default {
             this.origen_identidad.municipio = "";
             await caracterizacionService.municipios(this.origen_identidad.departamento).then(respuesta => {
                 this.municipios = respuesta.data;
+            });
+        },
+        async consultarMunicipiosIP(){
+            this.informacion_personal.municipio = "";
+            await caracterizacionService.municipios(this.informacion_personal.departamento).then(respuesta => {
+                this.municipiosIP = respuesta.data;
+            });
+        },
+        async listarCorregimientosPorMuni(){
+            await corregimientosService.listarCorregimientosPorMuni( this.informacion_personal.municipio).then(respuesta => {
+                this.corregimientos = respuesta.data;
             });
         },
         validarCamposOrigenIdentidad(){

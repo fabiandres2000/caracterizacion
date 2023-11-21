@@ -5,6 +5,9 @@ import listaCaracterizados from './components/caracterizacion/listaCaracterizado
 import dashboard from './components/admin/dashboard';
 import miPerfil from './components/miPerfil';
 import usuarios from './components/usuarios/usuarios';
+import consolidado from './components/caracterizacion/consolidado';
+import corregimientos from './components/admin/corregimientos';
+
 
 
 const routes = [
@@ -42,6 +45,16 @@ const routes = [
     path: '/usuarios',
     name: 'usuarios',
     component: usuarios
+  },
+  {
+    path: '/consolidado',
+    name: 'consolidado',
+    component: consolidado
+  },
+  {
+    path: '/corregimientos',
+    name: 'corregimientos',
+    component: corregimientos
   },
 ]
 

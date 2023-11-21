@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\CaracterizacionController;
+use App\Http\Controllers\CorregimeintoController;
 
 use Illuminate\Http\Request;
 
@@ -48,6 +49,14 @@ Route::prefix('api')->group(function () {
     Route::get('/municipios', [CaracterizacionController::class, 'consultarMunicipios'])->name('consultarMunicipios');
     Route::get('/escolaridad', [CaracterizacionController::class, 'consultarEscolaridad'])->name('consultarEscolaridad');
     Route::get('/ocupaciones', [CaracterizacionController::class, 'consultarOcupaciones'])->name('consultarOcupaciones');
+    Route::get('/consolidado', [CaracterizacionController::class, 'consolidadoCensados'])->name('consolidadoCensados');
+    Route::get('/municipios-consolidado', [CaracterizacionController::class, 'municipiosConsolidado'])->name('municipiosConsolidado');
+
+
+    Route::get('/lista-corregimientos', [CorregimeintoController::class, 'listarCorregimientos'])->name('listarCorregimientos');
+    Route::post('/guardar-corregimiento', [CorregimeintoController::class, 'guardarCorregimiento'])->name('guardarCorregimiento');
+    Route::get('/lista-corregimientos-id', [CorregimeintoController::class, 'listarCorregimientosMunicipio'])->name('listarCorregimientosMunicipio');
+
 });
 
 Route::get('/', function () {

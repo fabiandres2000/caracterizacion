@@ -95,6 +95,9 @@ class CaracterizacionController extends Controller
             'anio_caracterizacion' => $anio_caracterizacion,
             'fecha_caracterizacion' => $fecha_caracterizacion,
             'hora_caracterizacion' => $hora_caracterizacion,
+            'departamento' => $request->input('departamento'),
+            'municipio' => $request->input('municipio'),
+            'corregimiento' => $request->input('corregimiento'),
         ];
 
         $insertado = DB::connection('mysql')->table('informacion_personal')->updateOrInsert(
@@ -383,5 +386,107 @@ class CaracterizacionController extends Controller
         $datos['vivienda_hogar'] = $vivienda_hogar;
 
         return response()->json($datos);
+    }
+
+
+    public function consolidadoCensados(Request $request){
+
+        $individuos = [];
+        $corregimiento = $request->input('corregimiento');
+        if($corregimiento == "todo"){
+            $jefes = DB::connection('mysql')->table('informacion_personal')
+            ->join("educacion", "informacion_personal.identificacion", "educacion.identificacion_individuo")
+            ->join("situacion_laboral", "informacion_personal.identificacion", "situacion_laboral.identificacion_individuo")
+            ->join("vivienda_hogar", "informacion_personal.identificacion", "vivienda_hogar.identificacion_jefe")
+            ->where("rol", "Jefe de hogar")
+            ->get();
+    
+            $integrantes = DB::connection('mysql')->table('informacion_personal')
+            ->join("educacion", "informacion_personal.identificacion", "educacion.identificacion_individuo")
+            ->join("situacion_laboral", "informacion_personal.identificacion", "situacion_laboral.identificacion_individuo")
+            ->where("rol", "<>", "Jefe de hogar")
+            ->get();
+        }else{
+            $jefes = DB::connection('mysql')->table('informacion_personal')
+            ->join("educacion", "informacion_personal.identificacion", "educacion.identificacion_individuo")
+            ->join("situacion_laboral", "informacion_personal.identificacion", "situacion_laboral.identificacion_individuo")
+            ->join("vivienda_hogar", "informacion_personal.identificacion", "vivienda_hogar.identificacion_jefe")
+            ->where("rol", "Jefe de hogar")
+            ->where("informacion_personal.corregimiento", $corregimiento)
+            ->get();
+    
+            $integrantes = DB::connection('mysql')->table('informacion_personal')
+            ->join("educacion", "informacion_personal.identificacion", "educacion.identificacion_individuo")
+            ->join("situacion_laboral", "informacion_personal.identificacion", "situacion_laboral.identificacion_individuo")
+            ->where("rol", "<>", "Jefe de hogar")
+            ->where("informacion_personal.corregimiento", $corregimiento)
+            ->get();
+        }
+
+        
+
+        $numero_familia = 1;
+        foreach ($jefes as $jefe) {
+            
+            $rowspan = 1;
+            $numero_orden = 1;
+
+            foreach ($integrantes as $key => $integrante) {
+                if ($integrante->id_jefe == $jefe->identificacion) {
+                    $rowspan++;
+                }
+            }
+
+            $jefe->numero_familia = $numero_familia;
+            $jefe->rowspan = $rowspan;
+            $jefe->numero_orden = $numero_orden;
+            $individuos[] = $jefe;
+
+            $numero_orden++;
+
+            if($jefe->tipo_vivienda == "Finca" || $jefe->tipo_vivienda == "Parcela"){
+                $jefe->area_destinada_ocupada =  DB::connection('mysql')->table('actividades_vivienda_hogar')
+                ->where("identificacion_jefe", $jefe->identificacion)
+                ->sum("area_destinada");
+
+                $jefe->escolaridad = DB::connection('mysql')->table('escolaridad')
+                ->where("id", $jefe->nivel_educativo)
+                ->first()->descripcion;
+            }
+
+
+            foreach ($integrantes as $key => $integrante) {
+                if ($integrante->id_jefe == $jefe->identificacion) {
+                    $integrante->escolaridad = DB::connection('mysql')->table('escolaridad')
+                    ->where("id", $integrante->nivel_educativo)
+                    ->first()->descripcion;
+                    $integrante->numero_familia = $numero_familia;
+                    $integrante->numero_orden = $numero_orden;
+                    $numero_orden++;
+                    $individuos[] = $integrante;
+                    unset($integrantes[$key]);
+                    $rowspan++;
+                }
+            }
+
+            $numero_familia += 1;
+        }
+
+        return response()->json($individuos);
+    }
+
+
+    public function municipiosConsolidado(){
+        $municipios = [];
+
+        $municipios = DB::connection('mysql')->table('informacion_personal')
+        ->join("dptos", "informacion_personal.departamento", "dptos.codigo")
+        ->join("muni", "informacion_personal.municipio", "muni.id")
+        ->join("corregimientos", "informacion_personal.corregimiento", "corregimientos.id")
+        ->select(DB::raw("count(*) as cantidad"), "corregimientos.nombre", "dptos.descripcion as departamento", "muni.descripcion as municipio", "corregimientos.id as id_corregimiento")
+        ->groupBy("corregimientos.nombre", "departamento", "municipio", "id_corregimiento")
+        ->get();
+
+        return response()->json($municipios);
     }
 }
