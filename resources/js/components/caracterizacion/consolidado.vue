@@ -290,12 +290,12 @@
                                                 <td style="text-align: center; background-color: #8cee8c; font-weight: bold;" colspan="4">Tenencia de Tierras</td>
                                             </tr>
                                             <tr>
-                                                <td style="text-align: center; background-color: #43d7f0; font-weight: bold;"># Familia</td>
+                                                <td  class="vertical-text" style="text-align: center; background-color: #43d7f0; font-weight: bold;">N° Familia</td>
                                                 <td style="text-align: center; background-color: #43d7f0; font-weight: bold;">Nombre</td>
                                                 <td style="text-align: center; background-color: #43d7f0; font-weight: bold;">Tipo</td>
-                                                <td class="vertical-text" style="text-align: center; background-color: #43d7f0; font-weight: bold;"># Identificación</td>
+                                                <td class="vertical-text" style="text-align: center; background-color: #43d7f0; font-weight: bold;">N° Identificación</td>
                                                 <td class="vertical-text" style="text-align: center; background-color: #cdf043; font-weight: bold;">Sexo</td>
-                                                <td class="vertical-text" style="text-align: center; background-color: #cdf043; font-weight: bold;">Edad</td>
+                                                <td class="vertical-text" style="text-align: center; background-color: #cdf043; font-weight: bold;">Edad (Años)</td>
                                                 <td class="vertical-text" style="text-align: center; background-color: #cdf043; font-weight: bold;">Estado Civil</td>
                                                 <td class="vertical-text" style="text-align: center; background-color: #cdf043; font-weight: bold;">Parentesco</td>
                                                 <td class="vertical-text" style="text-align: center; background-color: #cdf043; font-weight: bold;">Ocupación</td>
@@ -315,7 +315,7 @@
                                                 <td>{{ item.tipo_identificacion }}</td>
                                                 <td>{{ item.identificacion }}</td>
                                                 <td>{{ item.sexo == "Masculino" ? "M" : "F" }}</td>
-                                                <td></td>
+                                                <td>{{ item.edad }}</td>
                                                 <td>{{ item.estado_civil }}</td>
                                                 <td>{{ item.rol }}</td>
                                                 <td>{{ item.ocupacion }}</td>

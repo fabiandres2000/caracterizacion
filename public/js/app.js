@@ -21867,12 +21867,13 @@ var _hoisted_101 = /*#__PURE__*/_withScopeId(function () {
     },
     colspan: "4"
   }, "Tenencia de Tierras")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
+    "class": "vertical-text",
     style: {
       "text-align": "center",
       "background-color": "#43d7f0",
       "font-weight": "bold"
     }
-  }, "# Familia"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
+  }, "N° Familia"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
     style: {
       "text-align": "center",
       "background-color": "#43d7f0",
@@ -21891,7 +21892,7 @@ var _hoisted_101 = /*#__PURE__*/_withScopeId(function () {
       "background-color": "#43d7f0",
       "font-weight": "bold"
     }
-  }, "# Identificación"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
+  }, "N° Identificación"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
     "class": "vertical-text",
     style: {
       "text-align": "center",
@@ -21905,7 +21906,7 @@ var _hoisted_101 = /*#__PURE__*/_withScopeId(function () {
       "background-color": "#cdf043",
       "font-weight": "bold"
     }
-  }, "Edad"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
+  }, "Edad (Años)"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
     "class": "vertical-text",
     style: {
       "text-align": "center",
@@ -21982,19 +21983,21 @@ var _hoisted_102 = {
     "text-align": "center"
   }
 };
-var _hoisted_103 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, null, -1 /* HOISTED */);
-});
-var _hoisted_104 = {
+var _hoisted_103 = {
   style: {
     "text-align": "center"
   }
+};
+var _hoisted_104 = {
+  "class": "vertical-text"
 };
 var _hoisted_105 = {
   "class": "vertical-text"
 };
 var _hoisted_106 = {
-  "class": "vertical-text"
+  style: {
+    "text-align": "center"
+  }
 };
 var _hoisted_107 = {
   style: {
@@ -22011,24 +22014,19 @@ var _hoisted_109 = {
     "text-align": "center"
   }
 };
-var _hoisted_110 = {
-  style: {
-    "text-align": "center"
-  }
-};
-var _hoisted_111 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_110 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
     "class": "px-1"
   }, null, -1 /* HOISTED */);
 });
-var _hoisted_112 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_111 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
 });
-var _hoisted_113 = {
+var _hoisted_112 = {
   key: 0,
   "class": "row pagination"
 };
-var _hoisted_114 = {
+var _hoisted_113 = {
   "class": "col-lg-12",
   style: {
     "display": "flex",
@@ -22036,32 +22034,32 @@ var _hoisted_114 = {
     "align-items": "center"
   }
 };
-var _hoisted_115 = {
+var _hoisted_114 = {
   "class": "pagination pagination_style"
 };
-var _hoisted_116 = {
+var _hoisted_115 = {
   "class": "page-item"
 };
-var _hoisted_117 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_116 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
     "class": "fa fa-chevron-left"
   }, null, -1 /* HOISTED */);
 });
-var _hoisted_118 = {
+var _hoisted_117 = {
   key: 0,
   "class": "page-item"
 };
-var _hoisted_119 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_118 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     "aria-hidden": "true"
   }, "1", -1 /* HOISTED */);
 });
-var _hoisted_120 = [_hoisted_119];
-var _hoisted_121 = {
+var _hoisted_119 = [_hoisted_118];
+var _hoisted_120 = {
   key: 1,
   "class": "page-item disabled"
 };
-var _hoisted_122 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_121 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "page-link",
     disabled: "",
@@ -22070,16 +22068,16 @@ var _hoisted_122 = /*#__PURE__*/_withScopeId(function () {
     "aria-hidden": "true"
   }, "...")], -1 /* HOISTED */);
 });
-var _hoisted_123 = [_hoisted_122];
-var _hoisted_124 = ["onClick"];
-var _hoisted_125 = {
+var _hoisted_122 = [_hoisted_121];
+var _hoisted_123 = ["onClick"];
+var _hoisted_124 = {
   "aria-hidden": "true"
 };
-var _hoisted_126 = {
+var _hoisted_125 = {
   key: 2,
   "class": "page-item disabled"
 };
-var _hoisted_127 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_126 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "page-link",
     disabled: "",
@@ -22088,18 +22086,18 @@ var _hoisted_127 = /*#__PURE__*/_withScopeId(function () {
     "aria-hidden": "true"
   }, "...")], -1 /* HOISTED */);
 });
-var _hoisted_128 = [_hoisted_127];
-var _hoisted_129 = {
+var _hoisted_127 = [_hoisted_126];
+var _hoisted_128 = {
   key: 3,
   "class": "page-item"
 };
-var _hoisted_130 = {
+var _hoisted_129 = {
   "aria-hidden": "true"
 };
-var _hoisted_131 = {
+var _hoisted_130 = {
   "class": "page-item"
 };
-var _hoisted_132 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_131 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
     "class": "fa fa-chevron-right"
   }, null, -1 /* HOISTED */);
@@ -22260,20 +22258,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "background-color": "#f5f2ee"
       },
       key: index
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_102, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.numero_familia), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.nombre_completo), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.tipo_identificacion), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.identificacion), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.sexo == "Masculino" ? "M" : "F"), 1 /* TEXT */), _hoisted_103, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.estado_civil), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.rol), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.ocupacion), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_104, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.escolaridad), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_105, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.rol == "Jefe de hogar" ? item.vivienda_hogar.tipo_vivienda : ""), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_106, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.rol == "Jefe de hogar" ? item.vivienda_hogar.tenencia : ""), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_107, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.rol == "Jefe de hogar" && (item.vivienda_hogar.tipo_vivienda == 'Finca' || item.vivienda_hogar.tipo_vivienda == 'Parcela') ? item.vivienda_hogar.posecion_baldia : "N.A"), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_108, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.rol == "Jefe de hogar" && (item.vivienda_hogar.tipo_vivienda == 'Finca' || item.vivienda_hogar.tipo_vivienda == 'Parcela') ? item.vivienda_hogar.area_total / 10000 : "N.A"), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_109, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.rol == "Jefe de hogar" && (item.vivienda_hogar.tipo_vivienda == 'Finca' || item.vivienda_hogar.tipo_vivienda == 'Parcela') ? item.vivienda_hogar.area_total : "N.A"), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_110, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.rol == "Jefe de hogar" && (item.vivienda_hogar.tipo_vivienda == 'Finca' || item.vivienda_hogar.tipo_vivienda == 'Parcela') ? item.area_destinada_ocupada : "N.A"), 1 /* TEXT */)]);
-  }), 128 /* KEYED_FRAGMENT */))])])]), _hoisted_111, _hoisted_112, $data.paginacion.numero_registros > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_113, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_114, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_115, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" flecha anterior "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_116, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_102, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.numero_familia), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.nombre_completo), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.tipo_identificacion), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.identificacion), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.sexo == "Masculino" ? "M" : "F"), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.edad), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.estado_civil), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.rol), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.ocupacion), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_103, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.escolaridad), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_104, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.rol == "Jefe de hogar" ? item.vivienda_hogar.tipo_vivienda : ""), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_105, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.rol == "Jefe de hogar" ? item.vivienda_hogar.tenencia : ""), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_106, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.rol == "Jefe de hogar" && (item.vivienda_hogar.tipo_vivienda == 'Finca' || item.vivienda_hogar.tipo_vivienda == 'Parcela') ? item.vivienda_hogar.posecion_baldia : "N.A"), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_107, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.rol == "Jefe de hogar" && (item.vivienda_hogar.tipo_vivienda == 'Finca' || item.vivienda_hogar.tipo_vivienda == 'Parcela') ? item.vivienda_hogar.area_total / 10000 : "N.A"), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_108, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.rol == "Jefe de hogar" && (item.vivienda_hogar.tipo_vivienda == 'Finca' || item.vivienda_hogar.tipo_vivienda == 'Parcela') ? item.vivienda_hogar.area_total : "N.A"), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_109, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.rol == "Jefe de hogar" && (item.vivienda_hogar.tipo_vivienda == 'Finca' || item.vivienda_hogar.tipo_vivienda == 'Parcela') ? item.area_destinada_ocupada : "N.A"), 1 /* TEXT */)]);
+  }), 128 /* KEYED_FRAGMENT */))])])]), _hoisted_110, _hoisted_111, $data.paginacion.numero_registros > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_112, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_113, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_114, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" flecha anterior "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_115, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "page-link banterior",
     onClick: _cache[11] || (_cache[11] = function () {
       return $options.decrementarPaginaConcejo && $options.decrementarPaginaConcejo.apply($options, arguments);
     }),
     "aria-label": "Next"
-  }, [_hoisted_117, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Anterior ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" mostrar página 1 y los ... si la primera del grupo no es la página 1 "), $data.primera !== 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_118, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, [_hoisted_116, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Anterior ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" mostrar página 1 y los ... si la primera del grupo no es la página 1 "), $data.primera !== 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_117, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "page-link",
     onClick: _cache[12] || (_cache[12] = function ($event) {
       return $options.irAPaginaConcejo(1);
     }),
     "aria-label": "Previous"
-  }, _hoisted_120)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.primera !== 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_121, _hoisted_123)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" mostrar página actual, las 5 anteriores y las 5 posteriores "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.ultima - $data.primera + 1, function (i) {
+  }, _hoisted_119)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.primera !== 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_120, _hoisted_122)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" mostrar página actual, las 5 anteriores y las 5 posteriores "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.ultima - $data.primera + 1, function (i) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
       key: i,
       "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
@@ -22286,20 +22284,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         return $options.irAPaginaConcejo(i + $data.primera - 1);
       },
       "aria-label": "Previous"
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_125, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(i + $data.primera - 1), 1 /* TEXT */)], 8 /* PROPS */, _hoisted_124)], 2 /* CLASS */);
-  }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" mostrar la última y los ... si la última del grupo no es la última "), $data.ultima !== $data.paginacion.paginas_consulta ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_126, _hoisted_128)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.ultima !== $data.paginacion.paginas_consulta ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_129, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_124, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(i + $data.primera - 1), 1 /* TEXT */)], 8 /* PROPS */, _hoisted_123)], 2 /* CLASS */);
+  }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" mostrar la última y los ... si la última del grupo no es la última "), $data.ultima !== $data.paginacion.paginas_consulta ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_125, _hoisted_127)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.ultima !== $data.paginacion.paginas_consulta ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_128, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "page-link",
     onClick: _cache[13] || (_cache[13] = function ($event) {
       return $options.irAPaginaConcejo($data.paginacion.paginas_consulta);
     }),
     "aria-label": "Previous"
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_130, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.paginacion.paginas_consulta), 1 /* TEXT */)])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" flecha siguiente "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_131, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_129, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.paginacion.paginas_consulta), 1 /* TEXT */)])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" flecha siguiente "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_130, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "page-link bsiguiente",
     onClick: _cache[14] || (_cache[14] = function () {
       return $options.incrementarPaginaConcejo && $options.incrementarPaginaConcejo.apply($options, arguments);
     }),
     "aria-label": "Next"
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Siguiente "), _hoisted_132])])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])])]);
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Siguiente "), _hoisted_131])])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])])]);
 }
 
 /***/ }),

@@ -72,21 +72,18 @@ class ConsolidadoController extends Controller
         }
 
         
+        foreach ($integrantes as $integrante) {
+            $integrante->escolaridad = DB::connection('mysql')->table('escolaridad')
+            ->where("id", $integrante->nivel_educativo)
+            ->first()->descripcion;
+        }
 
         $numero_familia = 1;
         foreach ($jefes as $jefe) {
             
             $rowspan = 1;
             $numero_orden = 1;
-
-            foreach ($integrantes as $key => $integrante) {
-                if ($integrante->id_jefe == $jefe->identificacion) {
-                    $rowspan++;
-                }
-            }
-
-            $jefe->numero_familia = $numero_familia;
-            $jefe->rowspan = $rowspan;
+          
             $jefe->numero_orden = $numero_orden;
             $individuos[] = $jefe;
 
@@ -104,9 +101,6 @@ class ConsolidadoController extends Controller
 
             foreach ($integrantes as $key => $integrante) {
                 if ($integrante->id_jefe == $jefe->identificacion) {
-                    $integrante->escolaridad = DB::connection('mysql')->table('escolaridad')
-                    ->where("id", $integrante->nivel_educativo)
-                    ->first()->descripcion;
                     $integrante->numero_familia = $numero_familia;
                     $integrante->numero_orden = $numero_orden;
                     $numero_orden++;
@@ -115,6 +109,9 @@ class ConsolidadoController extends Controller
                     $rowspan++;
                 }
             }
+
+            $jefe->numero_familia = $numero_familia;
+            $jefe->rowspan = $rowspan;
 
             $numero_familia += 1;
         }
@@ -759,6 +756,7 @@ class ConsolidadoController extends Controller
             ->where("id", $individuo->nivel_educativo)
             ->first()->descripcion;
 
+            $individuo->edad = self::calcularEdad($individuo->fecha_nacimiento);
         }
 
         $numero_familia = 1;
