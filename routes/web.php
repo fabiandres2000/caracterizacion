@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\CaracterizacionController;
 use App\Http\Controllers\CorregimeintoController;
+use App\Http\Controllers\ConsolidadoController;
 
 use Illuminate\Http\Request;
 
@@ -49,10 +50,13 @@ Route::prefix('api')->group(function () {
     Route::get('/municipios', [CaracterizacionController::class, 'consultarMunicipios'])->name('consultarMunicipios');
     Route::get('/escolaridad', [CaracterizacionController::class, 'consultarEscolaridad'])->name('consultarEscolaridad');
     Route::get('/ocupaciones', [CaracterizacionController::class, 'consultarOcupaciones'])->name('consultarOcupaciones');
-    Route::get('/consolidado', [CaracterizacionController::class, 'consolidadoCensados'])->name('consolidadoCensados');
-    Route::get('/municipios-consolidado', [CaracterizacionController::class, 'municipiosConsolidado'])->name('municipiosConsolidado');
-    Route::get('/paginacion-consolidado', [CaracterizacionController::class, 'paginacionConsolidado'])->name('paginacionConsolidado');
-    Route::get('/exportar-consolidado', [CaracterizacionController::class, 'exportarConsolidadoExcel'])->name('exportarConsolidadoExcel');
+    Route::get('/consolidado', [ConsolidadoController::class, 'consolidadoCensados'])->name('consolidadoCensados');
+    Route::get('/municipios-consolidado', [ConsolidadoController::class, 'municipiosConsolidado'])->name('municipiosConsolidado');
+    Route::get('/paginacion-consolidado', [ConsolidadoController::class, 'paginacionConsolidado'])->name('paginacionConsolidado');
+    Route::get('/exportar-consolidado', [ConsolidadoController::class, 'exportarConsolidadoExcel'])->name('exportarConsolidadoExcel');
+    Route::get('/consolidado-concejo', [ConsolidadoController::class, 'consolidadoCensadosConcejo'])->name('consolidadoCensadosConcejo');
+    Route::get('/paginacion-consolidado-concejo', [ConsolidadoController::class, 'paginacionConsolidadoConcejo'])->name('paginacionConsolidadoConcejo');
+    Route::get('/exportar-consolidado-concejo', [ConsolidadoController::class, 'exportarConsolidadoExcelConcejo'])->name('exportarConsolidadoExcelConcejo');
 
     Route::get('/lista-corregimientos', [CorregimeintoController::class, 'listarCorregimientos'])->name('listarCorregimientos');
     Route::post('/guardar-corregimiento', [CorregimeintoController::class, 'guardarCorregimiento'])->name('guardarCorregimiento');

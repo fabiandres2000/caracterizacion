@@ -128,3 +128,11 @@ export function municipiosConsolidado() {
 export function exportarConsolidadoExcel(id, tipo) {
     return http().get('/api/exportar-consolidado?corregimiento='+id+'&tipo_reporte='+tipo);
 }
+
+export function consolidadoConcejo(id, pagina) {
+    return http().get('/api/consolidado-concejo?concejo='+id+'&pagina='+pagina);
+}
+
+export function paginacionConsolidadoConcejo(concejo, pagina) {
+    return http().get('/api/paginacion-consolidado-concejo?concejo='+concejo+'&pagina='+pagina);
+}

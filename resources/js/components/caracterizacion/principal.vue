@@ -753,6 +753,20 @@
                                             </div>
                                         </fieldset>
                                     </div>    
+                                    <div class="col-lg-12">
+                                        <label for=""><strong>4. Con cual de los siguientes concejos comunitarios se siente mas identificado</strong></label>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <select v-model="culturaTradiciones.concejo" class="form-control form-control-lg mb-1" name="" id="">
+                                                <option value="">Seleccione una opción</option>
+                                                <option value='CONCEJO COMUNITARIO "ALEJO DURAN"'>CONCEJO COMUNITARIO "ALEJO DURAN"</option>
+                                                <option value='CONCEJO COMUNITARIO "JULIO CESAR ALTAMAR MUÑOS"'>CONCEJO COMUNITARIO "JULIO CESAR ALTAMAR MUÑOS"</option>
+                                                <option value="Ninguno">Ninguno</option>
+                                            </select>  
+                                            <div class="form-control-position">
+                                                <i style="font-size: 19px" class="fas fa-question"></i>
+                                            </div>
+                                        </fieldset>
+                                    </div>    
                                     <div class="col-lg-12 text-right" style="padding-top: 20px">
                                         <button @click="eliminarActive('baseIcon-tab25', 'tabIcon25')" class="btn btn-danger" style="margin-right: 20px"><i style="font-size: 13px" class="fas fa-arrow-left"></i> Anterior</button>
                                         <button @click="validarCamposCulturaTradiciones()" class="btn btn-success">Guardar y continuar <i style="font-size: 13px" class="fas fa-arrow-right"></i></button>
@@ -1147,6 +1161,7 @@ export default {
                 habla_lengua: "",
                 cual_lengua: "",
                 practicas_religiosas: "",
+                concejo: ""
             },
             viviendaHogar: {
                 identificacion_jefe: null,
