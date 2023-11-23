@@ -113,10 +113,18 @@ export function consultarDatosIndividuo(id) {
 }
 
 
-export function consolidado(id) {
-    return http().get('/api/consolidado?corregimiento='+id);
+export function consolidado(id, pagina) {
+    return http().get('/api/consolidado?corregimiento='+id+'&pagina='+pagina);
+}
+
+export function paginacionConsolidado(id, pagina) {
+    return http().get('/api/paginacion-consolidado?corregimiento='+id+'&pagina='+pagina);
 }
 
 export function municipiosConsolidado() {
     return http().get('/api/municipios-consolidado');
+}
+
+export function exportarConsolidadoExcel(id, tipo) {
+    return http().get('/api/exportar-consolidado?corregimiento='+id+'&tipo_reporte='+tipo);
 }

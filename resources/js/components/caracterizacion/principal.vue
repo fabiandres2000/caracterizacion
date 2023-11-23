@@ -1966,17 +1966,28 @@ export default {
             }
         },
         agregarActividad(){
-            var object = {
-                linea: this.lineas_economicas[this.lineaSeleccionada-1].texto,
-                actividad: this.actividadSeleccionada,
-                area_destinada: parseFloat(this.areaDestinada)
-            }
+            var suma_tem = 0;
+            this.viviendaHogar.actividades_economicas.forEach(element => {
+                suma_tem += element.area_destinada;
+            });
 
-            this.viviendaHogar.actividades_economicas.push(object);
+            suma_tem += parseFloat(this.areaDestinada);
 
-            this.lineaSeleccionada = "";
-            this.actividadSeleccionada = "";
-            this.areaDestinada = "";
+            if(suma_tem <= this.viviendaHogar.area_total){
+                var object = {
+                    linea: this.lineas_economicas[this.lineaSeleccionada-1].texto,
+                    actividad: this.actividadSeleccionada,
+                    area_destinada: parseFloat(this.areaDestinada)
+                }
+
+                this.viviendaHogar.actividades_economicas.push(object);
+
+                this.lineaSeleccionada = "";
+                this.actividadSeleccionada = "";
+                this.areaDestinada = "";
+            }else{
+                toastr.error("El total del area destinada de las actividades no puede ser mayor a "+this.viviendaHogar.area_total+" (metros cuadrados)");
+            }           
         },
         eliminarActividad(index){
             Swal.fire({

@@ -76,6 +76,12 @@
             "hideMethod": "fadeOut"
         }
 
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                login();
+            }
+        });
+        
         function login(){
             var texto = document.getElementById("username").value;
             var password = document.getElementById("password").value;

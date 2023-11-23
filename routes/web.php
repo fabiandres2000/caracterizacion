@@ -51,7 +51,8 @@ Route::prefix('api')->group(function () {
     Route::get('/ocupaciones', [CaracterizacionController::class, 'consultarOcupaciones'])->name('consultarOcupaciones');
     Route::get('/consolidado', [CaracterizacionController::class, 'consolidadoCensados'])->name('consolidadoCensados');
     Route::get('/municipios-consolidado', [CaracterizacionController::class, 'municipiosConsolidado'])->name('municipiosConsolidado');
-
+    Route::get('/paginacion-consolidado', [CaracterizacionController::class, 'paginacionConsolidado'])->name('paginacionConsolidado');
+    Route::get('/exportar-consolidado', [CaracterizacionController::class, 'exportarConsolidadoExcel'])->name('exportarConsolidadoExcel');
 
     Route::get('/lista-corregimientos', [CorregimeintoController::class, 'listarCorregimientos'])->name('listarCorregimientos');
     Route::post('/guardar-corregimiento', [CorregimeintoController::class, 'guardarCorregimiento'])->name('guardarCorregimiento');
