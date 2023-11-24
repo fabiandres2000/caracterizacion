@@ -100,7 +100,6 @@
             </div>
         </div>
     </div>
-        
     </div>
 </template>
 <script>
@@ -118,7 +117,7 @@ export default {
             chart_sexo: null,
             chart_corregimiento: null,
             datos: [],
-            loading: false
+            loading: false,
         }
     },
     mounted() {
@@ -278,11 +277,11 @@ export default {
             chart.hiddenState.properties.radius = am4core.percent(0);
 
             this.chart_corregimiento = chart;
-        }
+        },
     },
 }
 </script>
-<style scoped>
+<style >
     i {
         line-height: 1.45;
     }

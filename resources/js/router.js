@@ -7,8 +7,7 @@ import miPerfil from './components/miPerfil';
 import usuarios from './components/usuarios/usuarios';
 import consolidado from './components/caracterizacion/consolidado';
 import corregimientos from './components/admin/corregimientos';
-
-
+import informe from './components/admin/informe';
 
 const routes = [
   {
@@ -55,6 +54,11 @@ const routes = [
     path: '/corregimientos',
     name: 'corregimientos',
     component: corregimientos
+  },
+  {
+    path: '/informe',
+    name: 'informe',
+    component: informe
   },
 ]
 
