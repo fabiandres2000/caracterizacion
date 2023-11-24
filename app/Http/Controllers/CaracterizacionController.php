@@ -47,7 +47,7 @@ class CaracterizacionController extends Controller
     public function consultarJefesHogar()
     {
         $departamentos = DB::connection('mysql')->table('informacion_personal')
-        ->select("tipo_identificacion", "identificacion", "nombre_completo")
+        ->select("tipo_identificacion", "identificacion", "nombre_completo", "direccion", "direccion_residencia", "departamento", "municipio", "corregimiento")
         ->where("rol", "Jefe de hogar")
         ->get();
 

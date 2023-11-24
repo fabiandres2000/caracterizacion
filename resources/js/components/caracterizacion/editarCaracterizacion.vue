@@ -93,7 +93,7 @@
                                             <div class="col-lg-4">
                                                 <label for=""><strong>Departamento</strong></label>
                                                 <fieldset class="form-group position-relative has-icon-left">
-                                                    <select @change="consultarMunicipiosIP()" v-model="informacion_personal.departamento" class="form-control form-control-lg mb-1" name="" id="">
+                                                    <select :disabled="informacion_personal.rol != 'Jefe de hogar'" @change="consultarMunicipiosIP()" v-model="informacion_personal.departamento" class="form-control form-control-lg mb-1" name="" id="">
                                                         <option value="">Seleccione una opción</option>
                                                         <option v-for="(item, index) in departamentos" :key="index" :value="item.codigo">{{ item.descripcion }}</option>
                                                     </select>                                            
@@ -105,7 +105,7 @@
                                             <div class="col-lg-4">
                                                 <label for=""><strong>Municipio</strong></label>
                                                 <fieldset class="form-group position-relative has-icon-left">
-                                                    <select @change="listarCorregimientosPorMuni()" v-model="informacion_personal.municipio" class="form-control form-control-lg mb-1" name="" id="">
+                                                    <select :disabled="informacion_personal.rol != 'Jefe de hogar'" @change="listarCorregimientosPorMuni()" v-model="informacion_personal.municipio" class="form-control form-control-lg mb-1" name="" id="">
                                                         <option value="">Seleccione una opción</option>
                                                         <option v-for="(item, index) in municipiosIP" :key="index" :value="item.id">{{ item.descripcion }}</option>
                                                     </select>                                            
@@ -117,7 +117,7 @@
                                             <div class="col-lg-4">
                                                 <label for=""><strong>Corregimiento</strong></label>
                                                 <fieldset class="form-group position-relative has-icon-left">
-                                                    <select v-model="informacion_personal.corregimiento" class="form-control form-control-lg mb-1" name="" id="">
+                                                    <select :disabled="informacion_personal.rol != 'Jefe de hogar'" v-model="informacion_personal.corregimiento" class="form-control form-control-lg mb-1" name="" id="">
                                                         <option value="">Seleccione una opción</option>
                                                         <option v-for="(item, index) in corregimientos" :key="index" :value="item.id">{{ item.nombre }}</option>
                                                     </select>                                            
@@ -131,7 +131,7 @@
                                     <div class="col-lg-12">
                                         <label for=""><strong>Dirección</strong></label>
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <input v-model="informacion_personal.direccion" type="text" class="form-control form-control-lg mb-1"  placeholder="Dirección">
+                                            <input :disabled="informacion_personal.rol != 'Jefe de hogar'" v-model="informacion_personal.direccion" type="text" class="form-control form-control-lg mb-1"  placeholder="Dirección">
                                             <div class="form-control-position">
                                                 <i style="font-size: 19px" class="fas fa-map-marked-alt"></i>
                                             </div>
@@ -183,7 +183,7 @@
                                     <div class="col-lg-6">
                                         <label for=""><strong>Dirección de residencia</strong></label>
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <input v-model="informacion_personal.direccion_residencia" type="text" class="form-control form-control-lg mb-1"  placeholder="Dirección de residencia">
+                                            <input :disabled="informacion_personal.rol != 'Jefe de hogar'" v-model="informacion_personal.direccion_residencia" type="text" class="form-control form-control-lg mb-1"  placeholder="Dirección de residencia">
                                             <div class="form-control-position">
                                                 <i style="font-size: 19px" class="fas fa-map-marked-alt"></i>
                                             </div>
@@ -1541,9 +1541,16 @@ export default {
                 console.log(error);
             }
         },
-        seleccionarJefe(item){
+        async seleccionarJefe(item){
             this.informacion_personal.id_jefe = item.identificacion;
             this.informacion_personal.nombre_jefe = item.tipo_identificacion+" - "+item.identificacion+" - "+item.nombre_completo;
+            this.informacion_personal.direccion = item.direccion;
+            this.informacion_personal.direccion_residencia = item.direccion_residencia;
+            this.informacion_personal.departamento = item.departamento;
+            await this.consultarMunicipiosIP(this.informacion_personal.departamento);
+            this.informacion_personal.municipio = item.municipio;
+            await this.listarCorregimientosPorMuni(this.informacion_personal.municipio);
+            this.informacion_personal.corregimiento = item.corregimiento;
         },
         eliminarActive(id, id2){
             document.getElementById("baseIcon-tab21").classList.remove("active");

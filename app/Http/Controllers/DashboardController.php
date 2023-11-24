@@ -6,6 +6,7 @@ use DB;
 use Illuminate\Support\Facades\File;
 
 use Illuminate\Support\Facades\Session;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -25,6 +26,243 @@ class DashboardController extends Controller
         ->where("rol", "Jefe de hogar")
         ->count();
 
-        
+        $integrantes = DB::connection('mysql')->table('informacion_personal')
+        ->where("informacion_personal.estado", 1)
+        ->get();
+
+        $edad0a4 = [0,0, "0-4"];
+        $edad5a9 = [0,0, "5-9"];
+        $edad10a14 = [0,0, "10-14"];
+        $edad15a19 = [0,0, "15-19"];
+        $edad20a24 = [0,0, "20-24"];
+        $edad25a29 = [0,0, "25-29"];
+        $edad30a34 = [0,0, "30-34"];
+        $edad35a39 = [0,0, "35-39"];
+        $edad40a44 = [0,0, "40-44"];
+        $edad45a49 = [0,0, "45-49"];
+        $edad50a54 = [0,0, "50-54"];
+        $edad55a59 = [0,0, "54-49"];
+        $edad60a64 = [0,0, "60-64"];
+        $edad65a69 = [0,0, "65-69"];
+        $edad70a74 = [0,0, "70-74"];
+        $edad75mas = [0,0, "75+"];
+
+        $masculino = 0;
+        $femenino = 0;
+        $numero_hogares = 0;
+        $desplazados = 0;
+
+        foreach ($integrantes as $item) {
+            $item->edad = self::calcularEdad($item->fecha_nacimiento);
+            switch (true) {
+                case ($item->edad >= 0 && $item->edad <= 4):
+                    if($item->sexo == "Masculino"){
+                        $masculino++;
+                        $edad0a4[0] += 1;
+                    }else{
+                        $femenino++;
+                        $edad0a4[1] += 1;
+                    }
+                    break;
+            
+                case ($item->edad >= 5 && $item->edad <= 9):
+                    if($item->sexo == "Masculino"){
+                        $masculino++;
+                        $edad5a9[0] += 1;
+                    }else{
+                        $femenino++;
+                        $edad5a9[1] += 1;
+                    }
+                    break;
+            
+                case ($item->edad >= 10 && $item->edad <= 14):
+                    if($item->sexo == "Masculino"){
+                        $masculino++;
+                        $edad10a14[0] += 1;
+                    }else{
+                        $femenino++;
+                        $edad10a14[1] += 1;
+                    }
+                    break;
+            
+                case ($item->edad >= 15 && $item->edad <= 19):
+                    if($item->sexo == "Masculino"){
+                        $masculino++;
+                        $edad15a19[0] += 1;
+                    }else{
+                        $femenino++;
+                        $edad15a19[1] += 1;
+                    }
+                    break;
+            
+                case ($item->edad >= 20 && $item->edad <= 24):
+                    if($item->sexo == "Masculino"){
+                        $masculino++;
+                        $edad20a24[0] += 1;
+                    }else{
+                        $femenino++;
+                        $edad20a24[1] += 1;
+                    }
+                    break;
+            
+                case ($item->edad >= 25 && $item->edad <= 29):
+                    if($item->sexo == "Masculino"){
+                        $masculino++;
+                        $edad25a29[0] += 1;
+                    }else{
+                        $femenino++;
+                        $edad25a29[1] += 1;
+                    }
+                    break;
+                case ($item->edad >= 30 && $item->edad <= 34):
+                    if($item->sexo == "Masculino"){
+                        $masculino++;
+                        $edad30a34[0] += 1;
+                    }else{
+                        $femenino++;
+                        $edad30a34[1] += 1;
+                    }
+                    break;
+            
+                case ($item->edad >= 35 && $item->edad <= 39):
+                    if($item->sexo == "Masculino"){
+                        $masculino++;
+                        $edad35a39[0] += 1;
+                    }else{
+                        $femenino++;
+                        $edad35a39[1] += 1;
+                    }
+                    break;
+            
+                case ($item->edad >= 40 && $item->edad <= 44):
+                    if($item->sexo == "Masculino"){
+                        $masculino++;
+                        $edad40a44[0] += 1;
+                    }else{
+                        $femenino++;
+                        $edad40a44[1] += 1;
+                    }
+                    break;
+            
+                case ($item->edad >= 45 && $item->edad <= 49):
+                    if($item->sexo == "Masculino"){
+                        $masculino++;
+                        $edad45a49[0] += 1;
+                    }else{
+                        $femenino++;
+                        $edad45a49[1] += 1;
+                    }
+                    break;
+            
+                case ($item->edad >= 50 && $item->edad <= 54):
+                    if($item->sexo == "Masculino"){
+                        $masculino++;
+                        $edad50a54[0] += 1;
+                    }else{
+                        $femenino++;
+                        $edad50a54[1] += 1;
+                    }
+                    break;
+            
+                case ($item->edad >= 55 && $item->edad <= 59):
+                    if($item->sexo == "Masculino"){
+                        $masculino++;
+                        $edad55a59[0] += 1;
+                    }else{
+                        $femenino++;
+                        $edad55a59[1] += 1;
+                    }
+                    break;
+                case ($item->edad >= 60 && $item->edad <= 64):
+                    if($item->sexo == "Masculino"){
+                        $masculino++;
+                        $edad60a64[0] += 1;
+                    }else{
+                        $femenino++;
+                        $edad60a64[1] += 1;
+                    }
+                    break;
+            
+                case ($item->edad >= 65 && $item->edad <= 59):
+                    if($item->sexo == "Masculino"){
+                        $masculino++;
+                        $edad65a69[0] += 1;
+                    }else{
+                        $femenino++;
+                        $edad65a69[1] += 1;
+                    }
+                    break;
+            
+                case ($item->edad >= 70 && $item->edad <= 74):
+                    if($item->sexo == "Masculino"){
+                        $masculino++;
+                        $edad70a74[0] += 1;
+                    }else{
+                        $femenino++;
+                        $edad70a74[1] += 1;
+                    }
+                    break;
+                case ($item->edad >= 75):
+                    if($item->sexo == "Masculino"){
+                        $masculino++;
+                        $edad75mas[0] += 1;
+                    }else{
+                        $femenino++;
+                        $edad75mas[1] += 1;
+                    }
+                    break;
+            }
+
+            if($item->rol == "Jefe de hogar"){
+                $numero_hogares++;
+            }
+
+            if($item->desplazado == "Si"){
+                $desplazados++;
+            }
+        }
+
+        $piramide_edad = [
+            $edad0a4,
+            $edad5a9,
+            $edad10a14,
+            $edad15a19,
+            $edad20a24,
+            $edad25a29,
+            $edad30a34,
+            $edad35a39,
+            $edad40a44,
+            $edad45a49,
+            $edad50a54,
+            $edad55a59,
+            $edad60a64,
+            $edad65a69,
+            $edad70a74,
+            $edad75mas,
+        ];
+
+        $corregimientos = DB::connection('mysql')->table('informacion_personal')
+        ->join("corregimientos", "informacion_personal.corregimiento", "corregimientos.id")
+        ->select(DB::raw("count(*) as cantidad"), "corregimientos.nombre")
+        ->groupBy("corregimientos.nombre")
+        ->get();
+
+        $datos = [
+            "piramide_edad" => $piramide_edad,
+            "numero_masculino" => $masculino,
+            "numero_femenino" => $femenino,
+            "por_corregimientos" => $corregimientos,
+            "numero_hogares" => $numero_hogares,
+            "desplazados" => $desplazados
+        ];
+
+        return response()->json($datos);
+    }
+
+    public function calcularEdad($fechaNacimiento){
+        $fechaNacimiento = Carbon::parse($fechaNacimiento);
+        $fechaActual = Carbon::now();
+        $edad = $fechaNacimiento->diffInYears($fechaActual);
+        return $edad;
     }
 }

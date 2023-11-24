@@ -5,6 +5,7 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\CaracterizacionController;
 use App\Http\Controllers\CorregimeintoController;
 use App\Http\Controllers\ConsolidadoController;
+use App\Http\Controllers\DashboardController;
 
 use Illuminate\Http\Request;
 
@@ -61,6 +62,8 @@ Route::prefix('api')->group(function () {
     Route::get('/lista-corregimientos', [CorregimeintoController::class, 'listarCorregimientos'])->name('listarCorregimientos');
     Route::post('/guardar-corregimiento', [CorregimeintoController::class, 'guardarCorregimiento'])->name('guardarCorregimiento');
     Route::get('/lista-corregimientos-id', [CorregimeintoController::class, 'listarCorregimientosMunicipio'])->name('listarCorregimientosMunicipio');
+
+    Route::get('/datos-dashboard', [DashboardController::class, 'datosDashboard'])->name('datosDashboard');
 
 });
 

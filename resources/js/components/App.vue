@@ -67,6 +67,14 @@
                                 </a>
                             </router-link>
                         </li>
+                        <li :class="tipo_ruta == '/consolidado' ? 'nav-item open' : 'nav-item'">
+                            <router-link to="/consolidado">
+                                <a href="#">
+                                    <i class="fas fa-table"></i>
+                                    <span class="menu-title" data-i18n="Email Application">Consolidado</span>
+                                </a>
+                            </router-link>
+                        </li>
                         <li v-if="datos.rol == 'administrador'" :class="tipo_ruta == '/usuarios' ? 'nav-item open' : 'nav-item'">
                             <router-link to="/usuarios">
                                 <a href="#">
@@ -75,7 +83,7 @@
                                 </a>
                             </router-link>
                         </li>
-                        <li v-if="datos.rol == 'administrador'" :class="tipo_ruta == '/corregimientos' ? 'nav-item open' : 'nav-item'">
+                        <li :class="tipo_ruta == '/corregimientos' ? 'nav-item open' : 'nav-item'">
                             <router-link to="/corregimientos">
                                 <a href="#">
                                     <i class="fas fa-globe-americas"></i>

@@ -6,7 +6,7 @@
                     <h4 class="card-title" style="font-weight: bold">Consolidado personas censadas</h4>
                     <button v-if="corregimiento != ''" @click="exportarConsolidadoExcelPregunta" class="btn btn-success boton_exportar"><i class="fas fa-file-excel"></i></button>
                     <button v-if="corregimiento != ''" @click="corregimiento = ''" class="btn btn-danger boton_atras"><i class="fas fa-arrow-left"></i></button>
-                    <button v-if="concejo != ''" @click="exportarConsolidadoExcelPregunta" class="btn btn-success boton_exportar"><i class="fas fa-file-excel"></i></button>
+                    <button v-if="concejo != ''" @click="exportarConsolidadoExcelConcejo" class="btn btn-success boton_exportar"><i class="fas fa-file-excel"></i></button>
                     <button v-if="concejo != ''" @click="concejo = ''" class="btn btn-danger boton_atras"><i class="fas fa-arrow-left"></i></button>
                     <hr>
                 </div>
@@ -19,10 +19,7 @@
                                     <h3>POR CORREGIMIENTO</h3>
                                     <br>
                                 </div>
-                                <div  v-if="loading == true" class="col-lg-12">
-                                    <Skeleton></Skeleton>
-                                </div>
-                                <div v-if="loading == false" style="text-transform: uppercase;" v-for="(item, index) in municipios_consolidados" :key="index" class="col-lg-4">
+                                <div style="text-transform: uppercase;" v-for="(item, index) in municipios_consolidados" :key="index" class="col-lg-4">
                                     <div @click="verConsolidado(item.id_corregimiento, item.nombre, 1)" class="card card_hover">
                                         <div class="card-content">
                                             <div class="media align-items-stretch">
@@ -41,7 +38,7 @@
                                     </div>                               
                                 </div>
 
-                                <div v-if="loading == false" style="text-transform: uppercase;" class="col-lg-4">
+                                <div style="text-transform: uppercase;" class="col-lg-4">
                                     <div @click="verConsolidado('todo', 'General', 1)" class="card card_hover">
                                         <div class="card-content">
                                             <div class="media align-items-stretch" style="height: 134px">
@@ -62,10 +59,7 @@
                                     <h3>POR CONCEJO</h3>
                                     <br>
                                 </div>
-                                <div  v-if="loading == true" class="col-lg-12">
-                                    <Skeleton></Skeleton>
-                                </div>
-                                <div v-if="loading == false" style="text-transform: uppercase;" class="col-lg-4">
+                                <div style="text-transform: uppercase;" class="col-lg-4">
                                     <div @click="verConsolidado('todo', 1, 2)" class="card card_hover">
                                         <div class="card-content">
                                             <div class="media align-items-stretch" style="height: 134px">
@@ -79,7 +73,7 @@
                                         </div>
                                     </div>    
                                 </div>
-                                <div v-if="loading == false" style="text-transform: uppercase;" class="col-lg-4">
+                                <div style="text-transform: uppercase;" class="col-lg-4">
                                     <div @click="verConsolidado('todo', 2, 2)" class="card card_hover">
                                         <div class="card-content">
                                             <div class="media align-items-stretch" style="height: 134px">
@@ -97,8 +91,7 @@
                         </div>
                             
                         <div v-if="corregimiento != ''">
-                            <Skeleton v-if="loading == true"></Skeleton>
-                            <div v-if="loading == false">
+                            <div>
                                 <table style=" width: 100% !important;">
                                     <thead>
                                         <tr>
@@ -243,8 +236,7 @@
                         </div>
 
                         <div v-if="concejo != ''">
-                            <Skeleton v-if="loading == true"></Skeleton>
-                            <div v-if="loading == false">
+                            <div>
                                 <table style=" width: 100% !important;">
                                     <thead>
                                         <tr>
@@ -392,13 +384,9 @@
 </template>
 <script>
 import * as caracterizacionService from "../../services/caracterizacion_service";
-import Skeleton from '../skeleton/skeletonSmall.vue';
 import Swal from 'sweetalert2';
 
 export default {
-    components: {
-        Skeleton
-    },
     data() {
         return {
             corregimiento: "",
@@ -544,6 +532,24 @@ export default {
             this.pagina = pagina;
             this.consolidadoFunctionConcejo();
         },
+        async exportarConsolidadoExcelConcejo(){
+            this.loading = true;
+            await caracterizacionService.exportarConsolidadoExcelConcejo(this.concejo).then(respuesta => {
+                this.loading = false;
+                Swal.fire({
+                    icon: "success",
+                    title: "Reporte Generado Correctamente",
+                    text: "",
+                    showConfirmButton: false,
+                    footer: '<a id="descargarBtn" download class="btn btn-success" href="'+respuesta.data.nombre+'">Descargar archivo <i class="fas fa-file-excel"></i></a>'
+                });
+
+
+                document.getElementById('descargarBtn').addEventListener('click', () => {
+                    Swal.close();
+                });
+            });
+        }
     }
 }
 </script>

@@ -307,11 +307,11 @@ class ConsolidadoController extends Controller
         $sheet->mergeCells('P4:S4');
         $spreadsheet->getActiveSheet()->getStyle('P4:S4')->applyFromArray($styleArray2);
 
-        $sheet->setCellValue('A5', '5. Representante Legal: EUFROSINA VEGA MIELES');
+        $sheet->setCellValue('A5', '5. Representante Legal: ');
         $sheet->mergeCells('A5:F5');
         $spreadsheet->getActiveSheet()->getStyle('A5:F5')->applyFromArray($styleArray2);
 
-        $sheet->setCellValue('G5', '6. Consejo Comunitario: Consejo Comunitario  Julio Cesar Altamar Muñoz');
+        $sheet->setCellValue('G5', '6. Consejo Comunitario: Todos');
         $sheet->mergeCells('G5:S5');
         $spreadsheet->getActiveSheet()->getStyle('G5:S5')->applyFromArray($styleArray2);
         
@@ -355,9 +355,9 @@ class ConsolidadoController extends Controller
 
 
         $sheet->setCellValue('C7', 'Nombre Completo');
-        $sheet->setCellValue('E7', 'Tipo');
-        $sheet->setCellValue('F7', 'Nº Documento');
-        $sheet->mergeCells('C7:D7');
+        $sheet->setCellValue('D7', 'Tipo');
+        $sheet->setCellValue('E7', 'Nº Documento');
+        $sheet->setCellValue('F7', 'Dirección');
         $spreadsheet->getActiveSheet()->getStyle('C7:F7')->applyFromArray($styleArray);
         $sheet->getStyle('C6:F7')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
         $sheet->getStyle('C6:F7')->getFill()->getStartColor()->setARGB('43d7f0');
@@ -436,14 +436,17 @@ class ConsolidadoController extends Controller
                 $spreadsheet->getActiveSheet()->getStyle('B'.$row)->applyFromArray($styleArray);
 
                 $sheet->setCellValue('C'.$row, $dato->nombre_completo);
-                $sheet->mergeCells('C'.$row.':D'.$row);
-                $spreadsheet->getActiveSheet()->getStyle('C'.$row.':D'.$row)->applyFromArray($styleArray);
+                $spreadsheet->getActiveSheet()->getStyle('C'.$row)->applyFromArray($styleArray);
                 $sheet->getStyle('C'.$row)->getAlignment()->setWrapText(true);
 
-                $sheet->setCellValue('E'.$row, $dato->tipo_identificacion);
-                $spreadsheet->getActiveSheet()->getStyle('E'.$row)->applyFromArray($styleArray);
+                $sheet->setCellValue('D'.$row, $dato->tipo_identificacion);
+                $spreadsheet->getActiveSheet()->getStyle('D'.$row)->applyFromArray($styleArray);
 
-                $sheet->setCellValue('F'.$row, $dato->identificacion);
+                $sheet->setCellValue('E'.$row, $dato->identificacion);
+                $spreadsheet->getActiveSheet()->getStyle('E'.$row)->applyFromArray($styleArray);
+                $spreadsheet->getActiveSheet()->getStyle('E'.$row)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER);
+            
+                $sheet->setCellValue('F'.$row, $dato->direccion);
                 $spreadsheet->getActiveSheet()->getStyle('F'.$row)->applyFromArray($styleArray);
 
                 $sheet->setCellValue('G'.$row, $dato->sexo);
@@ -540,15 +543,18 @@ class ConsolidadoController extends Controller
                     $spreadsheet->getActiveSheet()->getStyle('B'.$row)->applyFromArray($styleArray);
 
                     $sheet->setCellValue('C'.$row, $dato->nombre_completo);
-                    $sheet->mergeCells('C'.$row.':D'.$row);
-                    $spreadsheet->getActiveSheet()->getStyle('C'.$row.':D'.$row)->applyFromArray($styleArray);
+                    $spreadsheet->getActiveSheet()->getStyle('C'.$row)->applyFromArray($styleArray);
                     $sheet->getStyle('C'.$row)->getAlignment()->setWrapText(true);
-
-                    $sheet->setCellValue('E'.$row, $dato->tipo_identificacion);
+    
+                    $sheet->setCellValue('D'.$row, $dato->tipo_identificacion);
+                    $spreadsheet->getActiveSheet()->getStyle('D'.$row)->applyFromArray($styleArray);
+    
+                    $sheet->setCellValue('E'.$row, $dato->identificacion);
                     $spreadsheet->getActiveSheet()->getStyle('E'.$row)->applyFromArray($styleArray);
-
-                    $sheet->setCellValue('F'.$row, $dato->identificacion);
-                    $spreadsheet->getActiveSheet()->getStyle('F'.$row)->applyFromArray($styleArray);
+                    $spreadsheet->getActiveSheet()->getStyle('E'.$row)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER);
+                
+                    $sheet->setCellValue('F'.$row, $dato->direccion);
+                    $spreadsheet->getActiveSheet()->getStyle('F'.$row)->applyFromArray($styleArray);    
 
                     $sheet->setCellValue('G'.$row, $dato->sexo);
                     $spreadsheet->getActiveSheet()->getStyle('G'.$row)->applyFromArray($styleArray);
@@ -812,6 +818,65 @@ class ConsolidadoController extends Controller
         return response()->json($respuesta, 200);
     }
 
+    public function consultarIntegrantesJefesConcejo($concejo){
+        $individuos = [];
+        $individuos2 = [];
+     
+        $individuos = DB::connection('mysql')->table('informacion_personal')
+        ->join("educacion", "informacion_personal.identificacion", "educacion.identificacion_individuo")
+        ->join("situacion_laboral", "informacion_personal.identificacion", "situacion_laboral.identificacion_individuo")
+        ->join("cultura_tradiciones", "informacion_personal.identificacion", "cultura_tradiciones.identificacion_individuo")
+        ->where("cultura_tradiciones.concejo", $concejo)
+        ->orderBy("informacion_personal.numero_caracterizacion")
+        ->get();
+
+
+        foreach ($individuos as $individuo) {
+            if($individuo->rol == "Jefe de hogar"){
+                $individuo->vivienda_hogar = DB::connection('mysql')->table('vivienda_hogar')
+                ->where("identificacion_jefe", $individuo->identificacion)
+                ->first();
+
+                if($individuo->vivienda_hogar->tipo_vivienda == "Finca" || $individuo->vivienda_hogar->tipo_vivienda == "Parcela"){
+                    $individuo->area_destinada_ocupada =  DB::connection('mysql')->table('actividades_vivienda_hogar')
+                    ->where("identificacion_jefe", $individuo->identificacion)
+                    ->sum("area_destinada");
+                }
+            }
+           
+            $individuo->escolaridad = DB::connection('mysql')->table('escolaridad')
+            ->where("id", $individuo->nivel_educativo)
+            ->first()->descripcion;
+
+            $individuo->edad = self::calcularEdad($individuo->fecha_nacimiento);
+        }
+
+        $numero_familia = 1;
+        foreach ($individuos as $key) {
+            $bandera = false;
+            foreach($individuos2 as $key2){
+                if($key->id_jefe == $key2->identificacion || ($key->id_jefe == $key2->id_jefe && $key->id_jefe != null)){
+                    $key->numero_familia = $key2->numero_familia;
+                    $bandera = true;
+                    break;
+                }
+            }
+
+            if($bandera == false){
+                $key->numero_familia = $numero_familia;
+                $numero_familia++;
+            }
+
+            $individuos2[] = $key;
+        }
+
+        usort($individuos2, function ($a, $b) {
+            return $a->numero_familia - $b->numero_familia;
+        });
+
+        return $individuos2;
+    }
+
     public function exportarConsolidadoExcelConcejo(Request $request) {
         $concejo = $request->input('concejo');
         $tipo_reporte = $request->input('tipo_reporte');
@@ -830,7 +895,7 @@ class ConsolidadoController extends Controller
             'borders' => [
                 'allBorders' => [
                     'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                    'color' => ['rgb' => '000000'], // Black color
+                    'color' => ['rgb' => '000000'],
                 ],
             ],
         ];
@@ -848,16 +913,16 @@ class ConsolidadoController extends Controller
             'borders' => [
                 'allBorders' => [
                     'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                    'color' => ['rgb' => '000000'], // Black color
+                    'color' => ['rgb' => '000000'],
                 ],
             ],
             'padding' => [
-                'left' => 20, // Set your desired left padding value
+                'left' => 20,
             ],
         ];
     
     
-        $titulo = "reporte_caracterizacion";
+        $titulo = "reporte_caracterizacion_concejo";
 
         $nombre = $titulo.".xlsx";
        
@@ -985,16 +1050,16 @@ class ConsolidadoController extends Controller
         $sheet->getStyle('O6:S6')->getFill()->getStartColor()->setARGB('8cee8c'); 
 
         $sheet->setCellValue('A7', 'Nº Familia');
-        $sheet->setCellValue('B7', 'Nº Orden');
+        $sheet->mergeCells('A7:B7');
         $spreadsheet->getActiveSheet()->getStyle('A7:B7')->applyFromArray($styleArray);
         $sheet->getStyle('A7:B7')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
         $sheet->getStyle('A7:B7')->getFill()->getStartColor()->setARGB('8cee8c'); 
 
 
         $sheet->setCellValue('C7', 'Nombre Completo');
-        $sheet->setCellValue('E7', 'Tipo');
-        $sheet->setCellValue('F7', 'Nº Documento');
-        $sheet->mergeCells('C7:D7');
+        $sheet->setCellValue('D7', 'Tipo');
+        $sheet->setCellValue('E7', 'Nº Documento');
+        $sheet->setCellValue('F7', 'Dirección');
         $spreadsheet->getActiveSheet()->getStyle('C7:F7')->applyFromArray($styleArray);
         $sheet->getStyle('C6:F7')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
         $sheet->getStyle('C6:F7')->getFill()->getStartColor()->setARGB('43d7f0');
@@ -1051,6 +1116,79 @@ class ConsolidadoController extends Controller
         $drawing->setWidth(100); 
         $drawing->setHeight(60);
         $drawing->setWorksheet($sheet);
+
+        $row = 8;
+        $orden = 1;
+
+        foreach ($datos as $dato) {
+            $sheet->getRowDimension($row)->setRowHeight(30);
+
+            $sheet->setCellValue('A'.$row, $dato->numero_familia);
+            $sheet->mergeCells('A'.$row.':B'.$row);
+            $spreadsheet->getActiveSheet()->getStyle('A'.$row.':'.'B'.$row)->applyFromArray($styleArray);
+           
+            $sheet->setCellValue('C'.$row, $dato->nombre_completo);
+            $spreadsheet->getActiveSheet()->getStyle('C'.$row)->applyFromArray($styleArray);
+            $sheet->getStyle('C'.$row)->getAlignment()->setWrapText(true);
+
+            $sheet->setCellValue('D'.$row, $dato->tipo_identificacion);
+            $spreadsheet->getActiveSheet()->getStyle('D'.$row)->applyFromArray($styleArray);
+
+            $sheet->setCellValue('E'.$row, $dato->identificacion);
+            $spreadsheet->getActiveSheet()->getStyle('E'.$row)->applyFromArray($styleArray);
+            $spreadsheet->getActiveSheet()->getStyle('E'.$row)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER);
+           
+            $sheet->setCellValue('F'.$row, $dato->direccion);
+            $spreadsheet->getActiveSheet()->getStyle('F'.$row)->applyFromArray($styleArray);
+
+            $sheet->setCellValue('G'.$row, $dato->sexo);
+            $spreadsheet->getActiveSheet()->getStyle('G'.$row)->applyFromArray($styleArray);
+
+            $sheet->setCellValue('H'.$row, self::calcularEdad($dato->fecha_nacimiento)." Años");
+            $spreadsheet->getActiveSheet()->getStyle('H'.$row)->applyFromArray($styleArray);
+
+            $sheet->setCellValue('I'.$row, $dato->estado_civil);
+            $spreadsheet->getActiveSheet()->getStyle('I'.$row)->applyFromArray($styleArray);
+
+            $sheet->setCellValue('J'.$row, $dato->rol);
+            $spreadsheet->getActiveSheet()->getStyle('J'.$row)->applyFromArray($styleArray);
+
+            $sheet->setCellValue('K'.$row, $dato->ocupacion);
+            $spreadsheet->getActiveSheet()->getStyle('K'.$row)->applyFromArray($styleArray);
+            $sheet->getStyle('K'.$row)->getAlignment()->setWrapText(true);
+
+            $sheet->setCellValue('L'.$row, $dato->escolaridad);
+            $spreadsheet->getActiveSheet()->getStyle('L'.$row)->applyFromArray($styleArray);
+            $sheet->getStyle('L'.$row)->getAlignment()->setWrapText(true);
+
+            if($dato->rol == "Jefe de hogar"){
+                $sheet->setCellValue('M'.$row, $dato->vivienda_hogar->tipo_vivienda);
+                $sheet->setCellValue('N'.$row, $dato->vivienda_hogar->tenencia);
+                $sheet->setCellValue('O'.$row, $dato->vivienda_hogar->posecion_baldia == "" ? "N.A" : $dato->vivienda_hogar->posecion_baldia );
+                $sheet->setCellValue('P'.$row, $dato->vivienda_hogar->propiedad_titulo == "" ? "N.A" : $dato->vivienda_hogar->propiedad_titulo );
+                $sheet->setCellValue('Q'.$row, $dato->vivienda_hogar->area_total == "" ? "N.A" : $dato->vivienda_hogar->area_total);
+                $sheet->setCellValue('R'.$row, $dato->vivienda_hogar->area_total == "" ? "N.A" : ((double)$dato->vivienda_hogar->area_total / 10000));
+                if($dato->vivienda_hogar->tipo_vivienda == "Finca" || $dato->vivienda_hogar->tipo_vivienda == "Parcela"){
+                    $sheet->setCellValue('S'.$row, $dato->area_destinada_ocupada);
+                }else{
+                    $sheet->setCellValue('S'.$row, "N.A");
+                }
+                
+            }
+
+            $spreadsheet->getActiveSheet()->getStyle('M'.$row)->applyFromArray($styleArray);
+            $spreadsheet->getActiveSheet()->getStyle('N'.$row)->applyFromArray($styleArray);
+            $spreadsheet->getActiveSheet()->getStyle('O'.$row)->applyFromArray($styleArray);
+            $spreadsheet->getActiveSheet()->getStyle('P'.$row)->applyFromArray($styleArray);
+            $spreadsheet->getActiveSheet()->getStyle('Q'.$row)->applyFromArray($styleArray);
+            $spreadsheet->getActiveSheet()->getStyle('R'.$row)->applyFromArray($styleArray);
+            $spreadsheet->getActiveSheet()->getStyle('S'.$row)->applyFromArray($styleArray);
+            $spreadsheet->getActiveSheet()->getStyle('S'.$row)->applyFromArray($styleArray);
+
+
+            $row++; 
+        }
+
         
         $writer = new Xlsx($spreadsheet);
         $filePath = 'reportes/' . $nombre;
@@ -1061,40 +1199,5 @@ class ConsolidadoController extends Controller
         ];
 
         return response()->json($respuesta, 200);
-    }
-
-    public function consultarIntegrantesJefesConcejo($concejo){
-        $individuos = [];
-        $concejo = $request->input('concejo');
-     
-        $individuos = DB::connection('mysql')->table('informacion_personal')
-        ->join("educacion", "informacion_personal.identificacion", "educacion.identificacion_individuo")
-        ->join("situacion_laboral", "informacion_personal.identificacion", "situacion_laboral.identificacion_individuo")
-        ->join("cultura_tradiciones", "informacion_personal.identificacion", "cultura_tradiciones.identificacion_individuo")
-        ->where("cultura_tradiciones.concejo", $concejo)
-        ->orderBy("informacion_personal.numero_caracterizacion")
-        ->get();
-
-
-        foreach ($individuos as $individuo) {
-            if($individuo->rol == "Jefe de hogar"){
-                $individuo->vivienda_hogar = DB::connection('mysql')->table('vivienda_hogar')
-                ->where("identificacion_jefe", $individuo->identificacion)
-                ->first();
-
-                if($individuo->vivienda_hogar->tipo_vivienda == "Finca" || $individuo->vivienda_hogar->tipo_vivienda == "Parcela"){
-                    $individuo->area_destinada_ocupada =  DB::connection('mysql')->table('actividades_vivienda_hogar')
-                    ->where("identificacion_jefe", $individuo->identificacion)
-                    ->sum("area_destinada");
-                }
-            }
-           
-            $individuo->escolaridad = DB::connection('mysql')->table('escolaridad')
-            ->where("id", $individuo->nivel_educativo)
-            ->first()->descripcion;
-
-        }
-
-        return $individuos;
     }
 }
