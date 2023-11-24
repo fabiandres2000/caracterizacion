@@ -41,7 +41,7 @@
                             <th>%Total</th>
                             <th>H</th>
                             <th>M</th>
-                            <th style="background-color: #5df3c5" rowspan="4"> &lt; 15 </th>
+                            <th style="background-color: #5df3c5; font-size: 24px" rowspan="4"> &lt; 15 </th>
                         </tr>
                         <tr>
                             <th>De 0 A 4</th>
@@ -86,7 +86,7 @@
                             <th></th>
                             <th style="background-color: #5df3c5">H</th>
                             <th style="background-color: #5df3c5">M</th>
-                            <th style="background-color: #5df3c5" rowspan="4">&gt;= 15 &lt;= 64 </th>
+                            <th style="background-color: #5df3c5; font-size: 24px" rowspan="4">&gt;= 15 &lt;= 64 </th>
                         </tr>
                         <tr>
                             <th>De 20 A 24</th>
@@ -197,7 +197,7 @@
                             <th></th>
                             <th style="background-color: #5df3c5">H</th>
                             <th style="background-color: #5df3c5">M</th>
-                            <th style="background-color: #5df3c5" rowspan="4">&gt;= 65 </th>
+                            <th style="background-color: #5df3c5; font-size: 24px" rowspan="4">&gt;= 65 </th>
                         </tr>
                         <tr>
                             <th>De 70 A 74</th>
