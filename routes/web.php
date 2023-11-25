@@ -64,6 +64,7 @@ Route::prefix('api')->group(function () {
     Route::get('/lista-corregimientos-id', [CorregimeintoController::class, 'listarCorregimientosMunicipio'])->name('listarCorregimientosMunicipio');
 
     Route::get('/datos-dashboard', [DashboardController::class, 'datosDashboard'])->name('datosDashboard');
+    Route::get('/datos-informe', [DashboardController::class, 'datosInforme'])->name('datosInforme');
 
 });
 
