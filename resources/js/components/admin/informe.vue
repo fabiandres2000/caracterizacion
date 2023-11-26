@@ -1,281 +1,417 @@
 <template lang="">
     <div style="background-color: white">
-        <br>
-        <button @click="generateReport">
-            reporte
-        </button>
-        <hr>
-        <div class="row">
-            <div class="col-lg-2"></div>  
-            <div class="col-lg-8">
-                <div>
-                    <vue3-html2pdf
-                        :show-layout="true"
-                        :float-layout="false"
-                        :enable-download="true"
-                        :preview-modal="true"
-                        :paginate-elements-by-height="1200"
-                        :pdf-quality="2"
-                        :manual-pagination="false"
-                        pdf-content-width="100%"
-                        ref="html2Pdf"
-                        :html-to-pdf-options=htmlToPdfOptions
-                    >
-                        <template v-slot:pdf-content>
-                            <h2 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">DISTRIBUCIÓN POR GRUPO DE EDAD</h2>
-                            <br>
-                            <table class="tabla_informe" style="width: 100%" v-if="datos_edad.length > 0">
-                                <thead>
-                                    <tr>
-                                        <th colspan="7">
-                                            Distribución por Grupos de Edad
-                                        </th>
-                                    </tr>
-                                    
-                                </thead>
-                                <tbody>
-                                    <tr style="background-color: #5df3c5">
-                                        <th>EDAD</th>
-                                        <th>Hombres</th>
-                                        <th>%</th>
-                                        <th>Mujeres</th>
-                                        <th>%</th>
-                                        <th>Total</th>
-                                        <th>%Total</th>
-                                        <th>H</th>
-                                        <th>M</th>
-                                        <th style="background-color: #5df3c5; font-size: 20px" rowspan="4"> &lt; 15 </th>
-                                    </tr>
-                                    <tr>
-                                        <th>De 0 A 4</th>
-                                        <th>{{datos_edad[0][0]}}</th>
-                                        <th>{{(datos_edad[0][0] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{datos_edad[0][1]}}</th>
-                                        <th>{{(datos_edad[0][1] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th style="background-color: #5df3c5">{{datos_edad[0][0]+datos_edad[0][1]}}</th>
-                                        <th>{{((datos_edad[0][0]+datos_edad[0][1]) / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{(datos_edad[16][0] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{(datos_edad[16][1] / numero_personas * 100).toFixed(2)}} %</th>
-                                    </tr>
-                                    <tr>
-                                        <th>De 5 A 9</th>
-                                        <th>{{datos_edad[1][0]}}</th>
-                                        <th>{{(datos_edad[1][0] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{datos_edad[1][1]}}</th>
-                                        <th>{{(datos_edad[1][1] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th style="background-color: #5df3c5">{{datos_edad[1][0]+datos_edad[1][1]}}</th>
-                                        <th>{{((datos_edad[1][0]+datos_edad[1][1]) / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{datos_edad[16][0]}}</th>
-                                        <th>{{datos_edad[16][1]}}</th>
-                                    </tr>
-                                    <tr>
-                                        <th>De 10 A 14</th>
-                                        <th>{{datos_edad[2][0]}}</th>
-                                        <th>{{(datos_edad[2][0] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{datos_edad[2][1]}}</th>
-                                        <th>{{(datos_edad[2][1] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th style="background-color: #5df3c5">{{datos_edad[2][0]+datos_edad[2][1]}}</th>
-                                        <th>{{((datos_edad[2][0]+datos_edad[2][1]) / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{datos_edad[16][0] + datos_edad[16][1]}}</th>
-                                        <th>{{((datos_edad[16][0] + datos_edad[16][1]) / numero_personas * 100).toFixed(2)}} %</th>
-                                    </tr>
-                                    <tr>
-                                        <th>De 15 A 19</th>
-                                        <th>{{datos_edad[3][0]}}</th>
-                                        <th>{{(datos_edad[3][0] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{datos_edad[3][1]}}</th>
-                                        <th>{{(datos_edad[3][1] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th style="background-color: #5df3c5">{{datos_edad[3][0]+datos_edad[3][1]}}</th>
-                                        <th>{{((datos_edad[3][0]+datos_edad[3][1]) / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th style="background-color: #5df3c5">H</th>
-                                        <th style="background-color: #5df3c5">M</th>
-                                        <th style="background-color: #5df3c5; font-size: 20px" rowspan="4">&gt;= 15 &lt;= 64 </th>
-                                    </tr>
-                                    <tr>
-                                        <th>De 20 A 24</th>
-                                        <th>{{datos_edad[4][0]}}</th>
-                                        <th>{{(datos_edad[4][0] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{datos_edad[4][1]}}</th>
-                                        <th>{{(datos_edad[4][1] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th style="background-color: #5df3c5">{{datos_edad[4][0]+datos_edad[4][1]}}</th>
-                                        <th>{{((datos_edad[4][0]+datos_edad[4][1]) / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{(datos_edad[17][0] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{(datos_edad[17][1] / numero_personas * 100).toFixed(2)}} %</th>
-                                    </tr>
-                                    <tr>
-                                        <th>De 25 A 29</th>
-                                        <th>{{datos_edad[5][0]}}</th>
-                                        <th>{{(datos_edad[5][0] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{datos_edad[5][1]}}</th>
-                                        <th>{{(datos_edad[5][1] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th style="background-color: #5df3c5">{{datos_edad[5][0]+datos_edad[5][1]}}</th>
-                                        <th>{{((datos_edad[5][0]+datos_edad[5][1]) / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{datos_edad[17][0]}}</th>
-                                        <th>{{datos_edad[17][1]}}</th>
-                                    </tr>
-                                    <tr>
-                                        <th>De 30 A 34</th>
-                                        <th>{{datos_edad[6][0]}}</th>
-                                        <th>{{(datos_edad[6][0] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{datos_edad[6][1]}}</th>
-                                        <th>{{(datos_edad[6][1] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th style="background-color: #5df3c5">{{datos_edad[6][0]+datos_edad[1][1]}}</th>
-                                        <th>{{((datos_edad[6][0]+datos_edad[6][1]) / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{datos_edad[17][0] + datos_edad[17][1]}}</th>
-                                        <th>{{((datos_edad[17][0] + datos_edad[17][1]) / numero_personas * 100).toFixed(2)}} %</th>
-                                    </tr>
-                                    <tr>
-                                        <th>De 35 A 39</th>
-                                        <th>{{datos_edad[7][0]}}</th>
-                                        <th>{{(datos_edad[7][0] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{datos_edad[7][1]}}</th>
-                                        <th>{{(datos_edad[7][1] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th style="background-color: #5df3c5">{{datos_edad[7][0]+datos_edad[7][1]}}</th>
-                                        <th>{{((datos_edad[7][0]+datos_edad[7][1]) / numero_personas * 100).toFixed(2)}} %</th>
-                                    </tr>
-                                    <tr>
-                                        <th>De 40 A 44</th>
-                                        <th>{{datos_edad[8][0]}}</th>
-                                        <th>{{(datos_edad[8][0] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{datos_edad[8][1]}}</th>
-                                        <th>{{(datos_edad[8][1] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th style="background-color: #5df3c5">{{datos_edad[8][0]+datos_edad[8][1]}}</th>
-                                        <th>{{((datos_edad[8][0]+datos_edad[8][1]) / numero_personas * 100).toFixed(2)}} %</th>
-                                    </tr>
-                                    <tr>
-                                        <th>De 45 A 49</th>
-                                        <th>{{datos_edad[9][0]}}</th>
-                                        <th>{{(datos_edad[9][0] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{datos_edad[9][1]}}</th>
-                                        <th>{{(datos_edad[9][1] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th style="background-color: #5df3c5">{{datos_edad[9][0]+datos_edad[9][1]}}</th>
-                                        <th>{{((datos_edad[9][0]+datos_edad[9][1]) / numero_personas * 100).toFixed(2)}} %</th>
-                                    </tr>
-                                    <tr>
-                                        <th>De 50 A 54</th>
-                                        <th>{{datos_edad[10][0]}}</th>
-                                        <th>{{(datos_edad[10][0] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{datos_edad[10][1]}}</th>
-                                        <th>{{(datos_edad[10][1] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th style="background-color: #5df3c5">{{datos_edad[10][0]+datos_edad[10][1]}}</th>
-                                        <th>{{((datos_edad[10][0]+datos_edad[10][1]) / numero_personas * 100).toFixed(2)}} %</th>
-                                    </tr>
-                                    <tr>
-                                        <th>De 55 A 59</th>
-                                        <th>{{datos_edad[11][0]}}</th>
-                                        <th>{{(datos_edad[11][0] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{datos_edad[11][1]}}</th>
-                                        <th>{{(datos_edad[11][1] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th style="background-color: #5df3c5">{{datos_edad[11][0]+datos_edad[11][1]}}</th>
-                                        <th>{{((datos_edad[11][0]+datos_edad[11][1]) / numero_personas * 100).toFixed(2)}} %</th>
-                                    </tr>
-                                    <tr>
-                                        <th>De 60 A 64</th>
-                                        <th>{{datos_edad[12][0]}}</th>
-                                        <th>{{(datos_edad[12][0] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{datos_edad[12][1]}}</th>
-                                        <th>{{(datos_edad[12][1] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th style="background-color: #5df3c5">{{datos_edad[12][0]+datos_edad[12][1]}}</th>
-                                        <th>{{((datos_edad[12][0]+datos_edad[12][1]) / numero_personas * 100).toFixed(2)}} %</th>
-                                    </tr>
-                                    <tr>
-                                        <th>De 65 A 69</th>
-                                        <th>{{datos_edad[13][0]}}</th>
-                                        <th>{{(datos_edad[13][0] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{datos_edad[13][1]}}</th>
-                                        <th>{{(datos_edad[13][1] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th style="background-color: #5df3c5">{{datos_edad[13][0]+datos_edad[13][1]}}</th>
-                                        <th>{{((datos_edad[13][0]+datos_edad[13][1]) / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th style="background-color: #5df3c5">H</th>
-                                        <th style="background-color: #5df3c5">M</th>
-                                        <th style="background-color: #5df3c5; font-size: 20px" rowspan="4">&gt;= 65 </th>
-                                    </tr>
-                                    <tr>
-                                        <th>De 70 A 74</th>
-                                        <th>{{datos_edad[14][0]}}</th>
-                                        <th>{{(datos_edad[14][0] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{datos_edad[14][1]}}</th>
-                                        <th>{{(datos_edad[14][1] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th style="background-color: #5df3c5">{{datos_edad[14][0]+datos_edad[14][1]}}</th>
-                                        <th>{{((datos_edad[14][0]+datos_edad[14][1]) / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{(datos_edad[18][0] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{(datos_edad[18][1] / numero_personas * 100).toFixed(2)}} %</th>
-                                    </tr>
-                                    <tr>
-                                        <th>De 75 Y MAS</th>
-                                        <th>{{datos_edad[15][0]}}</th>
-                                        <th>{{(datos_edad[15][0] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{datos_edad[15][1]}}</th>
-                                        <th>{{(datos_edad[15][1] / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th style="background-color: #5df3c5">{{datos_edad[15][0]+datos_edad[15][1]}}</th>
-                                        <th>{{((datos_edad[15][0]+datos_edad[15][1]) / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th>{{datos_edad[18][0]}}</th>
-                                        <th>{{datos_edad[18][1]}}</th>
-                                    </tr>
-                                    <tr>
-                                        <th style="background-color: #5df3c5">TOTAL</th>
-                                        <th style="background-color: #5df3c5">{{datos_edad_general.numero_masculino}}</th>
-                                        <th style="background-color: #5df3c5">{{(datos_edad_general.numero_masculino / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th style="background-color: #5df3c5">{{datos_edad_general.numero_femenino}}</th>
-                                        <th style="background-color: #5df3c5">{{(datos_edad_general.numero_femenino / numero_personas * 100).toFixed(2)}} %</th>
-                                        <th style="background-color: #5df3c5">{{ numero_personas }}</th>
-                                        <th>100 %</th>
-                                        <th>{{datos_edad[18][0] + datos_edad[18][1]}}</th>
-                                        <th>{{((datos_edad[18][0] + datos_edad[18][1]) / numero_personas * 100).toFixed(2)}} %</th>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <br><br>
-                            <hr>
-                            <h2 style="width: 100%; text-align: center">PORCENTAJE POR GENERO</h2>
-                            <div id="grafica_sexo_informe" style="height: 300px"></div>
-                            <h2 style="width: 100%; text-align: center">PIRÁMIDE POBLACIONAL</h2>
-                            <br>
-                            <div id="grafico_edad_informe" style="height: 465px; width: 104%"></div>
-                            <br>
-                            <br>
-                            <br>
-                            <hr>
-                            <h2 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">DISTRIBUCIÓN POR ESTADO CIVIL</h2>
-                            <br>
-                            <table class="tabla_informe" style="width: 100%" v-if="datos_edad.length > 0">
-                                <thead>
-                                    <tr>
-                                        <th colspan="3">
-                                            ESTADO CIVIL
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th>ESTADO CIVIL</th>
-                                        <th>PERSONAS</th>
-                                        <th>%</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="(item, index) in datos_edad_general.estado_civil" :key="index">
-                                        <th style="text-transform: uppercase">{{item[0]}}</th>
-                                        <td>{{item[1]}}</td>
-                                        <td>{{item[2]}} %</td>
-                                    </tr>
-                                </tbody>
-                                <thead>
-                                    <tr>
-                                        <th>TOTAL</th>
-                                        <th>{{numero_personas}}</th>
-                                        <th>100%</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                            <div class="html2pdf__page-break"></div>
-                            <br><br>
-                            <h2 style="width: 100%; text-align: center;">DISTRIBUCIÓN DE PERSONAS POR ESTADO CIVIL</h2>
-                            <div id="grafico_estado_civil" style="height: 450px; width: 104%"></div>
-                            <div id="grafico_estado_civil_por" style="margin-top: 130px; height: 390px; width: 104%"></div>
-                        </template>
-                    </vue3-html2pdf> 
+        <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title" style="font-weight: bold">FORMULARIO DE CARACTERIZACIÓN POBLACIÓN AFRODESCENDIENTES</h4>
                 </div>
-            </div>      
-            <div class="col-lg-2"></div>    
+                <div class="card-content">
+                    <div class="card-body">
+                        <ul class="nav nav-tabs nav-underline" role="tablist">
+                            <li style ="font-size: 14px" class="nav-item">
+                                <a class="nav-link active" id="baseIcon-tab21" data-toggle="tab" aria-controls="tabIcon21" href="#tabIcon21" role="tab" aria-selected="false">
+                                    <i style ="font-size: 25px" class="fas fa-user"></i>
+                                </a>
+                            </li>
+                            <li style ="font-size: 14px" class="nav-item">
+                                <a class="nav-link" id="baseIcon-tab22" data-toggle="tab" aria-controls="tabIcon22" href="#tabIcon22" role="tab" aria-selected="false">
+                                    <i style ="font-size: 25px" class="fas fa-suitcase"></i>
+                                </a>
+                            </li>
+                            <li style ="font-size: 14px" class="nav-item">
+                                <a class="nav-link" id="baseIcon-tab23" data-toggle="tab" aria-controls="tabIcon23" href="#tabIcon23" role="tab" aria-selected="false">
+                                    <i style ="font-size: 25px" class="fas fa-school"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <div style="position: relative" class="tab-content px-1 pt-1">
+                            <div class="tab-pane active" id="tabIcon21" role="tabpanel" aria-labelledby="baseIcon-tab21">
+                                <button style="border-radius: 50%; width: 50px; height: 50px; position: absolute; right: 90px; top: 20px" class="btn btn-danger" @click="generateReport">
+                                    <i class="fas fa-file-pdf"></i>
+                                </button>
+                                <button style="border-radius: 50%; width: 50px; height: 50px; position: absolute; right: 20px; top: 20px" class="btn btn-success" @click="generateReport">
+                                    <i class="fas fa-file-excel"></i>
+                                </button>
+                                <br>
+                                <br>
+                                <br>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-lg-2"></div>  
+                                    <div class="col-lg-8">
+                                        <div>
+                                            <vue3-html2pdf
+                                                :show-layout="true"
+                                                :float-layout="false"
+                                                :enable-download="true"
+                                                :preview-modal="true"
+                                                :paginate-elements-by-height="1200"
+                                                :pdf-quality="2"
+                                                :manual-pagination="false"
+                                                pdf-content-width="100%"
+                                                ref="html2Pdf"
+                                                :html-to-pdf-options=htmlToPdfOptions
+                                            >
+                                                <template v-slot:pdf-content>
+                                                    <h2 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">DISTRIBUCIÓN POR GRUPO DE EDAD</h2>
+                                                    <br>
+                                                    <table class="tabla_informe" style="width: 100%" v-if="datos_edad.length > 0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th colspan="7">
+                                                                    Distribución por Grupos de Edad
+                                                                </th>
+                                                            </tr>
+                                                            
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr style="background-color: #5df3c5">
+                                                                <th>EDAD</th>
+                                                                <th>Hombres</th>
+                                                                <th>%</th>
+                                                                <th>Mujeres</th>
+                                                                <th>%</th>
+                                                                <th>Total</th>
+                                                                <th>%Total</th>
+                                                                <th>H</th>
+                                                                <th>M</th>
+                                                                <th style="background-color: #5df3c5; font-size: 20px" rowspan="4"> &lt; 15 </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>De 0 A 4</th>
+                                                                <th>{{datos_edad[0][0]}}</th>
+                                                                <th>{{(datos_edad[0][0] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{datos_edad[0][1]}}</th>
+                                                                <th>{{(datos_edad[0][1] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th style="background-color: #5df3c5">{{datos_edad[0][0]+datos_edad[0][1]}}</th>
+                                                                <th>{{((datos_edad[0][0]+datos_edad[0][1]) / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{(datos_edad[16][0] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{(datos_edad[16][1] / numero_personas * 100).toFixed(2)}} %</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>De 5 A 9</th>
+                                                                <th>{{datos_edad[1][0]}}</th>
+                                                                <th>{{(datos_edad[1][0] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{datos_edad[1][1]}}</th>
+                                                                <th>{{(datos_edad[1][1] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th style="background-color: #5df3c5">{{datos_edad[1][0]+datos_edad[1][1]}}</th>
+                                                                <th>{{((datos_edad[1][0]+datos_edad[1][1]) / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{datos_edad[16][0]}}</th>
+                                                                <th>{{datos_edad[16][1]}}</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>De 10 A 14</th>
+                                                                <th>{{datos_edad[2][0]}}</th>
+                                                                <th>{{(datos_edad[2][0] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{datos_edad[2][1]}}</th>
+                                                                <th>{{(datos_edad[2][1] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th style="background-color: #5df3c5">{{datos_edad[2][0]+datos_edad[2][1]}}</th>
+                                                                <th>{{((datos_edad[2][0]+datos_edad[2][1]) / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{datos_edad[16][0] + datos_edad[16][1]}}</th>
+                                                                <th>{{((datos_edad[16][0] + datos_edad[16][1]) / numero_personas * 100).toFixed(2)}} %</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>De 15 A 19</th>
+                                                                <th>{{datos_edad[3][0]}}</th>
+                                                                <th>{{(datos_edad[3][0] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{datos_edad[3][1]}}</th>
+                                                                <th>{{(datos_edad[3][1] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th style="background-color: #5df3c5">{{datos_edad[3][0]+datos_edad[3][1]}}</th>
+                                                                <th>{{((datos_edad[3][0]+datos_edad[3][1]) / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th style="background-color: #5df3c5">H</th>
+                                                                <th style="background-color: #5df3c5">M</th>
+                                                                <th style="background-color: #5df3c5; font-size: 20px" rowspan="4">&gt;= 15 &lt;= 64 </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>De 20 A 24</th>
+                                                                <th>{{datos_edad[4][0]}}</th>
+                                                                <th>{{(datos_edad[4][0] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{datos_edad[4][1]}}</th>
+                                                                <th>{{(datos_edad[4][1] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th style="background-color: #5df3c5">{{datos_edad[4][0]+datos_edad[4][1]}}</th>
+                                                                <th>{{((datos_edad[4][0]+datos_edad[4][1]) / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{(datos_edad[17][0] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{(datos_edad[17][1] / numero_personas * 100).toFixed(2)}} %</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>De 25 A 29</th>
+                                                                <th>{{datos_edad[5][0]}}</th>
+                                                                <th>{{(datos_edad[5][0] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{datos_edad[5][1]}}</th>
+                                                                <th>{{(datos_edad[5][1] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th style="background-color: #5df3c5">{{datos_edad[5][0]+datos_edad[5][1]}}</th>
+                                                                <th>{{((datos_edad[5][0]+datos_edad[5][1]) / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{datos_edad[17][0]}}</th>
+                                                                <th>{{datos_edad[17][1]}}</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>De 30 A 34</th>
+                                                                <th>{{datos_edad[6][0]}}</th>
+                                                                <th>{{(datos_edad[6][0] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{datos_edad[6][1]}}</th>
+                                                                <th>{{(datos_edad[6][1] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th style="background-color: #5df3c5">{{datos_edad[6][0]+datos_edad[1][1]}}</th>
+                                                                <th>{{((datos_edad[6][0]+datos_edad[6][1]) / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{datos_edad[17][0] + datos_edad[17][1]}}</th>
+                                                                <th>{{((datos_edad[17][0] + datos_edad[17][1]) / numero_personas * 100).toFixed(2)}} %</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>De 35 A 39</th>
+                                                                <th>{{datos_edad[7][0]}}</th>
+                                                                <th>{{(datos_edad[7][0] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{datos_edad[7][1]}}</th>
+                                                                <th>{{(datos_edad[7][1] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th style="background-color: #5df3c5">{{datos_edad[7][0]+datos_edad[7][1]}}</th>
+                                                                <th>{{((datos_edad[7][0]+datos_edad[7][1]) / numero_personas * 100).toFixed(2)}} %</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>De 40 A 44</th>
+                                                                <th>{{datos_edad[8][0]}}</th>
+                                                                <th>{{(datos_edad[8][0] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{datos_edad[8][1]}}</th>
+                                                                <th>{{(datos_edad[8][1] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th style="background-color: #5df3c5">{{datos_edad[8][0]+datos_edad[8][1]}}</th>
+                                                                <th>{{((datos_edad[8][0]+datos_edad[8][1]) / numero_personas * 100).toFixed(2)}} %</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>De 45 A 49</th>
+                                                                <th>{{datos_edad[9][0]}}</th>
+                                                                <th>{{(datos_edad[9][0] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{datos_edad[9][1]}}</th>
+                                                                <th>{{(datos_edad[9][1] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th style="background-color: #5df3c5">{{datos_edad[9][0]+datos_edad[9][1]}}</th>
+                                                                <th>{{((datos_edad[9][0]+datos_edad[9][1]) / numero_personas * 100).toFixed(2)}} %</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>De 50 A 54</th>
+                                                                <th>{{datos_edad[10][0]}}</th>
+                                                                <th>{{(datos_edad[10][0] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{datos_edad[10][1]}}</th>
+                                                                <th>{{(datos_edad[10][1] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th style="background-color: #5df3c5">{{datos_edad[10][0]+datos_edad[10][1]}}</th>
+                                                                <th>{{((datos_edad[10][0]+datos_edad[10][1]) / numero_personas * 100).toFixed(2)}} %</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>De 55 A 59</th>
+                                                                <th>{{datos_edad[11][0]}}</th>
+                                                                <th>{{(datos_edad[11][0] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{datos_edad[11][1]}}</th>
+                                                                <th>{{(datos_edad[11][1] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th style="background-color: #5df3c5">{{datos_edad[11][0]+datos_edad[11][1]}}</th>
+                                                                <th>{{((datos_edad[11][0]+datos_edad[11][1]) / numero_personas * 100).toFixed(2)}} %</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>De 60 A 64</th>
+                                                                <th>{{datos_edad[12][0]}}</th>
+                                                                <th>{{(datos_edad[12][0] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{datos_edad[12][1]}}</th>
+                                                                <th>{{(datos_edad[12][1] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th style="background-color: #5df3c5">{{datos_edad[12][0]+datos_edad[12][1]}}</th>
+                                                                <th>{{((datos_edad[12][0]+datos_edad[12][1]) / numero_personas * 100).toFixed(2)}} %</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>De 65 A 69</th>
+                                                                <th>{{datos_edad[13][0]}}</th>
+                                                                <th>{{(datos_edad[13][0] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{datos_edad[13][1]}}</th>
+                                                                <th>{{(datos_edad[13][1] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th style="background-color: #5df3c5">{{datos_edad[13][0]+datos_edad[13][1]}}</th>
+                                                                <th>{{((datos_edad[13][0]+datos_edad[13][1]) / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th style="background-color: #5df3c5">H</th>
+                                                                <th style="background-color: #5df3c5">M</th>
+                                                                <th style="background-color: #5df3c5; font-size: 20px" rowspan="4">&gt;= 65 </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>De 70 A 74</th>
+                                                                <th>{{datos_edad[14][0]}}</th>
+                                                                <th>{{(datos_edad[14][0] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{datos_edad[14][1]}}</th>
+                                                                <th>{{(datos_edad[14][1] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th style="background-color: #5df3c5">{{datos_edad[14][0]+datos_edad[14][1]}}</th>
+                                                                <th>{{((datos_edad[14][0]+datos_edad[14][1]) / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{(datos_edad[18][0] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{(datos_edad[18][1] / numero_personas * 100).toFixed(2)}} %</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>De 75 Y MAS</th>
+                                                                <th>{{datos_edad[15][0]}}</th>
+                                                                <th>{{(datos_edad[15][0] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{datos_edad[15][1]}}</th>
+                                                                <th>{{(datos_edad[15][1] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th style="background-color: #5df3c5">{{datos_edad[15][0]+datos_edad[15][1]}}</th>
+                                                                <th>{{((datos_edad[15][0]+datos_edad[15][1]) / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{datos_edad[18][0]}}</th>
+                                                                <th>{{datos_edad[18][1]}}</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th style="background-color: #5df3c5">TOTAL</th>
+                                                                <th style="background-color: #5df3c5">{{datos_edad_general.numero_masculino}}</th>
+                                                                <th style="background-color: #5df3c5">{{(datos_edad_general.numero_masculino / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th style="background-color: #5df3c5">{{datos_edad_general.numero_femenino}}</th>
+                                                                <th style="background-color: #5df3c5">{{(datos_edad_general.numero_femenino / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th style="background-color: #5df3c5">{{ numero_personas }}</th>
+                                                                <th>100 %</th>
+                                                                <th>{{datos_edad[18][0] + datos_edad[18][1]}}</th>
+                                                                <th>{{((datos_edad[18][0] + datos_edad[18][1]) / numero_personas * 100).toFixed(2)}} %</th>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <br><br>
+                                                    <hr>
+                                                    <h2 style="width: 100%; text-align: center">PORCENTAJE POR GENERO</h2>
+                                                    <div id="grafica_sexo_informe" style="height: 300px"></div>
+                                                    <h2 style="width: 100%; text-align: center">PIRÁMIDE POBLACIONAL</h2>
+                                                    <br>
+                                                    <div id="grafico_edad_informe" style="height: 465px; width: 104%"></div>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <hr>
+                                                    <h2 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">DISTRIBUCIÓN POR ESTADO CIVIL</h2>
+                                                    <br>
+                                                    <table class="tabla_informe" style="width: 100%" v-if="datos_edad.length > 0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th colspan="3">
+                                                                    ESTADO CIVIL
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>ESTADO CIVIL</th>
+                                                                <th>PERSONAS</th>
+                                                                <th>%</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr v-for="(item, index) in datos_edad_general.estado_civil" :key="index">
+                                                                <th style="text-transform: uppercase">{{item[0]}}</th>
+                                                                <td>{{item[1]}}</td>
+                                                                <td>{{item[2]}} %</td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <thead>
+                                                            <tr>
+                                                                <th>TOTAL</th>
+                                                                <th>{{numero_personas}}</th>
+                                                                <th>100%</th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                    <div class="html2pdf__page-break"></div>
+                                                    <br><br>
+                                                    <h2 style="width: 100%; text-align: center;">DISTRIBUCIÓN DE PERSONAS POR ESTADO CIVIL</h2>
+                                                    <div id="grafico_estado_civil" style="height: 450px; width: 104%"></div>
+                                                    <div id="grafico_estado_civil_por" style="margin-top: 130px; height: 390px; width: 104%"></div>
+                                                </template>
+                                            </vue3-html2pdf> 
+                                        </div>
+                                    </div>      
+                                    <div class="col-lg-2"></div>    
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tabIcon22" role="tabpanel" aria-labelledby="baseIcon-tab22">
+                                <button style="border-radius: 50%; width: 50px; height: 50px; position: absolute; right: 90px; top: 20px" class="btn btn-danger" @click="generateReport">
+                                    <i class="fas fa-file-pdf"></i>
+                                </button>
+                                <button style="border-radius: 50%; width: 50px; height: 50px; position: absolute; right: 20px; top: 20px" class="btn btn-success" @click="generateReport">
+                                    <i class="fas fa-file-excel"></i>
+                                </button>
+                                <br>
+                                <br>
+                                <br>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-lg-2"></div>  
+                                    <div class="col-lg-8">
+                                        <div>
+                                            <vue3-html2pdf
+                                                :show-layout="true"
+                                                :float-layout="false"
+                                                :enable-download="true"
+                                                :preview-modal="true"
+                                                :paginate-elements-by-height="1200"
+                                                :pdf-quality="2"
+                                                :manual-pagination="false"
+                                                pdf-content-width="100%"
+                                                ref="html2Pdf2"
+                                                :html-to-pdf-options=htmlToPdfOptions
+                                            >
+                                                <template v-slot:pdf-content>
+                                                    <h2 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">POBLACION ECONOMICAMENTE ACTIVA</h2>
+                                                    <br>
+                                                    <table style="width: 100%" class="situacion_laboral" v-if="poblacion_e_activa != null">
+                                                        <thead>
+                                                            <tr>
+                                                                <th colspan="6">POBLACION ECONOMICAMENTE ACTIVA</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>HOMBRES</th>
+                                                                <th>%</th>
+                                                                <th>MUJERES</th>
+                                                                <th>%</th>
+                                                                <th>TOTAL</th>
+                                                                <th>%</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr style="border-left: 1px solid grey; border-right: 1px solid grey">
+                                                                <td>{{poblacion_e_activa[0]}}</td>
+                                                                <td>{{(poblacion_e_activa[0]/poblacion_e_activa[2] * 100).toFixed(2)}}%</td>
+                                                                <td>{{poblacion_e_activa[1]}}</td>
+                                                                <td>{{(poblacion_e_activa[1]/poblacion_e_activa[2] * 100).toFixed(2)}}%</td>
+                                                                <td>{{poblacion_e_activa[0] + poblacion_e_activa[1]}}</td>
+                                                                <td>100%</td>
+                                                            </tr>
+                                                            <tr style="border-left: 1px solid grey; border-right: 1px solid grey">
+                                                                <td colspan="6" style="text-align: center; padding: 10px">
+                                                                    También se le llama fuerza laboral y está conformada por las personas en edad de trabajar que trabajan o están buscando empleo. 
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <thead>
+                                                            <tr>
+                                                                <th colspan="6">POBLACION ECONOMICAMENTE INACTIVA</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>HOMBRES</th>
+                                                                <th>%</th>
+                                                                <th>MUJERES</th>
+                                                                <th>%</th>
+                                                                <th>TOTAL</th>
+                                                                <th>%</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr style="border-left: 1px solid grey; border-right: 1px solid grey">
+                                                                <td>{{poblacion_e_inactiva[0]}}</td>
+                                                                <td>{{(poblacion_e_inactiva[0]/poblacion_e_inactiva[2] * 100).toFixed(2)}}%</td>
+                                                                <td>{{poblacion_e_inactiva[1]}}</td>
+                                                                <td>{{(poblacion_e_inactiva[1]/poblacion_e_inactiva[2] * 100).toFixed(2)}}%</td>
+                                                                <td>{{poblacion_e_inactiva[0] + poblacion_e_inactiva[1]}}</td>
+                                                                <td>100%</td>
+                                                            </tr>
+                                                            <tr style="border-left: 1px solid grey; border-right: 1px solid grey; border-bottom: 1px solid grey">
+                                                                <td colspan="6" style="text-align: center; padding: 10px">
+                                                                    Comprende a todas las personas en edad de trabajar que en la semana de referencia no participan en la producción de bienes y servicios porque no necesitan, no pueden o no están interesadas en tener actividad remunerada. A este grupo pertenecen estudiantes, amas de casa, pensionados, jubilados, rent istas, inválidos (incapacitados Permanentemente para trabajar), personas que no les llama la atención o creen que no vale la pena trabajar.
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <br><br>
+                                                    <h2 style="width: 100%; text-align: center">(P.E.A) PORCENTAJE POR GENERO</h2>
+                                                    <div id="grafica_pae" style="height: 300px"></div>
+                                                    <br><br>
+                                                    <h2 style="width: 100%; text-align: center">(P.E.I) PORCENTAJE POR GENERO</h2>
+                                                    <div id="grafica_pei" style="height: 300px"></div>
+                                                </template>
+                                            </vue3-html2pdf>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2"></div>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
 </template>
@@ -315,18 +451,6 @@ export default {
                     orientation: 'portrait'
                 }
             },
-            options: {
-                chart: {
-                id: 'vuechart-example'
-                },
-                xaxis: {
-                categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
-                }
-            },
-            series: [{
-                name: 'series-1',
-                data: [30, 40, 45, 50, 49, 60, 70, 91]
-            }],
             datos_edad: [],
             numero_personas: 0,
             datos_edad_general: null,
@@ -334,6 +458,10 @@ export default {
             chart_sexo: null,
             char_estado_civil: null,
             char_estado_civil_por: null,
+            poblacion_e_activa: null,
+            poblacion_e_inactiva: null,
+            char_poblacion_activa: null,
+            char_poblacion_inactiva: null
         }
     },
     mounted() {
@@ -353,8 +481,12 @@ export default {
                 this.generarGraficoSexo();
                 this.generarGraficoEstadiCivilBarras();
                 this.generarGraficoEstadiCivilPie();
+                this.poblacion_e_activa = respuesta.data.poblacion_e_activa;
+                this.poblacion_e_inactiva = respuesta.data.poblacion_e_inactiva;
+                this.generarGraficoPAE();
+                this.generarGraficoPEI();
+                this.loading = false;
             });
-            this.loading = false;
         },
         generarGraficoEdad() {
             // Create chart instance
@@ -548,6 +680,64 @@ export default {
 
             this.char_estado_civil_por = chart;
         },
+        generarGraficoPAE() {
+            var chart = am4core.create("grafica_pae", am4charts.PieChart);
+
+            // Add data
+            chart.data = [
+                {
+                    "country": "Masculino",
+                    "litres": this.poblacion_e_activa[0],
+                },
+                {
+                    "country": "Femenino",
+                    "litres": this.poblacion_e_activa[1],
+                }
+            ];
+
+            var pieSeries = chart.series.push(new am4charts.PieSeries());
+            pieSeries.dataFields.value = "litres";
+            pieSeries.dataFields.category = "country";
+            pieSeries.slices.template.stroke = am4core.color("#fff");
+            pieSeries.slices.template.strokeOpacity = 1;
+
+            pieSeries.hiddenState.properties.opacity = 1;
+            pieSeries.hiddenState.properties.endAngle = -90;
+            pieSeries.hiddenState.properties.startAngle = -90;
+
+            chart.hiddenState.properties.radius = am4core.percent(0);
+
+            this.char_poblacion_activa = chart;
+        },
+        generarGraficoPEI() {
+            var chart = am4core.create("grafica_pei", am4charts.PieChart);
+
+            // Add data
+            chart.data = [
+                {
+                    "country": "Masculino",
+                    "litres": this.poblacion_e_inactiva[0],
+                },
+                {
+                    "country": "Femenino",
+                    "litres": this.poblacion_e_inactiva[1],
+                }
+            ];
+
+            var pieSeries = chart.series.push(new am4charts.PieSeries());
+            pieSeries.dataFields.value = "litres";
+            pieSeries.dataFields.category = "country";
+            pieSeries.slices.template.stroke = am4core.color("#fff");
+            pieSeries.slices.template.strokeOpacity = 1;
+
+            pieSeries.hiddenState.properties.opacity = 1;
+            pieSeries.hiddenState.properties.endAngle = -90;
+            pieSeries.hiddenState.properties.startAngle = -90;
+
+            chart.hiddenState.properties.radius = am4core.percent(0);
+
+            this.char_poblacion_inactiva = chart;
+        },
     },
 }
 </script>
@@ -616,5 +806,12 @@ export default {
 
     thead {
        background-color: #5df3c5 !important;
+    }
+
+    .situacion_laboral th, .situacion_laboral td{
+        border-right: 1px solid grey;
+        border-left: 1px solid grey;
+        border-bottom: 1px solid grey;
+        text-align: center;
     }
 </style>

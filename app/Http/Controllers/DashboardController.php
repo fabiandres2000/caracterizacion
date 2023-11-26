@@ -266,7 +266,6 @@ class DashboardController extends Controller
         return $edad;
     }
     
-
     public function datosInforme(){
         $numero_personas = DB::connection('mysql')->table('informacion_personal')
         ->where("informacion_personal.estado", 1)
@@ -586,6 +585,32 @@ class DashboardController extends Controller
         $estado_civil[7][2] = round(($estado_civil[7][1] / $numero_personas) * 100, 2);
 
 
+        $poblacion_e_activa = [0,0,0];
+        $poblacion_e_inactiva = [0,0,0];
+        foreach ($integrantes as $item) {
+            if($item->edad >= 15){
+                $situacion_laboral = DB::connection('mysql')->table('situacion_laboral')
+                ->where("identificacion_individuo", $item->identificacion)
+                ->first();
+
+                if($situacion_laboral->situacion_laboral != "Desempleado/a (sin búsqueda activa de empleo en el momento)"){
+                    if($item->sexo == "Masculino"){
+                        $poblacion_e_activa[0] += 1;
+                    }else{
+                        $poblacion_e_activa[1] += 1;
+                    }
+                    $poblacion_e_activa[2] += 1;
+                }else{
+                    if($item->sexo == "Masculino"){
+                        $poblacion_e_inactiva[0] += 1;
+                    }else{
+                        $poblacion_e_inactiva[1] += 1;
+                    }
+                    $poblacion_e_inactiva[2] += 1;
+                }
+            }
+        }
+
         $datos = [
             "piramide_edad" => $piramide_edad,
             "numero_masculino" => $masculino,
@@ -594,7 +619,9 @@ class DashboardController extends Controller
             "numero_hogares" => $numero_hogares,
             "desplazados" => $desplazados,
             "numero_personas" => $numero_personas,
-            "estado_civil" => $estado_civil
+            "estado_civil" => $estado_civil,
+            "poblacion_e_activa" => $poblacion_e_activa,
+            "poblacion_e_inactiva" => $poblacion_e_inactiva,
         ];
 
         return response()->json($datos);
