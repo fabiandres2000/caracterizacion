@@ -611,6 +611,16 @@ class DashboardController extends Controller
             }
         }
 
+
+        $nivel_educativo = DB::connection('mysql')->table('informacion_personal')
+        ->join("educacion", "educacion.identificacion_individuo", "informacion_personal.identificacion")
+        ->join("escolaridad", "escolaridad.id", "educacion.nivel_educativo")
+        ->select(DB::raw("count(*) as cantidad"), "escolaridad.id", "escolaridad.descripcion")
+        ->whereRaw("DATEDIFF(CURDATE(), informacion_personal.fecha_nacimiento) / 365 > ?", [5])
+        ->groupBy("escolaridad.id", "educacion.nivel_educativo")
+        ->get();
+
+
         $datos = [
             "piramide_edad" => $piramide_edad,
             "numero_masculino" => $masculino,
@@ -622,6 +632,7 @@ class DashboardController extends Controller
             "estado_civil" => $estado_civil,
             "poblacion_e_activa" => $poblacion_e_activa,
             "poblacion_e_inactiva" => $poblacion_e_inactiva,
+            "nivel_educativo" => $nivel_educativo
         ];
 
         return response()->json($datos);

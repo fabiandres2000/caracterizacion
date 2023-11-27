@@ -402,6 +402,33 @@
                                                     <br><br>
                                                     <h2 style="width: 100%; text-align: center">(P.E.I) PORCENTAJE POR GENERO</h2>
                                                     <div id="grafica_pei" style="height: 300px"></div>
+                                                    <hr>
+                                                    <table style="width: 100%" class="situacion_laboral">
+                                                        <thead>
+                                                            <tr>
+                                                                <th colspan="3">NIVEL ACADEMICO</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>ESCOLARIDAD</th>
+                                                                <th>PERSONAS</th>
+                                                                <th>%</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <thead>
+                                                            <tr>
+                                                                <th>TOTAL</th>
+                                                                <th></th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
                                                 </template>
                                             </vue3-html2pdf>
                                         </div>
