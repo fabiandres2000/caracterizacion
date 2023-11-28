@@ -1,5 +1,14 @@
 <template lang="">
     <div>
+        <loading :active="loading" 
+            :can-cancel="true"
+            loader="bars" 
+            color="#38b4c5"
+            :height=100
+            :width=200
+            :on-cancel="onCancel"
+            :is-full-page="true">
+        </loading>
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
@@ -1072,7 +1081,9 @@
     </div>
 </template>
 <script>
-import * as usuarioService from "../../services/usuario_service.js";
+import Loading from 'vue3-loading-overlay';
+import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
+import * as usuarioService from "../../services/usuario_service";
 import * as caracterizacionService from "../../services/caracterizacion_service";
 import * as corregimientosService from "../../services/corregimientos";
 
@@ -1081,6 +1092,7 @@ import Swal from 'sweetalert2';
 export default {
     props: ['identificacion_editar'],
     components: {
+        Loading
     },
     mounted() {
        this.consultarValoresDefecto()
@@ -1516,11 +1528,9 @@ export default {
             });
         },
         misDatos: async function () {
-            this.loading = true;
             try {
                 await usuarioService.misDatos().then(respuesta => {
                     this.datos = respuesta.data;
-                    this.loading = false;
                 });
             } catch (error) {
                 console.log(error);

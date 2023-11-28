@@ -1,5 +1,14 @@
 <template lang="">
     <div>
+        <loading :active="loading" 
+            :can-cancel="true"
+            loader="bars" 
+            color="#38b4c5"
+            :height=100
+            :width=200
+            :on-cancel="onCancel"
+            :is-full-page="true">
+        </loading>
         <div class="col-lg-12">
             <div class="card" style="min-height: 400pt">
                 <div class="card-header">
@@ -385,8 +394,13 @@
 <script>
 import * as caracterizacionService from "../../services/caracterizacion_service";
 import Swal from 'sweetalert2';
+import Loading from 'vue3-loading-overlay';
+import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
 
 export default {
+    components: {
+        Loading
+    },
     data() {
         return {
             corregimiento: "",

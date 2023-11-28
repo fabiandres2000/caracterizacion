@@ -132,6 +132,7 @@ export default {
         }
     },
     mounted() {
+        this.verificarTamanio();
         this.misDatos();
         setTimeout(()=>{
             const rutaActual = this.$route.path;
@@ -159,7 +160,28 @@ export default {
                     location.href = "/";
                 }, 1000);
             });
+        },
+        verificarTamanio(){
+            var screenHeight = window.screen.height;
+            if(screenHeight <= 740){
+                document.body.style.zoom = "75%";
+            }
         }
     }
 }
 </script>
+<style>
+    .vld-overlay {
+        z-index: 99999999 !important;
+    }
+
+    .modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1040;
+        width: 100% !important;
+        height: 100% !important;
+        background-color: #000;
+    }
+</style>

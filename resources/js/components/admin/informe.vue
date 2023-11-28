@@ -1,5 +1,16 @@
 <template lang="">
     <div style="background-color: white">
+
+        <loading :active="loading" 
+            :can-cancel="true"
+            loader="bars" 
+            color="#38b4c5"
+            :height=100
+            :width=200
+            :on-cancel="onCancel"
+            :is-full-page="true">
+        </loading>
+
         <div class="card">
                 <div class="card-header">
                     <h4 class="card-title" style="font-weight: bold">FORMULARIO DE CARACTERIZACIÓN POBLACIÓN AFRODESCENDIENTES</h4>
@@ -36,7 +47,8 @@
                                 <br>
                                 <hr>
                                 <div class="row">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-2"></div>
+                                    <div class="col-lg-8">
                                         <div>
                                             <vue3-html2pdf
                                                 :show-layout="true"
@@ -49,11 +61,10 @@
                                                 pdf-content-width="100%"
                                                 ref="html2Pdf"
                                                 :html-to-pdf-options=htmlToPdfOptions
-                                                @progress="loading = true"
-                                                @beforeDownload = "loading = false"
+                                                @hasDownloaded = "loading = false"
                                             >
                                                 <template v-slot:pdf-content>
-                                                    <h2 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">DISTRIBUCIÓN POR GRUPO DE EDAD</h2>
+                                                    <h3 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">DISTRIBUCIÓN POR GRUPO DE EDAD</h3>
                                                     <br>
                                                     <table class="tabla_informe" style="width: 100%" v-if="datos_edad.length > 0">
                                                         <thead>
@@ -258,16 +269,16 @@
                                                     </table>
                                                     <br><br>
                                                     <hr>
-                                                    <h2 style="width: 100%; text-align: center">PORCENTAJE POR GENERO</h2>
+                                                    <h3 style="width: 100%; text-align: center">PORCENTAJE POR GENERO</h3>
                                                     <div id="grafica_sexo_informe" style="height: 300px"></div>
-                                                    <h2 style="width: 100%; text-align: center">PIRÁMIDE POBLACIONAL</h2>
+                                                    <h3 style="width: 100%; text-align: center">PIRÁMIDE POBLACIONAL</h3>
                                                     <br>
                                                     <div id="grafico_edad_informe" style="height: 465px; width: 104%"></div>
                                                     <br>
                                                     <br>
                                                     <br>
                                                     <hr>
-                                                    <h2 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">DISTRIBUCIÓN POR ESTADO CIVIL</h2>
+                                                    <h3 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">DISTRIBUCIÓN POR ESTADO CIVIL</h3>
                                                     <br>
                                                     <table class="tabla_informe" style="width: 100%" v-if="datos_edad.length > 0">
                                                         <thead>
@@ -299,17 +310,18 @@
                                                     </table>
                                                     <div class="html2pdf__page-break"></div>
                                                     <br><br>
-                                                    <h2 style="width: 100%; text-align: center;">DISTRIBUCIÓN DE PERSONAS POR ESTADO CIVIL</h2>
+                                                    <h3 style="width: 100%; text-align: center;">DISTRIBUCIÓN DE PERSONAS POR ESTADO CIVIL</h3>
                                                     <div id="grafico_estado_civil" style="height: 450px; width: 104%"></div>
                                                     <div id="grafico_estado_civil_por" style="margin-top: 130px; height: 390px; width: 104%"></div>
                                                 </template>
                                             </vue3-html2pdf> 
                                         </div>
-                                    </div>      
+                                    </div> 
+                                    <div class="col-lg-2"></div>     
                                 </div>
                             </div>
                             <div class="tab-pane" id="tabIcon22" role="tabpanel" aria-labelledby="baseIcon-tab22">
-                                <button style="border-radius: 50%; width: 50px; height: 50px; position: absolute; right: 90px; top: 20px" class="btn btn-danger" @click="generateReport">
+                                <button style="border-radius: 50%; width: 50px; height: 50px; position: absolute; right: 90px; top: 20px" class="btn btn-danger" @click="generateReport2">
                                     <i class="fas fa-file-pdf"></i>
                                 </button>
                                 <button style="border-radius: 50%; width: 50px; height: 50px; position: absolute; right: 20px; top: 20px" class="btn btn-success" @click="generateReport">
@@ -331,14 +343,13 @@
                                                 :paginate-elements-by-height="1200"
                                                 :pdf-quality="2"
                                                 :manual-pagination="false"
-                                                @progress="loading = true"
                                                 @beforeDownload = "loading = false"
                                                 pdf-content-width="100%"
                                                 ref="html2Pdf2"
                                                 :html-to-pdf-options=htmlToPdfOptions
                                             >
                                                 <template v-slot:pdf-content>
-                                                    <h2 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">POBLACION ECONOMICAMENTE ACTIVA</h2>
+                                                    <h3 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">POBLACION ECONOMICAMENTE ACTIVA</h3>
                                                     <br>
                                                     <table style="width: 100%" class="situacion_laboral" v-if="poblacion_e_activa != null">
                                                         <thead>
@@ -399,16 +410,19 @@
                                                         </tbody>
                                                     </table>
                                                     <br><br>
-                                                    <h2 style="width: 100%; text-align: center">(P.E.A) PORCENTAJE POR GENERO</h2>
+                                                    <h3 style="width: 100%; text-align: center">(P.E.A) PORCENTAJE POR GENERO</h3>
                                                     <div id="grafica_pae" style="height: 300px"></div>
                                                     <br><br>
-                                                    <h2 style="width: 100%; text-align: center">(P.E.I) PORCENTAJE POR GENERO</h2>
+                                                    <h3 style="width: 100%; text-align: center">(P.E.I) PORCENTAJE POR GENERO</h3>
                                                     <div id="grafica_pei" style="height: 300px"></div>
-                                                    <hr>
-                                                    <table style="width: 100%" class="situacion_laboral">
+                                                    <div class="html2pdf__page-break"></div>
+                                                    <br>
+                                                    <h3 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">DISTRIBUCIÓN DE PERSONAS POR NIVEL ACADÉMICO</h3>
+                                                    <br>
+                                                    <table style="width: 100%" class="situacion_laboral" v-if="datos_edad.length > 0">
                                                         <thead>
                                                             <tr>
-                                                                <th colspan="3">NIVEL ACADEMICO</th>
+                                                                <th colspan="3">NIVEL ACADÉMICO</th>
                                                             </tr>
                                                             <tr>
                                                                 <th>ESCOLARIDAD</th>
@@ -417,20 +431,113 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
+                                                            <tr v-for="(item, index) in datos_nivel_academico" :key="index">
+                                                                <td>{{item.descripcion}}</td>
+                                                                <td>{{item.cantidad}}</td>
+                                                                <td>{{(item.cantidad / numero_personas * 100).toFixed(2)}} %</td>
                                                             </tr>
                                                         </tbody>
                                                         <thead>
                                                             <tr>
                                                                 <th>TOTAL</th>
-                                                                <th></th>
-                                                                <th></th>
+                                                                <th>{{numero_personas}}</th>
+                                                                <th>100%</th>
                                                             </tr>
                                                         </thead>
                                                     </table>
+                                                    <br><br>
+                                                    <h3 style="width: 100%; text-align: center">PORCENTAJE DE PERSONAS POR NIVEL ACADÉMICO</h3>
+                                                    <div id="grafica_nivel_academico" style="height: 300px"></div>
+                                                    <br><br>
+                                                    <table style="width: 100%" class="situacion_laboral" v-if="datos_edad.length > 0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th colspan="7">DISTRIBUCIÓN DEL NIVEL ACADÉMICO DE LA POBLACIÓN POR SEXO</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>ESCOLARIDAD</th>
+                                                                <th>HOMBRES</th>
+                                                                <th>%</th>
+                                                                <th>MUJERES</th>
+                                                                <th>%</th>
+                                                                <th>TOTAL</th>
+                                                                <th>% TOTAL</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr v-for="(item, index) in datos_nivel_academico_sexo" :key="index">
+                                                                <td>{{item.nivel_educativo}}</td>
+                                                                <td>{{item.hombres}}</td>
+                                                                <td>{{(item.hombres / personas_nivel_educativo.total * 100).toFixed(2)}} %</td>
+                                                                <td>{{item.mujeres}}</td>
+                                                                <td>{{(item.mujeres / personas_nivel_educativo.total * 100).toFixed(2)}} %</td>
+                                                                <td>{{item.hombres + item.mujeres}}</td>
+                                                                <td>{{((item.mujeres +item.hombres)/ personas_nivel_educativo.total * 100).toFixed(2)}} %</td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <thead>
+                                                            <tr>
+                                                                <th>TOTAL</th>
+                                                                <th>{{personas_nivel_educativo.total_hombres}}</th>
+                                                                <th>{{(personas_nivel_educativo.total_hombres / personas_nivel_educativo.total * 100).toFixed(2)}} %</th>
+                                                                <th>{{personas_nivel_educativo.total_mujeres}}</th>
+                                                                <th>{{(personas_nivel_educativo.total_mujeres / personas_nivel_educativo.total * 100).toFixed(2)}} %</th>
+                                                                <th>{{personas_nivel_educativo.total_hombres + personas_nivel_educativo.total_mujeres}}</th>
+                                                                <th>100 %</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <thead>
+                                                            <tr>
+                                                                <th colspan="2">Frente al total de la población</th>
+                                                                <th>{{(personas_nivel_educativo.total_hombres / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <td></td>
+                                                                <th>{{(personas_nivel_educativo.total_mujeres / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <td></td>
+                                                                <th>{{((personas_nivel_educativo.total_mujeres + personas_nivel_educativo.total_hombres) / numero_personas * 100).toFixed(2)}} %</th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                    <div class="html2pdf__page-break"></div>
+                                                    <br>
+                                                    <h3 style="width: 100%; text-align: center">DISTRIBUCIÓN DE LA POBLACIÓN POR NIVEL ACADÉMICO Y SEXO</h3>
+                                                    <div id="grafica_nivel_academico_sexo" style="height: 500px"></div>
+                                                </template>
+                                            </vue3-html2pdf>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2"></div>  
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tabIcon23" role="tabpanel" aria-labelledby="baseIcon-tab23">
+                                <button style="border-radius: 50%; width: 50px; height: 50px; position: absolute; right: 90px; top: 20px" class="btn btn-danger" @click="generateReport3">
+                                    <i class="fas fa-file-pdf"></i>
+                                </button>
+                                <button style="border-radius: 50%; width: 50px; height: 50px; position: absolute; right: 20px; top: 20px" class="btn btn-success" @click="generateReport">
+                                    <i class="fas fa-file-excel"></i>
+                                </button>
+                                <br>
+                                <br>
+                                <br>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-lg-2"></div>  
+                                    <div class="col-lg-8">
+                                        <div>
+                                            <vue3-html2pdf
+                                                :show-layout="true"
+                                                :float-layout="false"
+                                                :enable-download="true"
+                                                :preview-modal="true"
+                                                :paginate-elements-by-height="1200"
+                                                :pdf-quality="2"
+                                                :manual-pagination="false"
+                                                @beforeDownload = "loading = false"
+                                                pdf-content-width="100%"
+                                                ref="html2Pdf3"
+                                                :html-to-pdf-options=htmlToPdfOptions
+                                            >
+                                                <template v-slot:pdf-content>
+                                                    
                                                 </template>
                                             </vue3-html2pdf>
                                         </div>
@@ -450,10 +557,15 @@ import * as dashboardService from "../../services/dashboard_service";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import Loading from 'vue3-loading-overlay';
+import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
+
+
 am4core.useTheme(am4themes_animated);
 export default {
     components: {
-        Vue3Html2pdf
+        Vue3Html2pdf,
+        Loading
     },
     data() {
         return {
@@ -491,7 +603,11 @@ export default {
             poblacion_e_inactiva: null,
             char_poblacion_activa: null,
             char_poblacion_inactiva: null,
-            loading: false
+            loading: false,
+            datos_nivel_academico: [],
+            personas_nivel_educativo: 0,
+            chart_nivel_academico: null,
+            chart_nivel_academico_sexo: null
         }
     },
     mounted() {
@@ -499,7 +615,16 @@ export default {
     },
     methods: {
         generateReport () {
-            this.$refs.html2Pdf.generatePdf()
+            this.loading = true;
+            setTimeout(()=>{
+                this.$refs.html2Pdf.generatePdf()
+            }, 1000)
+        },
+        generateReport2 () {
+            this.loading = true;
+            setTimeout(()=>{
+                this.$refs.html2Pdf2.generatePdf()
+            }, 1000)
         },
         async consultarDatos(){
             this.loading = true;
@@ -515,6 +640,11 @@ export default {
                 this.poblacion_e_inactiva = respuesta.data.poblacion_e_inactiva;
                 this.generarGraficoPAE();
                 this.generarGraficoPEI();
+                this.datos_nivel_academico = respuesta.data.nivel_educativo;
+                this.datos_nivel_academico_sexo = respuesta.data.nivel_educativo_sexo;
+                this.personas_nivel_educativo = respuesta.data.personas_nivel_educativo;
+                this.generarGraficoNivelAcademico();
+                this.generarGraficoNivelAcademicoSexo();
                 this.loading = false;
             });
         },
@@ -768,7 +898,83 @@ export default {
 
             this.char_poblacion_inactiva = chart;
         },
-    },
+        generarGraficoNivelAcademico() {
+            var chart = am4core.create("grafica_nivel_academico", am4charts.PieChart);
+
+            // Add data
+            chart.data = [];
+
+            this.datos_nivel_academico.forEach(element => {
+                chart.data.push({
+                    "country": element.descripcion,
+                    "litres": element.cantidad,
+                });
+            });
+
+            var pieSeries = chart.series.push(new am4charts.PieSeries());
+            pieSeries.dataFields.value = "litres";
+            pieSeries.dataFields.category = "country";
+            pieSeries.slices.template.stroke = am4core.color("#fff");
+            pieSeries.slices.template.strokeOpacity = 1;
+
+            pieSeries.hiddenState.properties.opacity = 1;
+            pieSeries.hiddenState.properties.endAngle = -90;
+            pieSeries.hiddenState.properties.startAngle = -90;
+
+            chart.hiddenState.properties.radius = am4core.percent(0);
+
+            this.char_poblacion_inactiva = chart;
+        },
+        generarGraficoNivelAcademicoSexo() {
+            var chart = am4core.create('grafica_nivel_academico_sexo', am4charts.XYChart);
+            chart.colors.step = 2;
+
+            chart.legend = new am4charts.Legend();
+            chart.legend.position = 'top';
+            chart.legend.paddingBottom = 20;
+            chart.legend.labels.template.maxWidth = 95;
+
+            // Interchange x-axis and y-axis
+            var yAxis = chart.xAxes.push(new am4charts.ValueAxis());
+            yAxis.min = 0;
+
+            var xAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+            xAxis.dataFields.category = 'category';
+            xAxis.renderer.cellStartLocation = 0.1;
+            xAxis.renderer.cellEndLocation = 0.9;
+            xAxis.renderer.grid.template.location = 0;
+            xAxis.renderer.minGridDistance = 25;
+
+            function createSeries(value, name) {
+                var series = chart.series.push(new am4charts.ColumnSeries());
+                series.dataFields.valueX = value; 
+                series.dataFields.categoryY = 'category';
+                series.name = name;
+
+                var bullet = series.bullets.push(new am4charts.LabelBullet());
+                bullet.interactionsEnabled = false;
+                bullet.dx = 20;
+                bullet.label.text = '{valueX}';
+                bullet.label.fill = am4core.color('#000000');
+
+                return series;
+            }
+
+            chart.data = [];
+
+            this.datos_nivel_academico_sexo.forEach(element => {
+                chart.data.push({
+                    category: element.nivel_educativo,
+                    first: element.hombres,
+                    second: element.mujeres,
+                });
+            });
+
+            createSeries('first', 'Hombres');
+            createSeries('second', 'Mujeres');
+
+        },
+    }
 }
 </script>
 <style>
@@ -776,7 +982,7 @@ export default {
         position: fixed !important;
         width: 100% !important;
         min-width: 600px !important;
-        height: 100vh !important;
+        height: 100% !important;
         top: 0px !important;
         z-index: 9999999 !important;
         left: 50% !important;
@@ -791,7 +997,7 @@ export default {
 
     .pdf-preview iframe {
         width: 60% !important;
-        height: 80vh !important;
+        height: 80% !important;
     }
 
     .vue-html2pdf .pdf-preview button {
@@ -834,8 +1040,12 @@ export default {
         padding: 10px;
     }
 
-    thead {
+    thead th {
        background-color: #5df3c5 !important;
+    }
+
+    thead td {
+       background-color: #ffff !important;
     }
 
     .situacion_laboral th, .situacion_laboral td{

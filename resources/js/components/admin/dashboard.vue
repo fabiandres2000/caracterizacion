@@ -1,5 +1,14 @@
 <template lang="">
     <div>
+        <loading :active="loading" 
+            :can-cancel="true"
+            loader="bars" 
+            color="#38b4c5"
+            :height=100
+            :width=200
+            :on-cancel="onCancel"
+            :is-full-page="true">
+        </loading>
     <div class="content-header row">
     </div>
     <div class="content-body">
@@ -107,10 +116,15 @@ import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import * as dashboardService from "../../services/dashboard_service";
+import Loading from 'vue3-loading-overlay';
+import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
 
 am4core.useTheme(am4themes_animated);
 
 export default {
+    components: {
+        Loading
+    },
     data() {
         return {
             chart_edad: null,

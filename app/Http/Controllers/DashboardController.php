@@ -616,10 +616,51 @@ class DashboardController extends Controller
         ->join("educacion", "educacion.identificacion_individuo", "informacion_personal.identificacion")
         ->join("escolaridad", "escolaridad.id", "educacion.nivel_educativo")
         ->select(DB::raw("count(*) as cantidad"), "escolaridad.id", "escolaridad.descripcion")
-        ->whereRaw("DATEDIFF(CURDATE(), informacion_personal.fecha_nacimiento) / 365 > ?", [5])
+        ->whereRaw("DATEDIFF(CURDATE(), informacion_personal.fecha_nacimiento) / 365 >= ?", [5])
         ->groupBy("escolaridad.id", "educacion.nivel_educativo")
         ->get();
+        
+        $menores_5a = DB::connection('mysql')->table('informacion_personal')
+        ->whereRaw("DATEDIFF(CURDATE(), fecha_nacimiento) / 365 < ?", [5])
+        ->count();
 
+
+        $nivel_educativo_sexo = [];
+
+        $hgc = 0;
+        $mgc = 0;
+        foreach ($nivel_educativo as $item) {
+            $hombres_cant = DB::connection('mysql')->table('informacion_personal')
+            ->join("educacion", "educacion.identificacion_individuo", "informacion_personal.identificacion")
+            ->whereRaw("DATEDIFF(CURDATE(), informacion_personal.fecha_nacimiento) / 365 >= ?", [5])
+            ->where("informacion_personal.estado", "1")
+            ->where("informacion_personal.sexo", "Masculino")
+            ->where("educacion.nivel_educativo", $item->id)
+            ->count();
+
+            $mujeres_cant = DB::connection('mysql')->table('informacion_personal')
+            ->join("educacion", "educacion.identificacion_individuo", "informacion_personal.identificacion")
+            ->whereRaw("DATEDIFF(CURDATE(), informacion_personal.fecha_nacimiento) / 365 >= ?", [5])
+            ->where("informacion_personal.estado", "1")
+            ->where("informacion_personal.sexo", "Femenino")
+            ->where("educacion.nivel_educativo", $item->id)
+            ->count();
+
+            $nivel_educativo_sexo[] = [
+                "nivel_educativo" => $item->descripcion,
+                "mujeres" => $mujeres_cant,
+                "hombres" => $hombres_cant
+            ];
+
+            $hgc += $hombres_cant;
+            $mgc += $mujeres_cant;
+        }
+
+        $nivel_educativo[] = [
+            "cantidad" => $menores_5a,
+            "id" => null,
+            "descripcion" => "M < 5 Años"
+        ];
 
         $datos = [
             "piramide_edad" => $piramide_edad,
@@ -632,7 +673,13 @@ class DashboardController extends Controller
             "estado_civil" => $estado_civil,
             "poblacion_e_activa" => $poblacion_e_activa,
             "poblacion_e_inactiva" => $poblacion_e_inactiva,
-            "nivel_educativo" => $nivel_educativo
+            "nivel_educativo" => $nivel_educativo,
+            "nivel_educativo_sexo" => $nivel_educativo_sexo,
+            "personas_nivel_educativo" => [
+                "total" =>  ($hgc + $mgc),
+                "total_hombres" => $hgc,
+                "total_mujeres" => $mgc,
+            ]
         ];
 
         return response()->json($datos);

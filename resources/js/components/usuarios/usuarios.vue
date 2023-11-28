@@ -1,5 +1,14 @@
 <template lang="">
     <div>
+        <loading :active="loading" 
+            :can-cancel="true"
+            loader="bars" 
+            color="#38b4c5"
+            :height=100
+            :width=200
+            :on-cancel="onCancel"
+            :is-full-page="true">
+        </loading>
         <div class="col-lg-12">
             <div class="card" style="min-height: 400pt">
                 <div class="card-header">
@@ -253,8 +262,13 @@
 <script>
 import * as usuarioService from "../../services/usuario_service";
 import Swal from 'sweetalert2';
+import Loading from 'vue3-loading-overlay';
+import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
 
 export default {
+    components: {
+        Loading
+    },
     mounted() {
         this.consultarUsuarios();
     },
@@ -370,13 +384,13 @@ export default {
         },
         mensajeEliminarUsuario(item){
             Swal.fire({
-                title: '¿Desea eliminar este usuario?',
+                title: '¿Desea cambiar de estado a este usuario?',
                 text: "",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: '¡Sí, eliminar!',
+                confirmButtonText: '¡Sí, cambiar!',
                 cancelButtonText: 'Cancelar'
             }).then((result) => {
                 if (result.isConfirmed) {
