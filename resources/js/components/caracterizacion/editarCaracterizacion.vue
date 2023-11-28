@@ -1083,13 +1083,7 @@ export default {
     components: {
     },
     mounted() {
-        this.misDatos();
-        this.verificarLogin();
-        this.consultarJefes();
-        this.consultarDatosIndividuo();
-        this.consultarDepartamentos();
-        this.consultarEscolaridades();
-        this.consultarOcupaciones();
+       this.consultarValoresDefecto()
     },
     data() {
         return {
@@ -1372,6 +1366,17 @@ export default {
         }
     },
     methods: {
+        async consultarValoresDefecto(){
+            this.loading = true;
+            await this.misDatos();
+            await this.verificarLogin();
+            await this.consultarJefes();
+            await this.consultarDatosIndividuo();
+            await this.consultarDepartamentos();
+            await this.consultarEscolaridades();
+            await this.consultarOcupaciones();
+            this.loading = false;
+        },
         async consultarDatosIndividuo(){
             await caracterizacionService.consultarDatosIndividuo(this.identificacion_editar).then(async respuesta => {
                 var data = respuesta.data;
@@ -1453,8 +1458,7 @@ export default {
                             $("#control_016").prop( "checked", true );
                         }
                     }
-                }
-              
+                }              
             });
         },
         clickTabla(){
@@ -1502,10 +1506,6 @@ export default {
                     }
                 },
             });
-
-            setTimeout(()=>{
-                this.loading = false;
-            }, 300)
         },
         async verificarLogin(){
             var navigate = this.$router;
@@ -1527,11 +1527,9 @@ export default {
             }
         },
         async consultarJefes(){
-            this.loading = true;
             try {
                 await caracterizacionService.jefesHogar().then(respuesta => {
                     this.jefes_hogar = respuesta.data;
-                    this.loading = false;
                     setTimeout(()=>{
                         this.clickTabla();
                     }, 200)
@@ -1677,20 +1675,26 @@ export default {
             });
         },
         async consultarMunicipios(){
+            this.loading = true;
             this.origen_identidad.municipio = "";
             await caracterizacionService.municipios(this.origen_identidad.departamento).then(respuesta => {
                 this.municipios = respuesta.data;
+                this.loading = false;
             });
         },
         async consultarMunicipiosIP(){
+            this.loading = true;
             this.informacion_personal.municipio = "";
             await caracterizacionService.municipios(this.informacion_personal.departamento).then(respuesta => {
                 this.municipiosIP = respuesta.data;
+                this.loading = false;
             });
         },
         async listarCorregimientosPorMuni(){
+            this.loading = true;
             await corregimientosService.listarCorregimientosPorMuni( this.informacion_personal.municipio).then(respuesta => {
                 this.corregimientos = respuesta.data;
+                this.loading = false;
             });
         },
         validarCamposOrigenIdentidad(){

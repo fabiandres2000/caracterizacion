@@ -27,14 +27,14 @@
                                     <td style="text-align: center" colspan="6">No hay datos</td>
                                 </tr>
                                 <tr v-for="(item, index) in corregimientos" :key="index" v-if="corregimientos.length > 0">
-                                    <td>{{ item.id }}</td>
-                                    <td>{{ item.departamento }}</td>
-                                    <td>{{ item.municipio }}</td>
+                                    <td style="text-align: center">{{ item.id }}</td>
+                                    <td style="text-align: center">{{ item.nombre_departamento }}</td>
+                                    <td style="text-align: center">{{ item.nombre_municipio }}</td>
                                     <td>{{ item.nombre }}</td>
-                                    <td>{{ item.estado }}</td>
+                                    <td style="text-align: center"><span :class="item.estado == 'Activo' ? 'badge badge-primary' : 'badge badge-danger'">{{item.estado}}</span></td>
                                     <td style="display: flex; justify-content: space-around;">
-                                        <button class="btn btn-success btn_opciones"><i class="fas fa-pencil-alt"></i></button>
-                                        <button class="btn btn-danger btn_opciones"><i class="fas fa-trash-alt"></i></button>
+                                        <button @click="editarCorregimiento(item)" class="btn btn-success btn_opciones"><i class="fas fa-pencil-alt"></i></button>
+                                        <button @click="elimianrCorregimiento(item)" :class="item.estado == 'Activo' ? 'btn btn-danger btn_opciones' : 'btn btn-warning btn_opciones'"><i :class="item.estado == 'Activo' ? 'fas fa-trash-alt' : 'fas fa-check'"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -123,8 +123,10 @@ export default {
     },
     methods: {
         async listarCorregimientos(){
+            this.loading = true;
             await corregimientosService.listarCorregimientos().then(respuesta => {
                 this.corregimientos = respuesta.data;
+                this.loading = false;
             });
         },
         async consultarDepartamentos(){
@@ -149,6 +151,12 @@ export default {
                     if(response.code == 1){
                         toastr.success(response.mensaje);
                         $('#modalRegistroMunicipio').modal('hide');
+                        this.corregimiento = {
+                            id: "",
+                            departamento: "",
+                            municipio: "",
+                            nombre: ""
+                        };
                         this.listarCorregimientos();
                     }else{
                         Swal.fire({
@@ -159,6 +167,25 @@ export default {
                     }
                 });
             }
+        },
+        async editarCorregimiento(item){
+            this.corregimiento = item;
+            this.consultarMunicipios();
+            $('#modalRegistroMunicipio').modal('show');
+        },
+        async elimianrCorregimiento(item){
+            this.loading = true;
+            if(item.estado == "Activo"){
+                item.estado = "Inactivo";
+            }else{
+                item.estado = "Activo";
+            }
+
+            await corregimientosService.elimianrCorregimiento(item.id, item.estado).then(respuesta => {
+                var response = respuesta.data;
+                this.loading = false;
+                toastr.success(response.mensaje);
+            });
         }
     },
 }

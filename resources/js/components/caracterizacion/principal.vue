@@ -8,37 +8,37 @@
                 <div class="card-content">
                     <div class="card-body">
                         <ul class="nav nav-tabs nav-underline" role="tablist">
-                            <li style ="font-size: 14px" class="nav-item">
+                            <li style ="font-size: 14px" class="nav-item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Información personal">
                                 <a class="nav-link active" id="baseIcon-tab21" data-toggle="tab" aria-controls="tabIcon21" href="#tabIcon21" role="tab" aria-selected="false">
                                     <i style ="font-size: 25px" class="fas fa-user-edit"></i>
                                 </a>
                             </li>
-                            <li style ="font-size: 14px" class="nav-item">
+                            <li style ="font-size: 14px" class="nav-item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Origen e Identidad">
                                 <a class="nav-link" id="baseIcon-tab22" data-toggle="tab" aria-controls="tabIcon22" href="#tabIcon22" role="tab" aria-selected="false">
                                     <i style ="font-size: 25px" class="fas fa-globe-americas"></i>
                                 </a>
                             </li>
-                            <li style ="font-size: 14px" class="nav-item">
+                            <li style ="font-size: 14px" class="nav-item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Educación">
                                 <a class="nav-link" id="baseIcon-tab23" data-toggle="tab" aria-controls="tabIcon23" href="#tabIcon23" role="tab" aria-selected="false">
                                     <i style ="font-size: 25px" class="fas fa-school"></i>
                                 </a>
                             </li>
-                            <li style ="font-size: 14px" class="nav-item">
+                            <li style ="font-size: 14px" class="nav-item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Situación laboral">
                                 <a class="nav-link" id="baseIcon-tab24" data-toggle="tab" aria-controls="tabIcon24" href="#tabIcon24" role="tab" aria-selected="false">
                                     <i style ="font-size: 25px" class="fas fa-user-tie"></i>
                                 </a>
                             </li>
-                            <li style ="font-size: 14px" class="nav-item">
+                            <li style ="font-size: 14px" class="nav-item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Salud">
                                 <a class="nav-link" id="baseIcon-tab25" data-toggle="tab" aria-controls="tabIcon25" href="#tabIcon25" role="tab" aria-selected="false">
                                     <i style ="font-size: 25px" class="fas fa-hospital-user"></i>
                                 </a>
                             </li>
-                            <li style ="font-size: 14px" class="nav-item">
+                            <li style ="font-size: 14px" class="nav-item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cultura y Tradiciones">
                                 <a class="nav-link" id="baseIcon-tab26" data-toggle="tab" aria-controls="tabIcon26" href="#tabIcon26" role="tab" aria-selected="false">
                                     <i style ="font-size: 25px" class="fas fa-people-carry"></i> 
                                 </a>
                             </li>
-                            <li style ="font-size: 14px" class="nav-item">
+                            <li style ="font-size: 14px" class="nav-item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Vivienda y Hogar">
                                 <a class="nav-link" id="baseIcon-tab27" data-toggle="tab" aria-controls="tabIcon27" href="#tabIcon27" role="tab" aria-selected="false">
                                     <i style ="font-size: 25px" class="fas fa-house-user"></i>
                                 </a>
@@ -1082,12 +1082,7 @@ export default {
     components: {
     },
     mounted() {
-        this.misDatos();
-        this.consultarJefes();
-        this.verificarLogin();
-        this.consultarDepartamentos();
-        this.consultarEscolaridades();
-        this.consultarOcupaciones();
+        this.consultarValoresDefecto();
     },
     data() {
         return {
@@ -1370,6 +1365,16 @@ export default {
         }
     },
     methods: {
+        async consultarValoresDefecto(){
+            this.loading = true;
+            await this.misDatos();
+            await this.consultarJefes();
+            await this.verificarLogin();
+            await  this.consultarDepartamentos();
+            await this.consultarEscolaridades();
+            await this.consultarOcupaciones();
+            this.loading = false;
+        },
         clickTabla(){
             var table = document.getElementById('miTabla');
             var rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
@@ -1415,10 +1420,6 @@ export default {
                     }
                 },
             });
-
-            setTimeout(()=>{
-                this.loading = false;
-            }, 300)
         },
         async verificarLogin(){
             var navigate = this.$router;
@@ -1440,11 +1441,9 @@ export default {
             }
         },
         async consultarJefes(){
-            this.loading = true;
             try {
                 await caracterizacionService.jefesHogar().then(respuesta => {
                     this.jefes_hogar = respuesta.data;
-                    this.loading = false;
                     setTimeout(()=>{
                         this.clickTabla();
                     }, 200)
@@ -1599,20 +1598,26 @@ export default {
             });
         },
         async consultarMunicipios(){
+            this.loading = true;
             this.origen_identidad.municipio = "";
             await caracterizacionService.municipios(this.origen_identidad.departamento).then(respuesta => {
                 this.municipios = respuesta.data;
+                this.loading = false;
             });
         },
         async consultarMunicipiosIP(){
+            this.loading = true;
             this.informacion_personal.municipio = "";
             await caracterizacionService.municipios(this.informacion_personal.departamento).then(respuesta => {
                 this.municipiosIP = respuesta.data;
+                this.loading = false;
             });
         },
         async listarCorregimientosPorMuni(){
+            this.loading = true;
             await corregimientosService.listarCorregimientosPorMuni( this.informacion_personal.municipio).then(respuesta => {
                 this.corregimientos = respuesta.data;
+                this.loading = false;
             });
         },
         validarCamposOrigenIdentidad(){

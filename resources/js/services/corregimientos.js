@@ -19,3 +19,7 @@ export function guardarCorregimiento($data) {
 export function listarCorregimientosPorMuni(id) {
     return http().get('/api/lista-corregimientos-id?municipio='+id);
 }
+
+export function elimianrCorregimiento(id, estado) {
+    return http().get('/api/eliminar-corregimiento?id='+id+'&estado='+estado);
+}

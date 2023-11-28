@@ -62,6 +62,7 @@ Route::prefix('api')->group(function () {
     Route::get('/lista-corregimientos', [CorregimeintoController::class, 'listarCorregimientos'])->name('listarCorregimientos');
     Route::post('/guardar-corregimiento', [CorregimeintoController::class, 'guardarCorregimiento'])->name('guardarCorregimiento');
     Route::get('/lista-corregimientos-id', [CorregimeintoController::class, 'listarCorregimientosMunicipio'])->name('listarCorregimientosMunicipio');
+    Route::get('/eliminar-corregimiento', [CorregimeintoController::class, 'elimianrCorregimiento'])->name('elimianrCorregimiento');
 
     Route::get('/datos-dashboard', [DashboardController::class, 'datosDashboard'])->name('datosDashboard');
     Route::get('/datos-informe', [DashboardController::class, 'datosInforme'])->name('datosInforme');

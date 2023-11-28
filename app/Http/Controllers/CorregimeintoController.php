@@ -13,7 +13,7 @@ class CorregimeintoController extends Controller
         $corregimientos = DB::connection('mysql')->table('corregimientos')
         ->join("dptos", "dptos.codigo", "corregimientos.departamento")
         ->join("muni", "muni.id", "corregimientos.municipio")
-        ->select("corregimientos.id", "corregimientos.nombre as nombre", "dptos.descripcion as departamento",  "muni.descripcion as municipio")
+        ->select("corregimientos.id", "corregimientos.nombre as nombre", "dptos.descripcion as nombre_departamento",  "muni.descripcion as nombre_municipio", "corregimientos.departamento", "corregimientos.municipio", "corregimientos.estado")
         ->get();
         
         return response()->json($corregimientos);
@@ -48,8 +48,21 @@ class CorregimeintoController extends Controller
         ->join("muni", "muni.id", "corregimientos.municipio")
         ->select("corregimientos.id", "corregimientos.nombre as nombre", "dptos.descripcion as departamento",  "muni.descripcion as municipio")
         ->where("corregimientos.municipio", $municipio)
+        ->where("corregimientos.estado", "Activo")
         ->get();
         
         return response()->json($corregimientos);
     }
+
+    public function elimianrCorregimiento(Request $request){
+        $id = $request->input('id');
+        $estado = $request->input('estado');
+
+        DB::connection('mysql')->table('corregimientos')
+        ->where("id", $id)
+        ->update(['estado' => $estado]);
+
+        return response()->json(['mensaje' => '¡Se cambio de estado al corregimiento correctamente!', 'code' => 1]);
+    }
+
 }

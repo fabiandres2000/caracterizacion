@@ -445,6 +445,7 @@ export default {
             
         },
         async consolidadoFunction(){
+            this.loading = true;
             await caracterizacionService.consolidado(this.idBuscar, this.pagina).then(respuesta => {
                 this.consolidado = respuesta.data;
                 this.loading = false;
@@ -502,6 +503,7 @@ export default {
             });
         },
         async consolidadoFunctionConcejo(){
+            this.loading = true;
             await caracterizacionService.consolidadoConcejo(this.concejo, this.pagina).then(respuesta => {
                 this.consolidado = respuesta.data;
                 this.loading = false;

@@ -36,8 +36,7 @@
                                 <br>
                                 <hr>
                                 <div class="row">
-                                    <div class="col-lg-2"></div>  
-                                    <div class="col-lg-8">
+                                    <div class="col-lg-12">
                                         <div>
                                             <vue3-html2pdf
                                                 :show-layout="true"
@@ -50,6 +49,8 @@
                                                 pdf-content-width="100%"
                                                 ref="html2Pdf"
                                                 :html-to-pdf-options=htmlToPdfOptions
+                                                @progress="loading = true"
+                                                @beforeDownload = "loading = false"
                                             >
                                                 <template v-slot:pdf-content>
                                                     <h2 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">DISTRIBUCIÓN POR GRUPO DE EDAD</h2>
@@ -305,7 +306,6 @@
                                             </vue3-html2pdf> 
                                         </div>
                                     </div>      
-                                    <div class="col-lg-2"></div>    
                                 </div>
                             </div>
                             <div class="tab-pane" id="tabIcon22" role="tabpanel" aria-labelledby="baseIcon-tab22">
@@ -331,6 +331,8 @@
                                                 :paginate-elements-by-height="1200"
                                                 :pdf-quality="2"
                                                 :manual-pagination="false"
+                                                @progress="loading = true"
+                                                @beforeDownload = "loading = false"
                                                 pdf-content-width="100%"
                                                 ref="html2Pdf2"
                                                 :html-to-pdf-options=htmlToPdfOptions
@@ -488,7 +490,8 @@ export default {
             poblacion_e_activa: null,
             poblacion_e_inactiva: null,
             char_poblacion_activa: null,
-            char_poblacion_inactiva: null
+            char_poblacion_inactiva: null,
+            loading: false
         }
     },
     mounted() {

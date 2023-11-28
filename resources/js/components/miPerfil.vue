@@ -235,6 +235,7 @@ export default {
             }
         },
         async cambiarPassword(){
+            this.loading = true;
             const datos = {
                 password_old: this.passwordOld,
                 password_new: this.passwordNew,
@@ -252,6 +253,8 @@ export default {
                         }else{
                             toastr.error(respuesta_ok[0]);
                         }
+
+                        this.loading = false;
                     });
                 }else{
                     toastr.error("Las contraseñas no coinciden.");

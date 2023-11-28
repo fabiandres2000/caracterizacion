@@ -386,8 +386,10 @@ export default {
             })
         },
         async cambiarEstadoUsuario(id, estado){
+            this.loading = true;
             await usuarioService.cambiarEstadoUsuario(id, estado).then(respuesta => {
                 toastr.success(respuesta.data);
+                this.loading = false;
             });
         }
     }

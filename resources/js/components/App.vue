@@ -91,6 +91,14 @@
                                 </a>
                             </router-link>
                         </li>
+                        <li :class="tipo_ruta == '/informe' ? 'nav-item open' : 'nav-item'">
+                            <router-link to="/informe">
+                                <a href="#">
+                                    <i class="fas fa-file-pdf"></i>
+                                    <span class="menu-title" data-i18n="Email Application">Informes</span>
+                                </a>
+                            </router-link>
+                        </li>
                     </ul>
                 </div>
             </div>
