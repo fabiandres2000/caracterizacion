@@ -23,7 +23,7 @@ CREATE TABLE `actividades_vivienda_hogar` (
   `actividad` text,
   `area_destinada` double DEFAULT NULL,
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `actividades_vivienda_hogar` */
 
@@ -74,7 +74,7 @@ CREATE TABLE `cultura_tradiciones` (
   `concejo` text,
   PRIMARY KEY (`identificacion_individuo`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `cultura_tradiciones` */
 
@@ -155,7 +155,7 @@ CREATE TABLE `educacion` (
   `apoyo_educativo` text,
   PRIMARY KEY (`identificacion_individuo`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `educacion` */
 
@@ -249,7 +249,7 @@ CREATE TABLE `informacion_personal` (
   PRIMARY KEY (`identificacion`),
   KEY `id_jefe` (`id_jefe`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `informacion_personal` */
 
@@ -11426,7 +11426,7 @@ CREATE TABLE `origen_etnia` (
   `etnia` text,
   PRIMARY KEY (`identificacion_individuo`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `origen_etnia` */
 
@@ -11458,7 +11458,7 @@ CREATE TABLE `salud` (
   `discriminacion_salud` text,
   PRIMARY KEY (`identificacion_individuo`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `salud` */
 
@@ -11489,7 +11489,7 @@ CREATE TABLE `situacion_laboral` (
   `ingreso_mensual` text,
   PRIMARY KEY (`identificacion_individuo`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `situacion_laboral` */
 
@@ -11517,7 +11517,7 @@ CREATE TABLE `user_encuesta` (
   `numero_caracterizacion` text,
   `estado` int DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `user_encuesta` */
 
@@ -11588,7 +11588,7 @@ CREATE TABLE `vivienda_hogar` (
   `area_total` text,
   PRIMARY KEY (`identificacion_jefe`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `vivienda_hogar` */
 
