@@ -588,7 +588,6 @@
                                                 <option value="2500001-3000000">$2,500,001 - $3,000,000</option>
                                                 <option value="3000001-4000000">$3,000,001 - $4,000,000</option>
                                                 <option value="mas de 4000000">Más de $4,000,000</option>
-                                                <option value="Trabajador informal">Trabajador informal</option>
                                                 <option value="N.A">N.A</option>
                                             </select>
                                             <div class="form-control-position" style="top: 9px; left: 4px !important;">
