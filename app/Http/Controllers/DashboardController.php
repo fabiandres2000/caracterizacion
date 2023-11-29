@@ -662,6 +662,20 @@ class DashboardController extends Controller
             "descripcion" => "M < 5 Años"
         ];
 
+        $por_ocupacion = DB::connection('mysql')->table('informacion_personal')
+        ->join("situacion_laboral", "situacion_laboral.identificacion_individuo", "informacion_personal.identificacion")
+        ->select(DB::raw("count(*) as cantidad"), "situacion_laboral.ocupacion")
+        ->groupBy("situacion_laboral.ocupacion")
+        ->get();
+
+        $posesion_vivienda_si = DB::connection('mysql')->table('vivienda_hogar')
+        ->where("tenencia", "<>", "Alquilada")
+        ->count();
+
+        $posesion_vivienda_no = DB::connection('mysql')->table('vivienda_hogar')
+        ->where("tenencia", "=", "Alquilada")
+        ->count();
+
         $datos = [
             "piramide_edad" => $piramide_edad,
             "numero_masculino" => $masculino,
@@ -679,6 +693,11 @@ class DashboardController extends Controller
                 "total" =>  ($hgc + $mgc),
                 "total_hombres" => $hgc,
                 "total_mujeres" => $mgc,
+            ],
+            "por_ocupacion" => $por_ocupacion,
+            "posesion_vivienda" => [
+                "poseen" => $posesion_vivienda_si,
+                "no_poseen" => $posesion_vivienda_no
             ]
         ];
 

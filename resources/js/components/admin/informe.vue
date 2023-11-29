@@ -13,7 +13,7 @@
 
         <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title" style="font-weight: bold">FORMULARIO DE CARACTERIZACIÓN POBLACIÓN AFRODESCENDIENTES</h4>
+                    <h4 class="card-title" style="font-weight: bold">INFORME SOCIODEMOGRAFICO - POBLACIÓN AFRO</h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
@@ -501,6 +501,36 @@
                                                     <br>
                                                     <h3 style="width: 100%; text-align: center">DISTRIBUCIÓN DE LA POBLACIÓN POR NIVEL ACADÉMICO Y SEXO</h3>
                                                     <div id="grafica_nivel_academico_sexo" style="height: 500px"></div>
+                                                    <br><br>
+                                                    <div class="html2pdf__page-break"></div>
+                                                    <h3 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">DISTRIBUCIÓN DE PERSONAS POR OCUPACIÓN</h3>
+                                                    <br>
+                                                    <table style="width: 100%" class="situacion_laboral" v-if="datos_edad.length > 0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th colspan="3">OCUPACIÓN PRINCIPAL</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>OCUPACIÓN PRINCIPAL</th>
+                                                                <th># PERSONAS</th>
+                                                                <th>%</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr v-for="(item, index) in datos_por_ocupacion" :key="index">
+                                                                <td>{{item.ocupacion}}</td>
+                                                                <td>{{item.cantidad}}</td>
+                                                                <td>{{(item.cantidad / numero_personas * 100).toFixed(2)}} %</td>                                    
+                                                            </tr>
+                                                        </tbody>
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Total</th>
+                                                                <th>{{numero_personas}}</th>
+                                                                <th>100 %</th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
                                                 </template>
                                             </vue3-html2pdf>
                                         </div>
@@ -537,7 +567,74 @@
                                                 :html-to-pdf-options=htmlToPdfOptions
                                             >
                                                 <template v-slot:pdf-content>
-                                                    
+                                                    <h3 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">DISTRIBUCIÓN DE FAMILIAS POR POSESIÓN DE VIVIENDA</h3>
+                                                    <br>
+                                                    <table style="width: 100%" class="situacion_laboral" v-if="posesion_vivienda != null">
+                                                        <thead>
+                                                            <tr>
+                                                                <th colspan="3">POSESIÓN DE VIVIENDA</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>VIVIENDA</th>
+                                                                <th>FAMILIAS</th>
+                                                                <th>%</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>POSEEN</td>
+                                                                <td>{{posesion_vivienda.poseen}}</td>
+                                                                <td>{{(posesion_vivienda.poseen / (posesion_vivienda.no_poseen + posesion_vivienda.poseen) * 100).toFixed(2)}} %</td>                                    
+                                                            </tr>
+                                                            <tr>
+                                                                <td>NO POSEEN</td>
+                                                                <td>{{posesion_vivienda.no_poseen}}</td>
+                                                                <td>{{(posesion_vivienda.no_poseen / (posesion_vivienda.no_poseen + posesion_vivienda.poseen) * 100).toFixed(2)}} %</td>                                    
+                                                            </tr>
+                                                        </tbody>
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Total</th>
+                                                                <th>{{posesion_vivienda.no_poseen + posesion_vivienda.poseen}}</th>
+                                                                <th>100 %</th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                    <br><br>
+                                                    <h3 style="width: 100%; text-align: center">PORCENTAJE DE FAMILIA POR TIPO DE POSESIÓN</h3>
+                                                    <div id="grafica_posesion" style="height: 350px"></div>
+                                                    <br><br>
+                                                    <hr>
+                                                    <h3 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">TENENCIA DE TIERRAS</h3>
+                                                    <br>
+                                                    <table style="width: 100%" class="situacion_laboral" v-if="posesion_vivienda != null">
+                                                        <thead>
+                                                            <tr>
+                                                                <th colspan="5">TENENCIA DE TIERRAS</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>RESPUESTA</th>
+                                                                <th>POSESIÓN BALDÍOS</th>
+                                                                <th>PROPIEDAD CON TITULO</th>
+                                                                <th>AREA TOTAL (Ha)</th>
+                                                                <th>AREA TOTAL (m<sup>2</sup>)</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Si</td>
+                                                                <td></td>
+                                                                <td></td> 
+                                                                <td rowspan="2"></td>
+                                                                <td rowspan="2"></td>                                   
+                                                            </tr>
+                                                            <tr>
+                                                                <td>No</td>
+                                                                <td></td>
+                                                                <td></td> 
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </template>
                                             </vue3-html2pdf>
                                         </div>
@@ -607,7 +704,10 @@ export default {
             datos_nivel_academico: [],
             personas_nivel_educativo: 0,
             chart_nivel_academico: null,
-            chart_nivel_academico_sexo: null
+            chart_nivel_academico_sexo: null,
+            datos_por_ocupacion: null,
+            posesion_vivienda: null,
+            chart_posesion: null
         }
     },
     mounted() {
@@ -645,6 +745,9 @@ export default {
                 this.personas_nivel_educativo = respuesta.data.personas_nivel_educativo;
                 this.generarGraficoNivelAcademico();
                 this.generarGraficoNivelAcademicoSexo();
+                this.datos_por_ocupacion = respuesta.data.por_ocupacion;
+                this.posesion_vivienda = respuesta.data.posesion_vivienda;
+                this.generarGraficoPosesion();
                 this.loading = false;
             });
         },
@@ -974,6 +1077,35 @@ export default {
             createSeries('second', 'Mujeres');
 
         },
+        generarGraficoPosesion() {
+            var chart = am4core.create("grafica_posesion", am4charts.PieChart);
+
+            // Add data
+            chart.data = [
+                {
+                    "country": "POSEEN",
+                    "litres": this.posesion_vivienda.poseen,
+                },
+                {
+                    "country": "NO POSEEN",
+                    "litres": this.posesion_vivienda.no_poseen,
+                }
+            ];
+
+            var pieSeries = chart.series.push(new am4charts.PieSeries());
+            pieSeries.dataFields.value = "litres";
+            pieSeries.dataFields.category = "country";
+            pieSeries.slices.template.stroke = am4core.color("#fff");
+            pieSeries.slices.template.strokeOpacity = 1;
+
+            pieSeries.hiddenState.properties.opacity = 1;
+            pieSeries.hiddenState.properties.endAngle = -90;
+            pieSeries.hiddenState.properties.startAngle = -90;
+
+            chart.hiddenState.properties.radius = am4core.percent(0);
+
+            this.char_poblacion_inactiva = chart;
+        },
     }
 }
 </script>
@@ -1042,10 +1174,6 @@ export default {
 
     thead th {
        background-color: #5df3c5 !important;
-    }
-
-    thead td {
-       background-color: #ffff !important;
     }
 
     .situacion_laboral th, .situacion_laboral td{
