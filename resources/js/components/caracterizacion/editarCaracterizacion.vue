@@ -222,28 +222,6 @@
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-6">
-                                        <label for=""><strong>Identidad de genero</strong></label>
-                                        <fieldset class="form-group position-relative has-icon-left">
-                                            <select v-model="informacion_personal.identidad_genero" class="form-control form-control-lg mb-1" name="" id="">
-                                                <option value="">Seleccione una opción</option>
-                                                <option value="Hombre">Hombre</option>
-                                                <option value="Mujer">Mujer</option>
-                                                <option value="No binario">No binario</option>
-                                                <option value="Génerofluida">Génerofluida</option>
-                                                <option value="Bigénero">Bigénero</option>
-                                                <option value="Andrógino">Andrógino</option>
-                                                <option value="Demiboy">Demiboy</option>
-                                                <option value="Demigirl">Demigirl</option>
-                                                <option value="Transgénero">Transgénero</option>
-                                                <option value="Cisgénero">Cisgénero</option>
-                                                <option value="Neutrois">Neutrois</option>
-                                            </select>                                            
-                                            <div class="form-control-position">
-                                                <i style="font-size: 19px" class="fas fa-users"></i>
-                                            </div>
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-lg-6">
                                         <label for=""><strong>Orientación sexual</strong></label>
                                         <fieldset class="form-group position-relative has-icon-left">
                                             <select v-model="informacion_personal.orientacion_sexual" class="form-control form-control-lg mb-1" name="" id="">
@@ -255,6 +233,7 @@
                                                 <option value="Asexual">Asexual</option>
                                                 <option value="Queer">Queer</option>
                                                 <option value="Cuarsosexual">Cuarsosexual </option>
+                                                <option value="Otro">Otro</option>
                                             </select>                                            
                                             <div class="form-control-position">
                                                 <i style="font-size: 19px" class="fas fa-users"></i>
@@ -412,28 +391,40 @@
                                 <br><br>
                                 <label for=""><strong>2. Selecciona la etnia a la que pertenece</strong></label>
                                 <div class="row" style="margin-top: 37px">
-                                    <div class="col-lg-3" style="margin-bottom: 20px">
+                                    <div class="col-lg-2" style="margin-bottom: 20px">
                                         <input v-model="origen_identidad.etnia" type="radio" id="control_01" name="select" value="Palenqueros" >
                                         <label class="lradio" for="control_01">
                                             <p>Palenqueros</p>
                                         </label>
                                     </div>
-                                    <div class="col-lg-3" style="margin-bottom: 20px">
+                                    <div class="col-lg-2" style="margin-bottom: 20px">
                                         <input v-model="origen_identidad.etnia" type="radio" id="control_02" name="select" value="Raizales">
                                         <label class="lradio" for="control_02">
                                             <p>Raizales</p>
                                         </label>
                                     </div>
-                                    <div class="col-lg-3" style="margin-bottom: 20px">
+                                    <div class="col-lg-2" style="margin-bottom: 20px">
                                         <input v-model="origen_identidad.etnia" type="radio" id="control_03" name="select" value="Afrocolombianos del pacifico">
                                         <label class="lradio" for="control_03">
                                             <p>Afrocolombianos del pacifico (Chocó, Valle del Cauca, Cauca y Antioquia )</p>
                                         </label>
                                     </div>
-                                    <div class="col-lg-3" style="margin-bottom: 20px">
+                                    <div class="col-lg-2" style="margin-bottom: 20px">
                                         <input v-model="origen_identidad.etnia" type="radio" id="control_05" name="select" value="Afrocolombianos de la región caribe">
                                         <label class="lradio" for="control_05">
                                             <p>Afrocolombianos de la región caribe.</p>
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-2" style="margin-bottom: 20px">
+                                        <input v-model="origen_identidad.etnia" type="radio" id="control_06" name="select" value="No sabe">
+                                        <label class="lradio" for="control_06">
+                                            <p>No sabe</p>
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-2" style="margin-bottom: 20px">
+                                        <input v-model="origen_identidad.etnia" type="radio" id="control_07" name="select" value="Otro">
+                                        <label class="lradio" for="control_07">
+                                            <p>Otro</p>
                                         </label>
                                     </div>
                                     <br>
@@ -674,6 +665,8 @@
                                                 <option value="Vinculado/ Beneficiario">Vinculado/ Beneficiario</option>
                                                 <option value="Régimen Especial">Régimen Especial</option>
                                                 <option value="Particular o Privado">Particular o Privado</option>
+                                                <option value="No conoce">No conoce</option>
+                                                <option value="Población pobre no asegurada">Población pobre no asegurada</option>
                                             </select>
                                             <div class="form-control-position" style="top: 9px; left: 4px !important;">
                                                 <i style ="font-size: 19px" class="fas fa-laptop-medical"></i>
@@ -1111,7 +1104,6 @@ export default {
                 direccion_residencia: "",
                 sexo: "",
                 cual_sexo: "",
-                identidad_genero: "",
                 orientacion_sexual: "",
                 estado_civil: "",
                 cual_estado_civil: "",
@@ -1401,7 +1393,6 @@ export default {
                 this.informacion_personal.numero_identificacion = data.informacion_personal.identificacion;
                 this.informacion_personal.direccion_residencia = data.informacion_personal.direccion_residencia;
                 this.informacion_personal.sexo = data.informacion_personal.sexo;
-                this.informacion_personal.identidad_genero = data.informacion_personal.identidad_genero;
                 this.informacion_personal.orientacion_sexual = data.informacion_personal.orientacion_sexual;
                 this.informacion_personal.estado_civil = data.informacion_personal.estado_civil;
                 this.informacion_personal.creencia_religiosa = data.informacion_personal.creencia_religiosa;
@@ -1619,10 +1610,6 @@ export default {
 
             if (!this.informacion_personal.sexo) {
                 this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  sexo </strong> no puede estar vacío <br>`;
-            }
-
-            if (!this.informacion_personal.identidad_genero) {
-                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  identidad de genero </strong> no puede estar vacío <br>`;
             }
 
             if (!this.informacion_personal.orientacion_sexual) {

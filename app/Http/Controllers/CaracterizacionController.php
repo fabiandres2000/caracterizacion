@@ -85,7 +85,6 @@ class CaracterizacionController extends Controller
             'direccion_residencia' => $request->input('direccion_residencia'),
             'sexo' => $request->input('sexo'),
             'cual_sexo' => $request->input('cual_sexo'),
-            'identidad_genero' => $request->input('identidad_genero'),
             'orientacion_sexual' => $request->input('orientacion_sexual'),
             'estado_civil' => $request->input('estado_civil'),
             'cual_estado_civil' => $request->input('cual_estado_civil'),
