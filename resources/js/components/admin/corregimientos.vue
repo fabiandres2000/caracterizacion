@@ -20,21 +20,19 @@
                         <button data-toggle="modal" data-target="#modalRegistroMunicipio" class="btn btn-warning"><i class="fas fa-plus"></i> Nuevo Corregimiento </button>
                         <br>
                         <br>
-                        <table>
+                        <table id="tabla_corregimientos">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Departamento</th>
-                                    <th>Municipio</th>
+                                    <th style="text-align: center">Id</th>
+                                    <th style="text-align: center">Departamento</th>
+                                    <th style="text-align: center">Municipio</th>
                                     <th>Nombre</th>
-                                    <th>Estado</th>
+                                    <th style="text-align: center">Estado</th>
                                     <th style="text-align: center">Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-if="corregimientos.length == 0">
-                                    <td style="text-align: center" colspan="6">No hay datos</td>
-                                </tr>
+                                
                                 <tr v-for="(item, index) in corregimientos" :key="index" v-if="corregimientos.length > 0">
                                     <td style="text-align: center">{{ item.id }}</td>
                                     <td style="text-align: center">{{ item.nombre_departamento }}</td>
@@ -140,8 +138,37 @@ export default {
             this.loading = true;
             await corregimientosService.listarCorregimientos().then(respuesta => {
                 this.corregimientos = respuesta.data;
-                this.loading = false;
+                this.dataTables();
             });
+        },
+        dataTables() {
+            this.loading = false;
+            setTimeout(()=>{
+                $("#tabla_corregimientos").DataTable({
+                    ordering: false,
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+                        "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                        "infoFiltered": "(Filtrado de _MAX_ total Registros)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ Registros",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "Buscar:",
+                        "zeroRecords": "Sin resultados encontrados",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        }
+                    },
+                });
+            }, 50)
+            
         },
         async consultarDepartamentos(){
             await caracterizacionService.departamentos().then(respuesta => {

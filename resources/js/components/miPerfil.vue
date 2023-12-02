@@ -118,7 +118,7 @@
                                                     <hr>
                                                     <div class="col-12 d-flex flex-sm-row flex-column justify-content-end" style="padding: 0">
                                                         <button @click="editarUsuario" type="button" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0"><i class="fas fa-save"></i> Guardar Cambios</button>
-                                                        <button type="reset" class="btn btn-light"><i class="fas fa-times"></i> Cancelar</button>
+                                                        <button type="reset" class="btn btn-danger"><i class="fas fa-times"></i> Cancelar</button>
                                                     </div>
                                                 </div>
                                                 <div class="tab-pane fade " id="account-vertical-password" role="tabpanel" aria-labelledby="account-pill-password" aria-expanded="false">
@@ -150,7 +150,7 @@
                                                             </div>
                                                             <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                                                                 <button @click="cambiarPassword" type="button" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0"><i class="fas fa-save"></i> Guardar Cambios</button>
-                                                                <button type="reset" class="btn btn-light"><i class="fas fa-times"></i> Cancelar</button>
+                                                                <button type="reset" class="btn btn-danger"><i class="fas fa-times"></i> Cancelar</button>
                                                             </div>
                                                         </div>
                                                     </form>

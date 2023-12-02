@@ -100,6 +100,7 @@
                             </router-link>
                         </li>
                     </ul>
+                    <img src="/imagenes/logo_alcaldia.png" id="logo_alcaldia" alt="">
                 </div>
             </div>
         </div>
@@ -183,5 +184,13 @@ export default {
         width: 100% !important;
         height: 100% !important;
         background-color: #000;
+    }
+
+    #logo_alcaldia {
+        width: -webkit-fill-available;
+        position: absolute;
+        bottom: 0%;
+        left: -27px;
+        opacity: .6;
     }
 </style>

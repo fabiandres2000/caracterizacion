@@ -155,12 +155,21 @@ export default {
             // Add data
             chart.data = [];
 
+            var maximo = 0;
             this.datos.piramide_edad.forEach(element => {
                 chart.data.push({
                     "age": element[2],
                     "male": (-1) * element[0],
                     "female": element[1]
-                })
+                });
+
+                if(element[0] >= maximo){
+                    maximo = element[0];
+                }
+
+                if(element[1] >= maximo){
+                    maximo = element[1];
+                }
             });
 
             // Use only absolute numbers
@@ -172,10 +181,13 @@ export default {
             categoryAxis.renderer.grid.template.location = 0;
             categoryAxis.renderer.inversed = true;
             categoryAxis.renderer.minGridDistance = 10;
+            
 
             var valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
             valueAxis.extraMin = 0.1;
             valueAxis.extraMax = 0.1;
+            valueAxis.min = -1 * (maximo);
+            valueAxis.max = maximo;
             valueAxis.renderer.minGridDistance = 40;
             valueAxis.renderer.ticks.template.length = 5;
             valueAxis.renderer.ticks.template.disabled = false;
@@ -210,7 +222,7 @@ export default {
             femaleLabel.label.dx = 10;
            
             var maleRange = valueAxis.axisRanges.create();
-            maleRange.value = -3;
+            maleRange.value = -1 * (maximo);
             maleRange.endValue = 0;
             maleRange.label.text = "Masculino";
             maleRange.label.fill = chart.colors.list[0];
@@ -221,13 +233,14 @@ export default {
 
             var femaleRange = valueAxis.axisRanges.create();
             femaleRange.value = 0;
-            femaleRange.endValue = 3;
+            femaleRange.endValue = maximo;
             femaleRange.label.text = "Femenino";
             femaleRange.label.fill = chart.colors.list[1];
             femaleRange.label.dy = 20;
             femaleRange.label.fontWeight = '600';
             femaleRange.grid.strokeOpacity = 0;
             femaleRange.grid.stroke = female.stroke;
+
 
             this.chart_edad = chart;
         },

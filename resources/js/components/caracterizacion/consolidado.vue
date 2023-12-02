@@ -23,9 +23,12 @@
                     <div class="card-body">
                         <div v-if="corregimiento == '' && concejo == ''">
                             <div class="row">
-                                <div class="col-lg-12"><h2>SELECCIONA UNA OPCIÓN PARA GENERAR EL CONSOLIDADO</h2><br></div>
                                 <div class="col-lg-12">
-                                    <h3>POR CORREGIMIENTO</h3>
+                                    <h2 style="font-weight: bold; color: #008385;">SELECCIONA UNA OPCIÓN PARA GENERAR EL CONSOLIDADO</h2>
+                                    <br>
+                                </div>
+                                <div class="col-lg-12">
+                                    <h3 style="font-weight: bold; color: #ff425c;">POR CORREGIMIENTO</h3>
                                     <br>
                                 </div>
                                 <div style="text-transform: uppercase;" v-for="(item, index) in municipios_consolidados" :key="index" class="col-lg-4">
@@ -62,10 +65,10 @@
                                     </div>    
                                 </div>
                             </div>
-                            <hr>
+                            <br>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <h3>POR CONCEJO</h3>
+                                    <h3 style="font-weight: bold; color: #ff425c;">POR CONCEJO COMUNITARIO</h3>
                                     <br>
                                 </div>
                                 <div style="text-transform: uppercase;" class="col-lg-4">
@@ -104,7 +107,7 @@
                                 <table style=" width: 100% !important;">
                                     <thead>
                                         <tr>
-                                            <td rowspan="2" style="width: 220px; text-align: center; padding: 20px">
+                                            <td rowspan="2" style="width: 220px; text-align: center; padding: 0px">
                                                 <img style="width: 150px" src="/imagenes/censo.png" alt="">
                                             </td>
                                             <td colspan="2" style="text-align: center">MACROPROCESO: AGENCIA NACIONAL DE TIERRAS <br> PROCESO: DIRECCIÓN DE ASUNTOS ÉTNICOS</td>
@@ -249,7 +252,7 @@
                                 <table style=" width: 100% !important;">
                                     <thead>
                                         <tr>
-                                            <td rowspan="2" style="width: 220px; text-align: center; padding: 20px">
+                                            <td rowspan="2" style="width: 220px; text-align: center; padding: 0px">
                                                 <img style="width: 150px" src="/imagenes/censo.png" alt="">
                                             </td>
                                             <td colspan="2" style="text-align: center">MACROPROCESO: AGENCIA NACIONAL DE TIERRAS <br> PROCESO: DIRECCIÓN DE ASUNTOS ÉTNICOS</td>
@@ -585,7 +588,7 @@ export default {
     }
 
     #table2 td, #table2 th {
-        border: 1px solid rgb(255, 255, 255) !important;
+        border: 3px solid rgb(255, 255, 255) !important;
         padding: 10px;
     }
 

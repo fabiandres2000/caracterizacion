@@ -25,7 +25,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Identificación</th>
-                                        <th>Nombre</th>
+                                        <th>Nombre Completo</th>
                                         <th>Rol</th>
                                         <th>Dirección</th>
                                         <th>F. Caracterización</th>
@@ -153,5 +153,10 @@ export default {
 
     tr {
         border-bottom: 1px solid lightgrey !important;
+    }
+
+    .btn-info {
+        background-color: #328691 !important;
+        border-color: #328691 !important;
     }
 </style>

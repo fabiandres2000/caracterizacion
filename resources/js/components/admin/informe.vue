@@ -36,16 +36,16 @@
                         </ul>
                         <div style="position: relative" class="tab-content px-1 pt-1">
                             <div class="tab-pane active" id="tabIcon21" role="tabpanel" aria-labelledby="baseIcon-tab21">
-                                <button style="border-radius: 50%; width: 50px; height: 50px; position: absolute; right: 90px; top: 20px" class="btn btn-danger" @click="generateReport">
-                                    <i class="fas fa-file-pdf"></i>
+                                <button style="border-radius: 50%; width: 60px; height: 60px; position: absolute; right: 100px; top: 20px" class="btn btn-danger" @click="generateReport">
+                                    <i class="fas fa-2x fa-file-pdf"></i>
                                 </button>
-                                <button style="border-radius: 50%; width: 50px; height: 50px; position: absolute; right: 20px; top: 20px" class="btn btn-success" @click="generateReport">
-                                    <i class="fas fa-file-excel"></i>
+                                <button style="border-radius: 50%; width: 60px; height: 60px; position: absolute; right: 20px; top: 20px" class="btn btn-success" @click="generateReport">
+                                    <i class="fas fa-2x fa-file-excel"></i>
                                 </button>
                                 <br>
                                 <br>
                                 <br>
-                                <hr>
+                                <br>
                                 <div class="row">
                                     <div class="col-lg-2"></div>
                                     <div class="col-lg-8">
@@ -321,16 +321,16 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="tabIcon22" role="tabpanel" aria-labelledby="baseIcon-tab22">
-                                <button style="border-radius: 50%; width: 50px; height: 50px; position: absolute; right: 90px; top: 20px" class="btn btn-danger" @click="generateReport2">
-                                    <i class="fas fa-file-pdf"></i>
+                                <button style="border-radius: 50%; width: 60px; height: 60px; position: absolute; right: 100px; top: 20px" class="btn btn-danger" @click="generateReport2">
+                                    <i class="fas fa-2x fa-file-pdf"></i>
                                 </button>
-                                <button style="border-radius: 50%; width: 50px; height: 50px; position: absolute; right: 20px; top: 20px" class="btn btn-success" @click="generateReport">
-                                    <i class="fas fa-file-excel"></i>
+                                <button style="border-radius: 50%; width: 60px; height: 60px; position: absolute; right: 20px; top: 20px" class="btn btn-success" @click="generateReport">
+                                    <i class="fas fa-2x fa-file-excel"></i>
                                 </button>
                                 <br>
                                 <br>
                                 <br>
-                                <hr>
+                                <br>
                                 <div class="row">
                                     <div class="col-lg-2"></div>  
                                     <div class="col-lg-8">
@@ -539,16 +539,16 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="tabIcon23" role="tabpanel" aria-labelledby="baseIcon-tab23">
-                                <button style="border-radius: 50%; width: 50px; height: 50px; position: absolute; right: 90px; top: 20px" class="btn btn-danger" @click="generateReport3">
-                                    <i class="fas fa-file-pdf"></i>
+                                <button style="border-radius: 50%; width: 60px; height: 60px; position: absolute; right: 100px; top: 20px" class="btn btn-danger" @click="generateReport3">
+                                    <i class="fas fa-2x fa-file-pdf"></i>
                                 </button>
-                                <button style="border-radius: 50%; width: 50px; height: 50px; position: absolute; right: 20px; top: 20px" class="btn btn-success" @click="generateReport">
-                                    <i class="fas fa-file-excel"></i>
+                                <button style="border-radius: 50%; width: 60px; height: 60px; position: absolute; right: 20px; top: 20px" class="btn btn-success" @click="generateReport">
+                                    <i class="fas fa-2x fa-file-excel"></i>
                                 </button>
                                 <br>
                                 <br>
                                 <br>
-                                <hr>
+                                <br>
                                 <div class="row">
                                     <div class="col-lg-2"></div>  
                                     <div class="col-lg-8">
@@ -1160,7 +1160,7 @@ export default {
         font-weight: bold;
     }
 
-    .tabla_informe td, th {
+    .tabla_informe td, .tabla_informe th {
         border: 1px solid grey;
         padding: 5px;
         text-align: center;

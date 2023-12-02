@@ -1,8 +1,8 @@
  <!-- BEGIN: Footer-->
  <footer class="footer fixed-bottom footer-dark navbar-shadow">
-    <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2 container center-layout"><span
+    <p style="max-width: 100% !important;" class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2 container center-layout"><span
             class="float-md-left d-block d-md-inline-block">Copyright &copy; {{ date('Y') }} <a
-                class="text-bold-800 grey darken-2" href="https://1.envato.market/pixinvent_portfolio"
+                class="text-bold-800 grey darken-2" href="https://www.leeringenieria.com/Nosotros.php"
                 target="_blank">LEER INGENIERIA S.A.S </a></span><span class="float-md-right d-none d-lg-block">CARACTERIZACIÓN POBLACION AFRODESCENDIENTES <i style="color: #ffff" class="fa fa-users"></i></span></p>
 </footer>
 <!-- END: Footer-->
