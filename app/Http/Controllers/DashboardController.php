@@ -676,6 +676,54 @@ class DashboardController extends Controller
         ->where("tenencia", "=", "Alquilada")
         ->count();
 
+        $posesion_baldios = [];
+        
+        $baldios_si = DB::connection('mysql')->table('informacion_personal')
+        ->join("vivienda_hogar", "vivienda_hogar.identificacion_jefe", "informacion_personal.identificacion")
+        ->where("vivienda_hogar.posecion_baldia", "Si")
+        ->where("informacion_personal.estado", 1)
+        ->count();
+
+        $baldios_no = DB::connection('mysql')->table('informacion_personal')
+        ->join("vivienda_hogar", "vivienda_hogar.identificacion_jefe", "informacion_personal.identificacion")
+        ->where("vivienda_hogar.posecion_baldia", "No")
+        ->where("informacion_personal.estado", 1)
+        ->count();
+
+        $titulo_si = DB::connection('mysql')->table('informacion_personal')
+        ->join("vivienda_hogar", "vivienda_hogar.identificacion_jefe", "informacion_personal.identificacion")
+        ->where("vivienda_hogar.propiedad_titulo", "Si")
+        ->where("informacion_personal.estado", 1)
+        ->count();
+
+        $titulo_no = DB::connection('mysql')->table('informacion_personal')
+        ->join("vivienda_hogar", "vivienda_hogar.identificacion_jefe", "informacion_personal.identificacion")
+        ->where("vivienda_hogar.propiedad_titulo", "No")
+        ->where("informacion_personal.estado", 1)
+        ->count();
+
+        $total_area = DB::connection('mysql')->table('informacion_personal')
+        ->join("vivienda_hogar", "vivienda_hogar.identificacion_jefe", "informacion_personal.identificacion")
+        ->where("informacion_personal.estado", 1)
+        ->sum('vivienda_hogar.area_total');
+
+        $posesion_baldios[] = [
+            "baldios_si" => $baldios_si,
+            "baldios_no" => $baldios_no,
+            "titulo_si" => $baldios_si,
+            "titulo_no" => $baldios_no,
+            "total_area" => $total_area
+        ];
+
+        $cultivos = DB::connection('mysql')->table('informacion_personal')
+        ->join("actividades_vivienda_hogar", "actividades_vivienda_hogar.identificacion_jefe", "informacion_personal.identificacion")
+        ->where("informacion_personal.estado", 1)
+        ->groupBy("actividades_vivienda_hogar.linea", "actividades_vivienda_hogar.actividad")
+        ->selectRaw('SUM(actividades_vivienda_hogar.area_destinada) as area_destinada, actividades_vivienda_hogar.linea, actividades_vivienda_hogar.actividad')
+        ->orderBy("area_destinada", "DESC")
+        ->get();
+
+
         $datos = [
             "piramide_edad" => $piramide_edad,
             "numero_masculino" => $masculino,
@@ -698,7 +746,9 @@ class DashboardController extends Controller
             "posesion_vivienda" => [
                 "poseen" => $posesion_vivienda_si,
                 "no_poseen" => $posesion_vivienda_no
-            ]
+            ],
+            "posesion_baldios" => $posesion_baldios,
+            "cultivos" => $cultivos
         ];
 
         return response()->json($datos);

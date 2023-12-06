@@ -616,22 +616,46 @@
                                                                 <th>RESPUESTA</th>
                                                                 <th>POSESIÓN BALDÍOS</th>
                                                                 <th>PROPIEDAD CON TITULO</th>
-                                                                <th>AREA TOTAL (Ha)</th>
                                                                 <th>AREA TOTAL (m<sup>2</sup>)</th>
+                                                                <th>AREA TOTAL (Ha)</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <tr>
                                                                 <td>Si</td>
-                                                                <td></td>
-                                                                <td></td> 
-                                                                <td rowspan="2"></td>
-                                                                <td rowspan="2"></td>                                   
+                                                                <td>{{posesion_baldios.baldios_si}}</td>
+                                                                <td>{{posesion_baldios.titulo_si}}</td> 
+                                                                <td rowspan="2">{{posesion_baldios.total_area}} <strong>m <sup>2</sup></strong>  </td>
+                                                                <td rowspan="2">{{posesion_baldios.total_area / 10000}} <strong>Hta</strong></td>                                   
                                                             </tr>
                                                             <tr>
                                                                 <td>No</td>
-                                                                <td></td>
-                                                                <td></td> 
+                                                                <td>{{posesion_baldios.baldios_no}}</td>
+                                                                <td>{{posesion_baldios.titulo_no}}</td> 
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <br><br>
+                                                    <h3 style="width: 100%; text-align: center">PRINCIPALES CULTIVOS</h3>
+                                                    <br>
+                                                    <table style="width: 100%" class="situacion_laboral" v-if="posesion_vivienda != null">
+                                                        <thead>
+                                                            <tr>
+                                                                <th colspan="4">CULTIVOS</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>LINEA</th>
+                                                                <th>ACTIVIDAD</th>
+                                                                <th>AREA TOTAL (m<sup>2</sup>)</th>
+                                                                <th>AREA TOTAL (Ha)</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr v-for="(item, index) in cultivos" :key="index">
+                                                                <td>{{item.linea}}</td>
+                                                                <td>{{item.actividad}}</td>
+                                                                <td>{{item.area_destinada}}</td> 
+                                                                <td>{{item.area_destinada / 10000}}</td> 
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -707,7 +731,9 @@ export default {
             chart_nivel_academico_sexo: null,
             datos_por_ocupacion: null,
             posesion_vivienda: null,
-            chart_posesion: null
+            chart_posesion: null,
+            posesion_baldios: null,
+            cultivos: null
         }
     },
     mounted() {
@@ -748,6 +774,8 @@ export default {
                 this.datos_por_ocupacion = respuesta.data.por_ocupacion;
                 this.posesion_vivienda = respuesta.data.posesion_vivienda;
                 this.generarGraficoPosesion();
+                this.posesion_baldios = respuesta.data.posesion_baldios[0];
+                this.cultivos = respuesta.data.cultivos;
                 this.loading = false;
             });
         },
