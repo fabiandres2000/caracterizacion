@@ -659,6 +659,19 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
+                                                    <div class="html2pdf__page-break"></div>
+                                                    <h3 style="width: 100%; text-align: center">PORCENTAJE DE HECTÁREAS OCUPADAS POR LINEA ECONOMICA</h3>
+                                                    <div id="grafica_linea_economica" style="height: 300px"></div>
+                                                    <br><br>
+                                                    <h3 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">PORCENTAJE DE HECTÁREAS OCUPADAS POR LINEA ECONOMICA Y ACTIVIDADES ECONOMICAS</h3>
+                                                    <br>
+                                                    <div v-for="(item, index) in cultivosPorLinea" :key="index">
+                                                        <br><br>
+                                                        <h3 style="height: 45px; width: 100%; text-align: center">{{ item[0].linea }}</h3>
+                                                        <hr>
+                                                        <div :id="'grafica_linea_'+index" style="height: 200px"></div>
+                                                        <br><br>
+                                                    </div>
                                                 </template>
                                             </vue3-html2pdf>
                                         </div>
@@ -680,7 +693,6 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import Loading from 'vue3-loading-overlay';
 import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
-
 
 am4core.useTheme(am4themes_animated);
 export default {
@@ -733,7 +745,8 @@ export default {
             posesion_vivienda: null,
             chart_posesion: null,
             posesion_baldios: null,
-            cultivos: null
+            cultivos: null,
+            cultivosPorLinea : []
         }
     },
     mounted() {
@@ -750,6 +763,12 @@ export default {
             this.loading = true;
             setTimeout(()=>{
                 this.$refs.html2Pdf2.generatePdf()
+            }, 1000)
+        },
+        generateReport3 () {
+            this.loading = true;
+            setTimeout(()=>{
+                this.$refs.html2Pdf3.generatePdf()
             }, 1000)
         },
         async consultarDatos(){
@@ -776,15 +795,36 @@ export default {
                 this.generarGraficoPosesion();
                 this.posesion_baldios = respuesta.data.posesion_baldios[0];
                 this.cultivos = respuesta.data.cultivos;
+                this.cultivosPorLinea = this.agruparPorLinea(this.cultivos);
+                this.generarGraficaLinea();
+                setTimeout(()=>{
+                    this.generarGraficasLinea();
+                }, 1000)
                 this.loading = false;
             });
         },
-        generarGraficoEdad() {
-            // Create chart instance
-            var chart = am4core.create("grafico_edad_informe", am4charts.XYChart);
+        agruparPorLinea(data) {
+            const groupedByLinea = data.reduce((result, currentItem) => {
+            const key = currentItem.linea;
 
-            // Add data
+            const groupIndex = result.findIndex(group => group[0].linea === key);
+
+            if (groupIndex === -1) {
+                result.push([currentItem]);
+            } else {
+                result[groupIndex].push(currentItem);
+            }
+
+            return result;
+            }, []);
+
+            return groupedByLinea;
+        },
+        generarGraficoEdad() {
+            var chart = am4core.create("grafico_edad_informe", am4charts.XYChart);
             chart.data = [];
+        
+            var maximo = 0;
 
             for (let index = 0; index <= 15; index++) {
                 const element = this.datos_edad[index];
@@ -792,8 +832,17 @@ export default {
                     "age": element[2],
                     "male": (-1) * element[0],
                     "female": element[1]
-                })
+                });
+
+                if(element[0] >= maximo){
+                    maximo = element[0];
+                }
+
+                if(element[1] >= maximo){
+                    maximo = element[1];
+                }
             }
+
             // Use only absolute numbers
             chart.numberFormatter.numberFormat = "#.#s";
 
@@ -803,10 +852,13 @@ export default {
             categoryAxis.renderer.grid.template.location = 0;
             categoryAxis.renderer.inversed = true;
             categoryAxis.renderer.minGridDistance = 10;
+            
 
             var valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
             valueAxis.extraMin = 0.1;
             valueAxis.extraMax = 0.1;
+            valueAxis.min = -1 * (maximo);
+            valueAxis.max = maximo;
             valueAxis.renderer.minGridDistance = 40;
             valueAxis.renderer.ticks.template.length = 5;
             valueAxis.renderer.ticks.template.disabled = false;
@@ -841,7 +893,7 @@ export default {
             femaleLabel.label.dx = 10;
            
             var maleRange = valueAxis.axisRanges.create();
-            maleRange.value = -2;
+            maleRange.value = -1 * (maximo);
             maleRange.endValue = 0;
             maleRange.label.text = "Masculino";
             maleRange.label.fill = chart.colors.list[0];
@@ -852,7 +904,7 @@ export default {
 
             var femaleRange = valueAxis.axisRanges.create();
             femaleRange.value = 0;
-            femaleRange.endValue = 2;
+            femaleRange.endValue = maximo;
             femaleRange.label.text = "Femenino";
             femaleRange.label.fill = chart.colors.list[1];
             femaleRange.label.dy = 20;
@@ -884,6 +936,7 @@ export default {
             pieSeries.dataFields.category = "country";
             pieSeries.slices.template.stroke = am4core.color("#fff");
             pieSeries.slices.template.strokeOpacity = 1;
+
 
             // Set the slice colors based on the "color" field in the data
             pieSeries.slices.template.propertyFields.fill = "color";
@@ -1134,6 +1187,77 @@ export default {
 
             this.char_poblacion_inactiva = chart;
         },
+        generarGraficaLinea(){
+            var chart = am4core.create("grafica_linea_economica", am4charts.PieChart);
+            chart.data = [];
+            var nombre_linea = "";
+            var cantidad_por_linea = 0;
+
+            this.cultivosPorLinea.forEach(element => { 
+                cantidad_por_linea = 0;
+
+                nombre_linea = element[0].linea;  
+                element.forEach(element2 => {
+                    cantidad_por_linea += element2.area_destinada
+                });
+
+                chart.data.push({
+                    "country": nombre_linea,
+                    "litres": cantidad_por_linea
+                });
+            });
+
+            chart.innerRadius = am4core.percent(50);
+
+            var pieSeries = chart.series.push(new am4charts.PieSeries());
+            pieSeries.dataFields.value = "litres";
+            pieSeries.dataFields.category = "country";
+            pieSeries.slices.template.stroke = am4core.color("#fff");
+            pieSeries.slices.template.strokeWidth = 2;
+            pieSeries.slices.template.strokeOpacity = 1;
+
+            pieSeries.labels.template.maxWidth = 130;
+            pieSeries.labels.template.wrap = true;
+
+            pieSeries.hiddenState.properties.opacity = 1;
+            pieSeries.hiddenState.properties.endAngle = -90;
+            pieSeries.hiddenState.properties.startAngle = -90;
+        },
+        generarGraficasLinea() {
+            var index = 0;
+            this.cultivosPorLinea.forEach(element => {
+                var chart = am4core.create("grafica_linea_"+index, am4charts.PieChart);
+                chart.data = [];
+
+                element.forEach(element2 => {
+                    chart.data.push({
+                        "country": element2.actividad,
+                        "litres": element2.area_destinada
+                    });
+                });
+
+                // Set inner radius
+                chart.innerRadius = am4core.percent(50);
+
+                // Add and configure Series
+                var pieSeries = chart.series.push(new am4charts.PieSeries());
+                pieSeries.dataFields.value = "litres";
+                pieSeries.dataFields.category = "country";
+                pieSeries.slices.template.stroke = am4core.color("#fff");
+                pieSeries.slices.template.strokeWidth = 2;
+                pieSeries.slices.template.strokeOpacity = 1;
+
+                pieSeries.labels.template.maxWidth = 110;
+                pieSeries.labels.template.wrap = true;
+
+                // This creates initial animation
+                pieSeries.hiddenState.properties.opacity = 1;
+                pieSeries.hiddenState.properties.endAngle = -90;
+                pieSeries.hiddenState.properties.startAngle = -90;
+
+                index++;
+            });
+        }
     }
 }
 </script>

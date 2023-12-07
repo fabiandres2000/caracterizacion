@@ -720,7 +720,7 @@ class DashboardController extends Controller
         ->where("informacion_personal.estado", 1)
         ->groupBy("actividades_vivienda_hogar.linea", "actividades_vivienda_hogar.actividad")
         ->selectRaw('SUM(actividades_vivienda_hogar.area_destinada) as area_destinada, actividades_vivienda_hogar.linea, actividades_vivienda_hogar.actividad')
-        ->orderBy("area_destinada", "DESC")
+        ->orderBy("linea")
         ->get();
 
 

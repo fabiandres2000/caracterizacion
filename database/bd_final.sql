@@ -27,20 +27,20 @@ CREATE TABLE `actividades_vivienda_hogar` (
   `actividad` text,
   `area_destinada` double DEFAULT NULL,
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `actividades_vivienda_hogar` */
 
 insert  into `actividades_vivienda_hogar`(`id`,`identificacion_jefe`,`linea`,`actividad`,`area_destinada`) values 
-(11,'134543433','Cultivos agrícolas','Frijol',10000),
-(12,'134543433','Cultivos agrícolas','Arvejas',1000),
 (19,'10090908978','Cultivos agrícolas','Maíz',50000),
 (20,'10090908978','Pecuarias - especie animal con perspectiva comercial','Ganado vacuno o bovino',20000),
-(21,'43423423423','Cultivos agrícolas','Arvejas',10000),
-(22,'43423423423','Pecuarias - especie animal con perspectiva comercial','Apicultura',3000),
-(23,'43423423423','Cultivos forestales con perspectiva comercial','Ciprés',20000),
-(24,'43423423423','Pecuarias - especie animal con perspectiva comercial','Ganado equino',12000),
-(25,'43423423423','Cultivos agrícolas','Maíz',2000);
+(26,'134543433','Cultivos agrícolas','Frijol',10000),
+(27,'134543433','Cultivos agrícolas','Arvejas',1000),
+(28,'43423423423','Cultivos agrícolas','Arvejas',10000),
+(29,'43423423423','Pecuarias - especie animal con perspectiva comercial','Apicultura',3000),
+(30,'43423423423','Cultivos forestales con perspectiva comercial','Ciprés',20000),
+(31,'43423423423','Pecuarias - especie animal con perspectiva comercial','Ganado equino',12000),
+(32,'43423423423','Cultivos agrícolas','Maíz',2000);
 
 /*Table structure for table `corregimientos` */
 
@@ -78,13 +78,14 @@ CREATE TABLE `cultura_tradiciones` (
   `concejo` text,
   PRIMARY KEY (`identificacion_individuo`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `cultura_tradiciones` */
 
 insert  into `cultura_tradiciones`(`id`,`identificacion_individuo`,`practica_actividades`,`habla_lengua`,`cual_lengua`,`practicas_religiosas`,`concejo`) values 
+(14,99999999,'Nunca','No',NULL,'Santería y Palenque','CONCEJO COMUNITARIO \"ALEJO DURAN\"'),
 (4,100212124,'Si','No',NULL,'Música y Danza','CONCEJO COMUNITARIO \"ALEJO DURAN\"'),
-(1,134543433,'Si','Si','Palenquero','Música y Danza','CONCEJO COMUNITARIO \"ALEJO DURAN\"'),
+(1,134543433,'Si','Si','Palenquero','Música y Danza','CONCEJO COMUNITARIO \"JULIO CESAR ALTAMAR MUÑOS\"'),
 (11,432423423,'Si','No',NULL,'Música y Danza','CONCEJO COMUNITARIO \"JULIO CESAR ALTAMAR MUÑOS\"'),
 (12,523423454,'Casi nunca','No',NULL,'Sincretismo Religioso','CONCEJO COMUNITARIO \"JULIO CESAR ALTAMAR MUÑOS\"'),
 (9,967897897,'Si','Si','Creole','Música y Danza','CONCEJO COMUNITARIO \"ALEJO DURAN\"'),
@@ -160,11 +161,12 @@ CREATE TABLE `educacion` (
   `apoyo_educativo` text,
   PRIMARY KEY (`identificacion_individuo`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `educacion` */
 
 insert  into `educacion`(`id`,`identificacion_individuo`,`nivel_educativo`,`cual_nivel_educativo`,`educacion_especifica`,`barreras_educacion`,`descriminacion_racial`,`apoyo_educativo`) values 
+(14,99999999,'17',NULL,'Si','Si','No','No'),
 (4,100212124,'14',NULL,'Si','No','Si','Si'),
 (1,134543433,'13',NULL,'Si','Si','No','No'),
 (11,432423423,'12',NULL,'No','No','N.A','N.A'),
@@ -234,10 +236,6 @@ CREATE TABLE `informacion_personal` (
   `orientacion_sexual` text,
   `estado_civil` text,
   `cual_estado_civil` text,
-  `creencia_religiosa` text,
-  `cual_creencia_religiosa` text,
-  `adicciones` text,
-  `cual_adicciones` text,
   `tiempo_municipio` text,
   `desplazado` text,
   `numero_caracterizacion` text,
@@ -254,24 +252,25 @@ CREATE TABLE `informacion_personal` (
   PRIMARY KEY (`identificacion`),
   KEY `id_jefe` (`id_jefe`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `informacion_personal` */
 
-insert  into `informacion_personal`(`id`,`identificacion`,`tipo_identificacion`,`rol`,`direccion`,`nombre_completo`,`fecha_nacimiento`,`direccion_residencia`,`sexo`,`cual_sexo`,`orientacion_sexual`,`estado_civil`,`cual_estado_civil`,`creencia_religiosa`,`cual_creencia_religiosa`,`adicciones`,`cual_adicciones`,`tiempo_municipio`,`desplazado`,`numero_caracterizacion`,`anio_caracterizacion`,`mes_caracterizacion`,`dia_caracterizacion`,`fecha_caracterizacion`,`hora_caracterizacion`,`id_jefe`,`departamento`,`municipio`,`corregimiento`,`estado`) values 
-(4,100212124,'TI','Hijo(a)','transversal 28a #45-87','Andres gaviria','2020-01-22','transversal 28a #45-87','Masculino',NULL,'Heterosexual','Soltero',NULL,'Católicos',NULL,'Cigarrillo',NULL,'12','Si','CA0004',2023,11,21,'21-11-2023','10:19:36',10090908978,20,340,4,1),
-(1,134543433,'CC','Jefe de hogar','manzana 2 casa 8 - Fundadores','Fabian Andres Quintero Mendez','2001-01-22','manzana 2 casa 8 - Fundadores','Masculino',NULL,'Heterosexual','Unión Libre',NULL,'Católicos',NULL,'No',NULL,'12','Si','CA0001',2023,11,21,'21-11-2023','10:14:59',NULL,20,340,5,1),
-(11,432423423,'TI','Nieto(a)','manzana 2 casa 8 - Fundadores','Juan Jole Lopez','2021-01-22','manzana 2 casa 8 - Fundadores','Femenino',NULL,'Heterosexual','Soltero',NULL,'Católicos',NULL,'No',NULL,'10','Si','CA0011',2023,11,24,'24-11-2023','07:20:38',134543433,20,340,5,1),
-(12,523423454,'Registro Civil','Hijo(a)','calle principal - casa 4','Andres Jose Madrid Madrid','2017-12-05','calle principal - casa 4','Masculino',NULL,'Heterosexual','Soltero',NULL,'Católicos',NULL,'No',NULL,'12','No','CA0012',2023,11,25,'25-11-2023','08:34:48',967897897,20,340,3,1),
-(9,967897897,'CC','Jefe de hogar','calle principal - casa 4','Andrea Madrid','1987-04-22','calle principal - casa 4','Femenino',NULL,'Heterosexual','Soltero',NULL,'Católicos',NULL,'No',NULL,'12','Si','CA0009',2023,11,23,'23-11-2023','11:02:59',NULL,20,340,3,1),
-(6,4234234234,'CC','Hermano(a)','transversal 28a #45-87','Juana Gaviria','1985-06-25','transversal 28a #45-87','Femenino',NULL,'Heterosexual','Divorciado',NULL,'Católicos',NULL,'Cigarrillo',NULL,'25','No','CA0006',2023,11,21,'21-11-2023','10:20:07',10090908978,20,340,4,1),
-(10,7547546546,'CC','Yerno(a)','manzana 2 casa 8 - Fundadores','Juana de arcos','2003-08-22','manzana 2 casa 8 - Fundadores','Femenino',NULL,'Heterosexual','Soltero',NULL,'Católicos',NULL,'No',NULL,'12','Si','CA0010',2023,11,23,'23-11-2023','15:34:09',134543433,20,340,5,1),
-(3,10090908978,'CC','Jefe de hogar','transversal 28a #45-87','Obdulio Josefino Gaviria','1965-05-22','transversal 28a #45-87','Masculino',NULL,'Heterosexual','Viudo(a)',NULL,'Católicos',NULL,'Cigarrillo',NULL,'84','Si','CA0003',2023,11,21,'21-11-2023','10:14:32',NULL,20,340,4,1),
-(5,23123123123,'TI','Hijastro(a)','manzana 2 casa 8 - Fundadores','Juan Camilo Quiñones','2006-01-22','manzana 2 casa 8 - Fundadores','Masculino',NULL,'Heterosexual','Soltero',NULL,'Católicos',NULL,'No',NULL,'12','Si','CA0005',2023,11,21,'21-11-2023','10:19:56',134543433,20,340,5,1),
-(8,42324234234,'CC','Abuelo(a)','calle 34 #12-13','Abuela Miguel Angel','1940-05-12','calle 34 #12-13','Femenino',NULL,'Heterosexual','Viudo(a)',NULL,'Católicos',NULL,'No',NULL,'120','Si','CA0008',2023,11,21,'21-11-2023','15:20:36',213412321321,20,340,4,1),
-(2,43423423423,'TI','Jefe de hogar','manzana 12 casa 18 - Primero de mayo','Daniela Quintero','2005-01-22','manzana 12 casa 18 - Primero de mayo','Femenino',NULL,'Homosexual','Soltero',NULL,'Católicos',NULL,'No',NULL,'23','Si','CA0002',2023,12,1,'01-12-2023','07:20:14',NULL,20,340,4,1),
-(13,77777777777,'CC','Cuñado(a)','transversal 28a #45-87','Xiamir Josefino Gaviria','1985-05-12','transversal 28a #45-87','Masculino',NULL,'Heterosexual','Soltero',NULL,'Católicos',NULL,'No',NULL,'26','No','CA0013',2023,11,28,'28-11-2023','11:01:37',10090908978,20,340,4,1),
-(7,213412321321,'CC','Jefe de hogar','calle 34 #12-13','Miguel Ángel López','1978-06-15','calle 34 #12-13','Masculino',NULL,'Heterosexual','Soltero',NULL,'Católicos',NULL,'Alcohol',NULL,'3','Si','CA0007',2023,11,22,'22-11-2023','15:04:54',NULL,20,340,4,1);
+insert  into `informacion_personal`(`id`,`identificacion`,`tipo_identificacion`,`rol`,`direccion`,`nombre_completo`,`fecha_nacimiento`,`direccion_residencia`,`sexo`,`cual_sexo`,`orientacion_sexual`,`estado_civil`,`cual_estado_civil`,`tiempo_municipio`,`desplazado`,`numero_caracterizacion`,`anio_caracterizacion`,`mes_caracterizacion`,`dia_caracterizacion`,`fecha_caracterizacion`,`hora_caracterizacion`,`id_jefe`,`departamento`,`municipio`,`corregimiento`,`estado`) values 
+(14,99999999,'CC','Jefe de hogar','manzana 2 casa 8, urbanizacion ciudad tayrona','Nicolas Arrieta','1995-07-05','manzana 2 casa 8, urbanizacion ciudad tayrona','Masculino',NULL,'Heterosexual','Casado',NULL,'10','Si','CA0014',2023,12,7,'07-12-2023','08:06:26',NULL,20,340,2,1),
+(4,100212124,'TI','Hijo(a)','transversal 28a #45-87','Andres gaviria','2020-01-22','transversal 28a #45-87','Masculino',NULL,'Heterosexual','Soltero',NULL,'12','Si','CA0004',2023,11,21,'21-11-2023','10:19:36',10090908978,20,340,4,1),
+(1,134543433,'CC','Jefe de hogar','manzana 2 casa 8 - Fundadores','Fabian Andres Quintero Mendez','2001-01-22','manzana 2 casa 8 - Fundadores','Masculino',NULL,'Heterosexual','Unión Libre',NULL,'22','Si','CA0001',2023,12,7,'07-12-2023','07:55:57',NULL,20,340,5,1),
+(11,432423423,'TI','Nieto(a)','manzana 2 casa 8 - Fundadores','Juan Jole Lopez','2021-01-22','manzana 2 casa 8 - Fundadores','Femenino',NULL,'Heterosexual','Soltero',NULL,'10','Si','CA0011',2023,11,24,'24-11-2023','07:20:38',134543433,20,340,5,1),
+(12,523423454,'Registro Civil','Hijo(a)','calle principal - casa 4','Andres Jose Madrid Madrid','2017-12-05','calle principal - casa 4','Masculino',NULL,'Heterosexual','Soltero',NULL,'12','No','CA0012',2023,11,25,'25-11-2023','08:34:48',967897897,20,340,3,1),
+(9,967897897,'CC','Jefe de hogar','calle principal - casa 4','Andrea Madrid','1987-04-22','calle principal - casa 4','Femenino',NULL,'Heterosexual','Soltero',NULL,'12','Si','CA0009',2023,12,7,'07-12-2023','08:03:31',NULL,20,340,3,1),
+(6,4234234234,'CC','Hermano(a)','transversal 28a #45-87','Juana Gaviria','1985-06-25','transversal 28a #45-87','Femenino',NULL,'Heterosexual','Divorciado',NULL,'25','No','CA0006',2023,11,21,'21-11-2023','10:20:07',10090908978,20,340,4,1),
+(10,7547546546,'CC','Yerno(a)','manzana 2 casa 8 - Fundadores','Juana de arcos','2003-08-22','manzana 2 casa 8 - Fundadores','Femenino',NULL,'Heterosexual','Soltero',NULL,'12','Si','CA0010',2023,11,23,'23-11-2023','15:34:09',134543433,20,340,5,1),
+(3,10090908978,'CC','Jefe de hogar','transversal 28a #45-87','Obdulio Josefino Gaviria','1965-05-22','transversal 28a #45-87','Masculino',NULL,'Heterosexual','Viudo(a)',NULL,'84','Si','CA0003',2023,11,21,'21-11-2023','10:14:32',NULL,20,340,4,1),
+(5,23123123123,'TI','Hijastro(a)','manzana 2 casa 8 - Fundadores','Juan Camilo Quiñones','2006-01-22','manzana 2 casa 8 - Fundadores','Masculino',NULL,'Heterosexual','Soltero',NULL,'12','Si','CA0005',2023,11,21,'21-11-2023','10:19:56',134543433,20,340,5,1),
+(8,42324234234,'CC','Abuelo(a)','calle 34 #12-13','Abuela Miguel Angel','1940-05-12','calle 34 #12-13','Femenino',NULL,'Heterosexual','Viudo(a)',NULL,'120','Si','CA0008',2023,11,21,'21-11-2023','15:20:36',213412321321,20,340,4,1),
+(2,43423423423,'TI','Jefe de hogar','manzana 12 casa 18 - Primero de mayo','Daniela Quintero','2005-01-22','manzana 12 casa 18 - Primero de mayo','Femenino',NULL,'Homosexual','Soltero',NULL,'23','Si','CA0002',2023,12,1,'01-12-2023','07:20:14',NULL,20,340,4,1),
+(13,77777777777,'CC','Cuñado(a)','transversal 28a #45-87','Xiamir Josefino Gaviria','1985-05-12','transversal 28a #45-87','Masculino',NULL,'Heterosexual','Soltero',NULL,'26','No','CA0013',2023,11,28,'28-11-2023','11:01:37',10090908978,20,340,4,1),
+(7,213412321321,'CC','Jefe de hogar','calle 34 #12-13','Miguel Ángel López','1978-06-15','calle 34 #12-13','Masculino',NULL,'Heterosexual','Soltero',NULL,'3','Si','CA0007',2023,11,22,'22-11-2023','15:04:54',NULL,20,340,4,1);
 
 /*Table structure for table `muni` */
 
@@ -11432,24 +11431,25 @@ CREATE TABLE `origen_etnia` (
   `etnia` text,
   PRIMARY KEY (`identificacion_individuo`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `origen_etnia` */
 
 insert  into `origen_etnia`(`id`,`identificacion_individuo`,`pais_nacimiento`,`departamento_nacimiento`,`municipio_nacimiento`,`etnia`) values 
-(4,100212124,'COLOMBIA','23','555','Afrocolombianos de la región caribe'),
-(1,134543433,'COLOMBIA','47','599','Afrocolombianos del pacifico'),
-(11,432423423,'COLOMBIA','20','340','Afrocolombianos de la región caribe'),
-(12,523423454,'COLOMBIA','20','340','Afrocolombianos del pacifico'),
-(9,967897897,'COLOMBIA','47','367','Afrocolombianos de la región caribe'),
-(6,4234234234,'COLOMBIA','23','407','Afrocolombianos de la región caribe'),
-(10,7547546546,'COLOMBIA','27','267','Afrocolombianos del pacifico'),
-(3,10090908978,'COLOMBIA','27','267','Afrocolombianos del pacifico'),
-(5,23123123123,'COLOMBIA','27','267','Afrocolombianos del pacifico'),
-(8,42324234234,'COLOMBIA','27','116','Afrocolombianos del pacifico'),
-(2,43423423423,'COLOMBIA','27','478','Afrocolombianos del pacifico'),
-(13,77777777777,'COLOMBIA','20','340','Afrocolombianos de la región caribe'),
-(7,213412321321,'COLOMBIA','47','711','Afrocolombianos de la región caribe');
+(14,99999999,'COLOMBIA','27','560','Negritudes'),
+(4,100212124,'COLOMBIA','23','555','Afrocolombianos'),
+(1,134543433,'COLOMBIA','47','599','Negritudes'),
+(11,432423423,'COLOMBIA','20','340','Negritudes'),
+(12,523423454,'COLOMBIA','20','340','Afrocolombianos'),
+(9,967897897,'COLOMBIA','47','367','Afrocolombianos'),
+(6,4234234234,'COLOMBIA','23','407','Afrocolombianos'),
+(10,7547546546,'COLOMBIA','27','267','Afrocolombianos'),
+(3,10090908978,'COLOMBIA','27','267','Negritudes'),
+(5,23123123123,'COLOMBIA','27','267','Afrocolombianos'),
+(8,42324234234,'COLOMBIA','27','116','Afrocolombianos'),
+(2,43423423423,'COLOMBIA','27','478','Negritudes'),
+(13,77777777777,'COLOMBIA','20','340','Afrocolombianos'),
+(7,213412321321,'COLOMBIA','47','711','Negritudes');
 
 /*Table structure for table `salud` */
 
@@ -11465,11 +11465,12 @@ CREATE TABLE `salud` (
   `discriminacion_salud` text,
   PRIMARY KEY (`identificacion_individuo`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `salud` */
 
 insert  into `salud`(`id`,`identificacion_individuo`,`estado_salud`,`condicion_discapacidad`,`acceso_salud`,`regimen`,`discriminacion_salud`) values 
+(14,99999999,'Bueno','Discapacidad Sensorial','Frecuente','Subsidiado','No'),
 (4,100212124,'Bueno','Ninguna','Ocasional','Subsidiado','N.A'),
 (1,134543433,'Bueno','Ninguna','Frecuente','Subsidiado','No'),
 (11,432423423,'Bueno','Ninguna','Frecuente','Subsidiado','N.A'),
@@ -11497,24 +11498,25 @@ CREATE TABLE `situacion_laboral` (
   `ingreso_mensual` text,
   PRIMARY KEY (`identificacion_individuo`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `situacion_laboral` */
 
 insert  into `situacion_laboral`(`id`,`identificacion_individuo`,`ocupacion`,`situacion_laboral`,`discriminacion_laboral`,`ingreso_mensual`) values 
+(14,99999999,'Recolector de algodón','Empleado/a tiempo parcial','Si','Si'),
 (4,100212124,'Desempleado Sin Busqueda de Empleo','N.A','N.A','N.A'),
-(1,134543433,'Desempleado Buscando empleo','Desempleado/a (en búsqueda activa de empleo)','No','500000-1160000'),
+(1,134543433,'Desempleado Buscando empleo','Desempleado/a (en búsqueda activa de empleo)','No','Si'),
 (11,432423423,'NO APLICA','N.A','N.A','N.A'),
 (12,523423454,'NO APLICA','N.A','N.A','N.A'),
-(9,967897897,'Ayudante de cocina no domestica','Empleado/a tiempo completo','Si','500000-1160000'),
-(6,4234234234,'Cocinero de restaurante','Empleado/a tiempo parcial','No','500000-1160000'),
-(10,7547546546,'Modisto','Empleado/a tiempo completo','Si','menos de 500000'),
-(3,10090908978,'Agricultor cultivador','Trabajador/a independiente','Si','1160001-2000000'),
+(9,967897897,'Ayudante de cocina no domestica','Empleado/a tiempo completo','Si','No responde'),
+(6,4234234234,'Cocinero de restaurante','Empleado/a tiempo parcial','No','Si'),
+(10,7547546546,'Modisto','Empleado/a tiempo completo','Si','Si'),
+(3,10090908978,'Agricultor cultivador','Trabajador/a independiente','Si','Si'),
 (5,23123123123,'Estudiante','N.A','N.A','N.A'),
 (8,42324234234,'NO APLICA','N.A','N.A','N.A'),
-(2,43423423423,'Desempleado Sin Busqueda de Empleo','Desempleado/a (sin búsqueda activa de empleo en el momento)','Si','menos de 500000'),
-(13,77777777777,'Recolector de caucho','Trabajador informal','Si','menos de 500000'),
-(7,213412321321,'Ingeniero agrícola','Empleado/a tiempo completo','No','1160001-2000000');
+(2,43423423423,'Desempleado Sin Busqueda de Empleo','Desempleado/a (sin búsqueda activa de empleo en el momento)','Si','No'),
+(13,77777777777,'Recolector de caucho','Trabajador informal','Si','No'),
+(7,213412321321,'Ingeniero agrícola','Empleado/a tiempo completo','No','Si');
 
 /*Table structure for table `user_encuesta` */
 
@@ -11526,7 +11528,7 @@ CREATE TABLE `user_encuesta` (
   `numero_caracterizacion` text,
   `estado` int DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `user_encuesta` */
 
@@ -11543,7 +11545,8 @@ insert  into `user_encuesta`(`id`,`usuario_encuesta`,`numero_caracterizacion`,`e
 (10,'1','CA0010',1),
 (11,'1','CA0011',1),
 (12,'1','CA0012',1),
-(13,'1','CA0013',1);
+(13,'1','CA0013',1),
+(14,'1','CA0014',1);
 
 /*Table structure for table `users` */
 
@@ -11598,11 +11601,12 @@ CREATE TABLE `vivienda_hogar` (
   `area_total` text,
   PRIMARY KEY (`identificacion_jefe`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `vivienda_hogar` */
 
 insert  into `vivienda_hogar`(`id`,`identificacion_jefe`,`tipo_vivienda`,`cual_tipo_vivienda`,`tenencia`,`numero_personas_hogar`,`electricidad`,`agua_potable`,`alcantarillado`,`gas_natural`,`aseo`,`otro`,`numero_personas_trabajan`,`ingresos_mensuales_hogar`,`posecion_baldia`,`propiedad_titulo`,`area_total`) values 
+(6,99999999,'Casa',NULL,'Alquilada','3','Si','Si','Si','No','No','No','2','Entre 1 y 2 SMLV',NULL,NULL,NULL),
 (1,134543433,'Parcela',NULL,'Propia','2','Si','Si','Si','No','No','No','2','Entre 1 y 2 SMLV','Si','No','15000'),
 (5,967897897,'Casa',NULL,'Alquilada','1','Si','Si','Si','Si','No','No','1','Menos de un salario mínimo',NULL,NULL,NULL),
 (3,10090908978,'Finca',NULL,'Propia','2','Si','Si','No','No','No','No','2','Entre 3 y 4 SMLV','No','Si','200000'),

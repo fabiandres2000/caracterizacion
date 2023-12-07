@@ -267,58 +267,6 @@
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-6">
-                                        <label for=""><strong>Creencia religiosa</strong></label>
-                                        <fieldset class="form-group position-relative has-icon-left">
-                                            <select v-model="informacion_personal.creencia_religiosa" class="form-control form-control-lg mb-1" name="" id="">
-                                                <option value="">Seleccione una opción</option>
-                                                <option value="Cristianos evangélicos">Cristianos evangélicos</option>
-                                                <option value="Católicos">Católicos</option>
-                                                <option value="Testigos de Jehova">Testigos de Jehova</option>
-                                                <option value="Protestantes">Protestantes</option>
-                                                <option value="Ateos">Ateos</option>
-                                                <option value="Otros">Otros</option>
-                                            </select>                                            
-                                            <div class="form-control-position">
-                                                <i style="font-size: 19px" class="fas fa-church"></i>
-                                            </div>
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-lg-6" v-if="informacion_personal.creencia_religiosa == 'Otros'">
-                                        <label for=""><strong>¿Cual?</strong></label>
-                                        <fieldset class="form-group position-relative has-icon-left">
-                                            <input v-model="informacion_personal.cual_creencia_religiosa" type="text" class="form-control form-control-lg mb-1"  placeholder="Cual religión?">                                    
-                                            <div class="form-control-position">
-                                                <i style="font-size: 19px" class="fas fa-question"></i>
-                                            </div>
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <label for=""><strong>¿Tiene usted adicciones?</strong></label>
-                                        <fieldset class="form-group position-relative has-icon-left">
-                                            <select v-model="informacion_personal.adicciones" class="form-control form-control-lg mb-1" name="" id="">
-                                                <option value="">Seleccione una opción</option>
-                                                <option value="Cigarrillo">Cigarrillo</option>
-                                                <option value="Alcohol">Alcohol</option>
-                                                <option value="Juegos">Juegos</option>
-                                                <option value="Drogas">Drogas</option>
-                                                <option value="Otros">Otros</option>
-                                                <option value="No">No</option>
-                                            </select>                                            
-                                            <div class="form-control-position">
-                                                <i style="font-size: 19px" class="fas fa-people-arrows"></i>
-                                            </div>
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-lg-6" v-if="informacion_personal.adicciones == 'Otros'">
-                                        <label for=""><strong>¿Cual?</strong></label>
-                                        <fieldset class="form-group position-relative has-icon-left">
-                                            <input v-model="informacion_personal.cual_adicciones" type="text" class="form-control form-control-lg mb-1"  placeholder="Cual adicción?">                                    
-                                            <div class="form-control-position">
-                                                <i style="font-size: 19px" class="fas fa-question"></i>
-                                            </div>
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-lg-6">
                                         <label for=""><strong>Hace cuanto tiempo vive en el municipio? (Meses)</strong></label>
                                         <fieldset class="form-group position-relative has-icon-left">
                                             <input v-model="informacion_personal.tiempo_municipo" type="number" class="form-control form-control-lg mb-1"  placeholder="Tiempo en meses">                                    
@@ -391,40 +339,16 @@
                                 <br><br>
                                 <label for=""><strong>2. Selecciona la etnia a la que pertenece</strong></label>
                                 <div class="row" style="margin-top: 37px">
-                                    <div class="col-lg-2" style="margin-bottom: 20px">
-                                        <input v-model="origen_identidad.etnia" type="radio" id="control_01" name="select" value="Palenqueros" >
+                                    <div class="col-lg-4" style="margin-bottom: 20px">
+                                        <input v-model="origen_identidad.etnia" type="radio" id="control_01" name="select" value="Negritudes" >
                                         <label class="lradio" for="control_01">
-                                            <p>Palenqueros</p>
+                                            <p> Negritudes</p>
                                         </label>
                                     </div>
-                                    <div class="col-lg-2" style="margin-bottom: 20px">
-                                        <input v-model="origen_identidad.etnia" type="radio" id="control_02" name="select" value="Raizales">
+                                    <div class="col-lg-4" style="margin-bottom: 20px">
+                                        <input v-model="origen_identidad.etnia" type="radio" id="control_02" name="select" value="Afrocolombianos">
                                         <label class="lradio" for="control_02">
-                                            <p>Raizales</p>
-                                        </label>
-                                    </div>
-                                    <div class="col-lg-2" style="margin-bottom: 20px">
-                                        <input v-model="origen_identidad.etnia" type="radio" id="control_03" name="select" value="Afrocolombianos del pacifico">
-                                        <label class="lradio" for="control_03">
-                                            <p>Afrocolombianos del pacifico (Chocó, Valle del Cauca, Cauca y Antioquia )</p>
-                                        </label>
-                                    </div>
-                                    <div class="col-lg-2" style="margin-bottom: 20px">
-                                        <input v-model="origen_identidad.etnia" type="radio" id="control_05" name="select" value="Afrocolombianos de la región caribe">
-                                        <label class="lradio" for="control_05">
-                                            <p>Afrocolombianos de la región caribe.</p>
-                                        </label>
-                                    </div>
-                                    <div class="col-lg-2" style="margin-bottom: 20px">
-                                        <input v-model="origen_identidad.etnia" type="radio" id="control_06" name="select" value="No sabe">
-                                        <label class="lradio" for="control_06">
-                                            <p>No sabe</p>
-                                        </label>
-                                    </div>
-                                    <div class="col-lg-2" style="margin-bottom: 20px">
-                                        <input v-model="origen_identidad.etnia" type="radio" id="control_07" name="select" value="Otro">
-                                        <label class="lradio" for="control_07">
-                                            <p>Otro</p>
+                                            <p>Afrocolombianos</p>
                                         </label>
                                     </div>
                                     <br>
@@ -570,6 +494,7 @@
                                                 <option value="Si">Si</option>
                                                 <option value="No">No</option>
                                                 <option value="N.A">N.A</option>
+                                                <option value="No responde">No responde</option>
                                             </select>                                            
                                             <div class="form-control-position">
                                                 <i style="font-size: 19px" class="fas fa-question"></i>
@@ -577,18 +502,14 @@
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-6">
-                                        <label for="input-datalist"><strong>4. Ingreso mensual promedio</strong></label>
+                                        <label for="input-datalist"><strong>4. ¿Se generan Ingresos?</strong></label>
                                         <fieldset class="form-group position-relative has-icon-left">
                                             <select v-model="situacion_laboral.ingreso_mensual" class="form-control form-control-lg mb-1">
                                                 <option value="">Seleccione una opción</option>
-                                                <option value="menos de 500000">Menos de $500,000</option>
-                                                <option value="500000-1160000">$500,000 - $1,160,000</option>
-                                                <option value="1160001-2000000">$1,160,001 - $2,000,000</option>
-                                                <option value="2000001-2500000">$2,000,001 - $2,500,000</option>
-                                                <option value="2500001-3000000">$2,500,001 - $3,000,000</option>
-                                                <option value="3000001-4000000">$3,000,001 - $4,000,000</option>
-                                                <option value="mas de 4000000">Más de $4,000,000</option>
+                                                <option value="Si">Si</option>
+                                                <option value="No">No</option>
                                                 <option value="N.A">N.A</option>
+                                                <option value="No responde">No responde</option>
                                             </select>
                                             <div class="form-control-position" style="top: 9px; left: 4px !important;">
                                                 <i style ="font-size: 19px" class="fas fa-dollar-sign"></i>
@@ -755,18 +676,22 @@
                                         </fieldset>
                                     </div>    
                                     <div class="col-lg-12">
-                                        <label for=""><strong>4. Con cual de los siguientes concejos comunitarios se siente mas identificado</strong></label>
-                                        <fieldset class="form-group position-relative has-icon-left">
-                                            <select v-model="culturaTradiciones.concejo" class="form-control form-control-lg mb-1" name="" id="">
-                                                <option value="">Seleccione una opción</option>
-                                                <option value='CONCEJO COMUNITARIO "ALEJO DURAN"'>CONCEJO COMUNITARIO "ALEJO DURAN"</option>
-                                                <option value='CONCEJO COMUNITARIO "JULIO CESAR ALTAMAR MUÑOS"'>CONCEJO COMUNITARIO "JULIO CESAR ALTAMAR MUÑOS"</option>
-                                                <option value="Ninguno">Ninguno</option>
-                                            </select>  
-                                            <div class="form-control-position">
-                                                <i style="font-size: 19px" class="fas fa-question"></i>
+                                        <label for=""><strong>4. ¿A cual concejo comunitario pertenece?</strong></label>
+                                        <br><br>
+                                        <div class="row">
+                                            <div class="col-lg-4" style="margin-bottom: 20px">
+                                                <input v-model="culturaTradiciones.concejo" type="radio" id="control_41" name="select2" value='CONCEJO COMUNITARIO "JULIO CESAR ALTAMAR MUÑOS"' >
+                                                <label class="lradio" for="control_41">
+                                                    <p> CONCEJO COMUNITARIO "JULIO CESAR ALTAMAR MUÑOS"</p>
+                                                </label>
                                             </div>
-                                        </fieldset>
+                                            <div class="col-lg-4" style="margin-bottom: 20px">
+                                                <input v-model="culturaTradiciones.concejo" type="radio" id="control_42" name="select2" value='CONCEJO COMUNITARIO "ALEJO DURAN"'>
+                                                <label class="lradio" for="control_42">
+                                                    <p>CONCEJO COMUNITARIO "ALEJO DURAN"</p>
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>    
                                     <div class="col-lg-12 text-right" style="padding-top: 20px">
                                         <button @click="eliminarActive('baseIcon-tab25', 'tabIcon25')" class="btn btn-danger" style="margin-right: 20px"><i style="font-size: 13px" class="fas fa-arrow-left"></i> Anterior</button>
@@ -1106,10 +1031,6 @@ export default {
                 orientacion_sexual: "",
                 estado_civil: "",
                 cual_estado_civil: "",
-                creencia_religiosa: "",
-                cual_creencia_religiosa: "",
-                adicciones: "",
-                cual_adicciones: "",
                 tiempo_municipo: "",
                 desplazado: "",
                 departamento: "",
@@ -1535,13 +1456,6 @@ export default {
                 this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  estado civil </strong> no puede estar vacío <br>`;
             }
 
-            if (!this.informacion_personal.creencia_religiosa) {
-                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  creencia religiosa </strong> no puede estar vacío <br>`;
-            }
-
-            if (!this.informacion_personal.adicciones) {
-                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  adicciones </strong> no puede estar vacío <br>`;
-            }
 
             if (!this.informacion_personal.tiempo_municipo) {
                 this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  tiempo de residencia </strong> no puede estar vacío <br>`;
