@@ -531,6 +531,7 @@ class DashboardController extends Controller
         $corregimientos = DB::connection('mysql')->table('informacion_personal')
         ->join("corregimientos", "informacion_personal.corregimiento", "corregimientos.id")
         ->select(DB::raw("count(*) as cantidad"), "corregimientos.nombre")
+        ->where("informacion_personal.estado", "1")
         ->groupBy("corregimientos.nombre")
         ->get();
 
@@ -575,14 +576,25 @@ class DashboardController extends Controller
             }
         }
 
-        $estado_civil[0][2] = round(($estado_civil[0][1] / $numero_personas) * 100, 2);
-        $estado_civil[1][2] = round(($estado_civil[1][1] / $numero_personas) * 100, 2);
-        $estado_civil[2][2] = round(($estado_civil[2][1] / $numero_personas) * 100, 2);
-        $estado_civil[3][2] = round(($estado_civil[3][1] / $numero_personas) * 100, 2);
-        $estado_civil[4][2] = round(($estado_civil[4][1] / $numero_personas) * 100, 2);
-        $estado_civil[5][2] = round(($estado_civil[5][1] / $numero_personas) * 100, 2);
-        $estado_civil[6][2] = round(($estado_civil[6][1] / $numero_personas) * 100, 2);
-        $estado_civil[7][2] = round(($estado_civil[7][1] / $numero_personas) * 100, 2);
+        if($numero_personas != 0){
+            $estado_civil[0][2] = round(($estado_civil[0][1] / $numero_personas) * 100, 2);
+            $estado_civil[1][2] = round(($estado_civil[1][1] / $numero_personas) * 100, 2);
+            $estado_civil[2][2] = round(($estado_civil[2][1] / $numero_personas) * 100, 2);
+            $estado_civil[3][2] = round(($estado_civil[3][1] / $numero_personas) * 100, 2);
+            $estado_civil[4][2] = round(($estado_civil[4][1] / $numero_personas) * 100, 2);
+            $estado_civil[5][2] = round(($estado_civil[5][1] / $numero_personas) * 100, 2);
+            $estado_civil[6][2] = round(($estado_civil[6][1] / $numero_personas) * 100, 2);
+            $estado_civil[7][2] = round(($estado_civil[7][1] / $numero_personas) * 100, 2);
+        }else{
+            $estado_civil[0][2] = 0;
+            $estado_civil[1][2] = 0;
+            $estado_civil[2][2] = 0;
+            $estado_civil[3][2] = 0;
+            $estado_civil[4][2] = 0;
+            $estado_civil[5][2] = 0;
+            $estado_civil[6][2] = 0;
+            $estado_civil[7][2] = 0;
+        }
 
 
         $poblacion_e_activa = [0,0,0];
@@ -615,12 +627,14 @@ class DashboardController extends Controller
         $nivel_educativo = DB::connection('mysql')->table('informacion_personal')
         ->join("educacion", "educacion.identificacion_individuo", "informacion_personal.identificacion")
         ->join("escolaridad", "escolaridad.id", "educacion.nivel_educativo")
+        ->where("informacion_personal.estado", "1")
         ->select(DB::raw("count(*) as cantidad"), "escolaridad.id", "escolaridad.descripcion")
         ->whereRaw("DATEDIFF(CURDATE(), informacion_personal.fecha_nacimiento) / 365 >= ?", [5])
-        ->groupBy("escolaridad.id", "educacion.nivel_educativo")
+        ->groupBy("escolaridad.id", "escolaridad.descripcion")
         ->get();
         
         $menores_5a = DB::connection('mysql')->table('informacion_personal')
+        ->where("informacion_personal.estado", "1")
         ->whereRaw("DATEDIFF(CURDATE(), fecha_nacimiento) / 365 < ?", [5])
         ->count();
 
@@ -664,9 +678,31 @@ class DashboardController extends Controller
 
         $por_ocupacion = DB::connection('mysql')->table('informacion_personal')
         ->join("situacion_laboral", "situacion_laboral.identificacion_individuo", "informacion_personal.identificacion")
+        ->where("informacion_personal.estado", "1")
         ->select(DB::raw("count(*) as cantidad"), "situacion_laboral.ocupacion")
         ->groupBy("situacion_laboral.ocupacion")
+        ->orderby("cantidad", "desc")
         ->get();
+
+        $trabajo_formal = DB::connection('mysql')->table('informacion_personal')
+        ->join("situacion_laboral", "situacion_laboral.identificacion_individuo", "informacion_personal.identificacion")
+        ->where("informacion_personal.estado", "1")
+        ->where("situacion_laboral.situacion_laboral", "<>", "N.A")
+        ->where("situacion_laboral.situacion_laboral", "<>", "Trabajador informal")
+        ->where("situacion_laboral.situacion_laboral", "<>", "Desempleado/a (en búsqueda activa de empleo)")
+        ->where("situacion_laboral.situacion_laboral", "<>", "Desempleado/a (sin búsqueda activa de empleo en el momento)")
+        ->count();
+
+        $trabajo_informal = DB::connection('mysql')->table('informacion_personal')
+        ->join("situacion_laboral", "situacion_laboral.identificacion_individuo", "informacion_personal.identificacion")
+        ->where("informacion_personal.estado", "1")
+        ->where("situacion_laboral.situacion_laboral", "=", "Trabajador informal")
+        ->count();
+
+        $situacion_laboral = [
+            "trabajo_formal" => $trabajo_formal,
+            "trabajo_informal" => $trabajo_informal
+        ];
 
         $posesion_vivienda_si = DB::connection('mysql')->table('vivienda_hogar')
         ->where("tenencia", "<>", "Alquilada")
@@ -723,6 +759,8 @@ class DashboardController extends Controller
         ->orderBy("linea")
         ->get();
 
+        $datos_desplazados = self::poblacionDesplazada();
+
 
         $datos = [
             "piramide_edad" => $piramide_edad,
@@ -743,14 +781,84 @@ class DashboardController extends Controller
                 "total_mujeres" => $mgc,
             ],
             "por_ocupacion" => $por_ocupacion,
+            "situacion_laboral" => $situacion_laboral,
             "posesion_vivienda" => [
                 "poseen" => $posesion_vivienda_si,
                 "no_poseen" => $posesion_vivienda_no
             ],
             "posesion_baldios" => $posesion_baldios,
-            "cultivos" => $cultivos
+            "cultivos" => $cultivos,
+            "datos_desplazados" => $datos_desplazados,
         ];
 
         return response()->json($datos);
+    }
+
+    public function poblacionDesplazada(){
+
+        $cantidad_poblacion_no_desplazada = DB::connection('mysql')->table('informacion_personal')
+        ->where("informacion_personal.estado", 1)
+        ->where("informacion_personal.desplazado", "No")
+        ->count();
+
+        $poblacion_desplazada = DB::connection('mysql')->table('informacion_personal')
+        ->where("informacion_personal.estado", 1)
+        ->where("informacion_personal.desplazado", "Si")
+        ->get();
+
+        $cantidad_poblacion_desplazada = count($poblacion_desplazada);
+
+        $masculinos_desplazados = 0;
+        $femeninos_desplazados = 0;
+        $desplazados_m15 = [0,0, "< 15 Años"];
+        $desplazados_15a64 = [0,0, "15 a 64 Años"];
+        $desplazados_mas65 = [0,0, "> 65 Años"];
+
+        foreach ($poblacion_desplazada as $item) {
+            $item->edad = self::calcularEdad($item->fecha_nacimiento);
+            switch (true) {
+                case ($item->edad < 15):
+                    if($item->sexo == "Masculino"){
+                        $masculinos_desplazados++;
+                        $desplazados_m15[0] += 1;
+                    }else{
+                        $femeninos_desplazados++;
+                        $desplazados_m15[1] += 1;
+                    }
+                    break;
+            
+                case ($item->edad >= 15 && $item->edad <= 64):
+                    if($item->sexo == "Masculino"){
+                        $masculinos_desplazados++;
+                        $desplazados_15a64[0] += 1;
+                    }else{
+                        $femeninos_desplazados++;
+                        $desplazados_15a64[1] += 1;
+                    }
+                    break;
+            
+                case ($item->edad >= 65):
+                    if($item->sexo == "Masculino"){
+                        $masculinos_desplazados++;
+                        $desplazados_mas65[0] += 1;
+                    }else{
+                        $femeninos_desplazados++;
+                        $desplazados_mas65[1] += 1;
+                    }
+                    break;
+            }           
+        }
+
+        $desplazados = [
+            "cantidad_poblacion_no_desplazada" => $cantidad_poblacion_no_desplazada,
+            "cantidad_poblacion_desplazada" => $cantidad_poblacion_desplazada,
+            "masculinos_desplazados" => $masculinos_desplazados,
+            "femeninos_desplazados" => $femeninos_desplazados,
+            "desplazados_m15" => $desplazados_m15,
+            "desplazados_15a64" => $desplazados_15a64,
+            "desplazados_mas65" => $desplazados_mas65,
+        ];
+
+        return $desplazados;
     }
 }

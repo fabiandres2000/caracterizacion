@@ -65,7 +65,7 @@ class CaracterizacionController extends Controller
         if($hayUsuario){
             $numero_caracterizacion = $hayUsuario->numero_caracterizacion;
         }else{
-           $numero_caracterizacion = self::generarNumeroCaracterizacion(); 
+            $numero_caracterizacion = self::generarNumeroCaracterizacion(); 
         }
         
         $dia_caracterizacion = $fechaActual->format('d');

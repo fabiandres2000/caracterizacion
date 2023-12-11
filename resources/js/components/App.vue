@@ -187,10 +187,11 @@ export default {
     }
 
     #logo_alcaldia {
-        width: -webkit-fill-available;
         position: absolute;
         bottom: 0%;
-        left: -27px;
+        left: -17px;
         opacity: .6;
+        z-index: -1;
+        width: 100%;
     }
 </style>
