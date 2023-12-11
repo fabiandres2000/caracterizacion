@@ -7,12 +7,6 @@
  */
 
 /*!
- * ApexCharts v3.44.0
- * (c) 2018-2023 ApexCharts
- * Released under the MIT License.
- */
-
-/*!
  * The buffer module from node.js, for the browser.
  *
  * @author   Feross Aboukhadijeh <http://feross.org>
@@ -44,14 +38,6 @@
 
 /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
 
-/*! svg.draggable.js - v2.2.2 - 2019-01-08
-* https://github.com/svgdotjs/svg.draggable.js
-* Copyright (c) 2019 Wout Fierens; Licensed MIT */
-
-/*! svg.filter.js - v2.0.2 - 2016-02-24
-* https://github.com/wout/svg.filter.js
-* Copyright (c) 2016 Wout Fierens; Licensed MIT */
-
 /**
    * A class to parse color values
    * @author Stoyan Stefanov <sstoo@gmail.com>
@@ -66,6 +52,12 @@
  * Released under MIT license <https://lodash.com/license>
  * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
  * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ */
+
+/**
+ * Vue 3 Loading Overlay 0.0.0
+ * (c) 2020
+ * @license MIT
  */
 
 /** @preserve

@@ -41,7 +41,7 @@ class DashboardController extends Controller
         $edad40a44 = [0,0, "40-44"];
         $edad45a49 = [0,0, "45-49"];
         $edad50a54 = [0,0, "50-54"];
-        $edad55a59 = [0,0, "54-49"];
+        $edad55a59 = [0,0, "55-59"];
         $edad60a64 = [0,0, "60-64"];
         $edad65a69 = [0,0, "65-69"];
         $edad70a74 = [0,0, "70-74"];
@@ -183,7 +183,7 @@ class DashboardController extends Controller
                     }
                     break;
             
-                case ($item->edad >= 65 && $item->edad <= 59):
+                case ($item->edad >= 65 && $item->edad <= 69):
                     if($item->sexo == "Masculino"){
                         $masculino++;
                         $edad65a69[0] += 1;
@@ -286,6 +286,7 @@ class DashboardController extends Controller
         ->where("informacion_personal.estado", 1)
         ->get();
 
+        #region pestaña_sociodemografico
         $edad0a4 = [0,0, "0-4"];
         $edad5a9 = [0,0, "5-9"];
         $edad10a14 = [0,0, "10-14"];
@@ -297,7 +298,7 @@ class DashboardController extends Controller
         $edad40a44 = [0,0, "40-44"];
         $edad45a49 = [0,0, "45-49"];
         $edad50a54 = [0,0, "50-54"];
-        $edad55a59 = [0,0, "54-49"];
+        $edad55a59 = [0,0, "55-59"];
         $edad60a64 = [0,0, "60-64"];
         $edad65a69 = [0,0, "65-69"];
         $edad70a74 = [0,0, "70-74"];
@@ -443,7 +444,7 @@ class DashboardController extends Controller
                     }
                     break;
             
-                case ($item->edad >= 65 && $item->edad <= 59):
+                case ($item->edad >= 65 && $item->edad <= 69):
                     if($item->sexo == "Masculino"){
                         $masculino++;
                         $edad65a69[0] += 1;
@@ -596,7 +597,11 @@ class DashboardController extends Controller
             $estado_civil[7][2] = 0;
         }
 
+        $datos_desplazados = self::poblacionDesplazada();
 
+        #endregion pestaña_sociodemografico
+
+        #region pertaña_empleo
         $poblacion_e_activa = [0,0,0];
         $poblacion_e_inactiva = [0,0,0];
         foreach ($integrantes as $item) {
@@ -693,22 +698,67 @@ class DashboardController extends Controller
         ->where("situacion_laboral.situacion_laboral", "<>", "Desempleado/a (sin búsqueda activa de empleo en el momento)")
         ->count();
 
+        $trabajo_formal_m = DB::connection('mysql')->table('informacion_personal')
+        ->join("situacion_laboral", "situacion_laboral.identificacion_individuo", "informacion_personal.identificacion")
+        ->where("informacion_personal.estado", "1")
+        ->where("informacion_personal.sexo", "Masculino")
+        ->where("situacion_laboral.situacion_laboral", "<>", "N.A")
+        ->where("situacion_laboral.situacion_laboral", "<>", "Trabajador informal")
+        ->where("situacion_laboral.situacion_laboral", "<>", "Desempleado/a (en búsqueda activa de empleo)")
+        ->where("situacion_laboral.situacion_laboral", "<>", "Desempleado/a (sin búsqueda activa de empleo en el momento)")
+        ->count();
+
+        $trabajo_formal_f = DB::connection('mysql')->table('informacion_personal')
+        ->join("situacion_laboral", "situacion_laboral.identificacion_individuo", "informacion_personal.identificacion")
+        ->where("informacion_personal.estado", "1")
+        ->where("informacion_personal.sexo", "Femenino")
+        ->where("situacion_laboral.situacion_laboral", "<>", "N.A")
+        ->where("situacion_laboral.situacion_laboral", "<>", "Trabajador informal")
+        ->where("situacion_laboral.situacion_laboral", "<>", "Desempleado/a (en búsqueda activa de empleo)")
+        ->where("situacion_laboral.situacion_laboral", "<>", "Desempleado/a (sin búsqueda activa de empleo en el momento)")
+        ->count();
+
         $trabajo_informal = DB::connection('mysql')->table('informacion_personal')
         ->join("situacion_laboral", "situacion_laboral.identificacion_individuo", "informacion_personal.identificacion")
         ->where("informacion_personal.estado", "1")
         ->where("situacion_laboral.situacion_laboral", "=", "Trabajador informal")
         ->count();
 
+        $trabajo_informal_m = DB::connection('mysql')->table('informacion_personal')
+        ->join("situacion_laboral", "situacion_laboral.identificacion_individuo", "informacion_personal.identificacion")
+        ->where("informacion_personal.estado", "1")
+        ->where("informacion_personal.sexo", "Masculino")
+        ->where("situacion_laboral.situacion_laboral", "=", "Trabajador informal")
+        ->count();
+
+        $trabajo_informal_f = DB::connection('mysql')->table('informacion_personal')
+        ->join("situacion_laboral", "situacion_laboral.identificacion_individuo", "informacion_personal.identificacion")
+        ->where("informacion_personal.estado", "1")
+        ->where("informacion_personal.sexo", "Femenino")
+        ->where("situacion_laboral.situacion_laboral", "=", "Trabajador informal")
+        ->count();
+
         $situacion_laboral = [
             "trabajo_formal" => $trabajo_formal,
-            "trabajo_informal" => $trabajo_informal
+            "trabajo_formal_m" => $trabajo_formal_m,
+            "trabajo_formal_f" => $trabajo_formal_f,
+            "trabajo_informal" => $trabajo_informal,
+            "trabajo_informal_m" => $trabajo_informal_m,
+            "trabajo_informal_f" => $trabajo_informal_f
         ];
 
+        #endregion pertaña_empleo
+
+        #region pestaña_vivienda
         $posesion_vivienda_si = DB::connection('mysql')->table('vivienda_hogar')
+        ->join("informacion_personal", "informacion_personal.identificacion", "vivienda_hogar.identificacion_jefe")
+        ->where("informacion_personal.estado", "1")
         ->where("tenencia", "<>", "Alquilada")
         ->count();
 
         $posesion_vivienda_no = DB::connection('mysql')->table('vivienda_hogar')
+        ->join("informacion_personal", "informacion_personal.identificacion", "vivienda_hogar.identificacion_jefe")
+        ->where("informacion_personal.estado", "1")
         ->where("tenencia", "=", "Alquilada")
         ->count();
 
@@ -759,8 +809,7 @@ class DashboardController extends Controller
         ->orderBy("linea")
         ->get();
 
-        $datos_desplazados = self::poblacionDesplazada();
-
+        #endregion pestaña_vivienda
 
         $datos = [
             "piramide_edad" => $piramide_edad,

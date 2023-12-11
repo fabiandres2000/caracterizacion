@@ -257,12 +257,12 @@
                                                                 <th style="background-color: #5df3c5; font-size: 20px" rowspan="5"> &lt; 15 </th>
                                                             </tr>
                                                             <tr>
-                                                                <th>{{(datos_edad[17][0] / numero_personas * 100).toFixed(2)}} %</th>
-                                                                <th>{{(datos_edad[17][1] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{(datos_edad[16][0] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{(datos_edad[16][1] / numero_personas * 100).toFixed(2)}} %</th>
                                                             </tr>
                                                             <tr>
-                                                                <th>{{datos_edad[17][0]}}</th>
-                                                                <th>{{datos_edad[17][1]}}</th>
+                                                                <th>{{datos_edad[16][0]}}</th>
+                                                                <th>{{datos_edad[16][1]}}</th>
                                                             </tr>
                                                             <tr>
                                                                 <th style="background-color: #5df3c5;">Total</th>
@@ -289,12 +289,12 @@
                                                                 <th style="background-color: #5df3c5; font-size: 20px" rowspan="5"> &gt;= 15 &lt;= 64 </th>
                                                             </tr>
                                                             <tr>
-                                                                <th>{{(datos_edad[16][0] / numero_personas * 100).toFixed(2)}} %</th>
-                                                                <th>{{(datos_edad[16][1] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{(datos_edad[17][0] / numero_personas * 100).toFixed(2)}} %</th>
+                                                                <th>{{(datos_edad[17][1] / numero_personas * 100).toFixed(2)}} %</th>
                                                             </tr>
                                                             <tr>
-                                                                <th>{{datos_edad[16][0]}}</th>
-                                                                <th>{{datos_edad[16][1]}}</th>
+                                                                <th>{{datos_edad[17][0]}}</th>
+                                                                <th>{{datos_edad[17][1]}}</th>
                                                             </tr>
                                                             <tr>
                                                                 <th style="background-color: #5df3c5;">Total</th>
@@ -575,22 +575,30 @@
                                                         <thead>
                                                             <tr>
                                                                 <th>SITUACIÓN LABORAL</th>
+                                                                <th>HOMBRES</th>
+                                                                <th>MUJERES</th>
                                                                 <th># PERSONAS</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <tr>
                                                                 <th>Trabajo Formal</th>
+                                                                <td>{{situacion_laboral.trabajo_formal_m}}</td>
+                                                                <td>{{situacion_laboral.trabajo_formal_f}}</td>
                                                                 <td>{{situacion_laboral.trabajo_formal}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Trabajo Informal</th>
+                                                                <td>{{situacion_laboral.trabajo_informal_m}}</td>
+                                                                <td>{{situacion_laboral.trabajo_informal_f}}</td>
                                                                 <td>{{situacion_laboral.trabajo_informal}}</td>
                                                             </tr>
                                                         </tbody>
                                                         <thead>
                                                             <tr>
                                                                 <th>TOTAL</th>
+                                                                <th>{{situacion_laboral.trabajo_formal_m + situacion_laboral.trabajo_informal_m}}</th>
+                                                                <th>{{situacion_laboral.trabajo_formal_f + situacion_laboral.trabajo_informal_f}}</th>
                                                                 <th>{{situacion_laboral.trabajo_formal + situacion_laboral.trabajo_informal}}</th>
                                                             </tr>
                                                         </thead>
