@@ -254,7 +254,7 @@
                                                             <tr>
                                                                 <th style="background-color: #5df3c5;">H</th>
                                                                 <th style="background-color: #5df3c5;">M</th>
-                                                                <th style="background-color: #5df3c5; font-size: 20px" rowspan="5"> &lt; 15 </th>
+                                                                <th style="background-color: #5df3c5; width: 33%; font-size: 20px" rowspan="5"> &lt; 15 </th>
                                                             </tr>
                                                             <tr>
                                                                 <th>{{(datos_edad[16][0] / numero_personas * 100).toFixed(2)}} %</th>
@@ -286,7 +286,7 @@
                                                             <tr>
                                                                 <th style="background-color: #5df3c5;">H</th>
                                                                 <th style="background-color: #5df3c5;">M</th>
-                                                                <th style="background-color: #5df3c5; font-size: 20px" rowspan="5"> &gt;= 15 &lt;= 64 </th>
+                                                                <th style="background-color: #5df3c5; width: 33%; font-size: 20px" rowspan="5"> &gt;= 15 &lt;= 64 </th>
                                                             </tr>
                                                             <tr>
                                                                 <th>{{(datos_edad[17][0] / numero_personas * 100).toFixed(2)}} %</th>
@@ -317,7 +317,7 @@
                                                             <tr>
                                                                 <th style="background-color: #5df3c5;">H</th>
                                                                 <th style="background-color: #5df3c5;">M</th>
-                                                                <th style="background-color: #5df3c5; font-size: 20px" rowspan="5"> &gt;= 65  </th>
+                                                                <th style="background-color: #5df3c5; width: 33%;  font-size: 20px" rowspan="5"> &gt;= 65  </th>
                                                             </tr>
                                                             <tr>
                                                                 <th>{{(datos_edad[18][0] / numero_personas * 100).toFixed(2)}} %</th>
