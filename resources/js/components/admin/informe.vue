@@ -732,7 +732,64 @@
                                                 :html-to-pdf-options=htmlToPdfOptions
                                             >
                                                 <template v-slot:pdf-content>
-                                                    <h3 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">DISTRIBUCIÓN DE FAMILIAS POR POSESIÓN DE VIVIENDA</h3>
+                                                    <h3 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">ACCESO A SERVICIOS BÁSICOS</h3>
+                                                    <br>
+                                                    <table style="width: 100%" class="situacion_laboral" v-if="posesion_vivienda != null">
+                                                        <thead>
+                                                            <tr>
+                                                                <th colspan="3">SERVICIOS BÁSICOS</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>SERVICIO</th>
+                                                                <th>SI</th>
+                                                                <th>NO</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr v-for="(item, index) in servicios" :key="index">
+                                                                <td>{{ item[2] }}</td>
+                                                                <td>{{ item[0] }}</td>
+                                                                <td>{{ item[1] }}</td>  
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <br><br>
+                                                    <div style="width: 100%; text-align: center">
+                                                        <h4><strong>ACCESO A SERVICIOS PÚBLICOS</strong></h4>
+                                                        <div id="grafico_servicios" style="height: 350px"></div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="html2pdf__page-break"></div>
+                                                    <h3 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">DISTRIBUCIÓN DE FAMILIAS POR TIPO DE VIVIENDA</h3>
+                                                    <br>
+                                                    <table style="width: 100%" class="situacion_laboral" v-if="posesion_vivienda != null">
+                                                        <thead>
+                                                            <tr>
+                                                                <th colspan="3">TIPOS DE VIVIENDA</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>TIPO</th>
+                                                                <th>#FAMILIAS</th>
+                                                                <th>%</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr v-for="(item, index) in tipo_vivienda" :key="index">
+                                                                <td>{{ item.tipo_vivienda }}</td>
+                                                                <td>{{ item.cantidad }}</td>
+                                                                <td>{{ ((item.cantidad / cantidad_viviendas) * 100).toFixed(2) }} %</td>  
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <br><br>
+                                                    <div style="width: 100%; text-align: center">
+                                                        <h4><strong>DISTRIBUCION DE FAMILIAS</strong></h4>
+                                                        <h5><strong>por tipo de vivienda</strong></h5>
+                                                        <div id="grafica_tipo_vivienda" style="height: 350px"></div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="html2pdf__page-break"></div>
+                                                    <h3 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">DISTRIBUCIÓN DE FAMILIAS POR POSESIÓN DE VIVIENDA PROPIA</h3>
                                                     <br>
                                                     <table style="width: 100%" class="situacion_laboral" v-if="posesion_vivienda != null">
                                                         <thead>
@@ -919,6 +976,9 @@ export default {
             posesion_baldios: null,
             cultivos: null,
             cultivosPorLinea : [],
+            servicios: [],
+            tipo_vivienda: null,
+            cantidad_viviendas: null
         }
     },
     mounted() {
@@ -975,7 +1035,13 @@ export default {
                 this.generarGraficaLinea();
                 setTimeout(()=>{
                     this.generarGraficasLinea();
-                }, 1000)
+                }, 1000);
+
+                this.servicios = respuesta.data.servicios;
+                this.generarGraficasServicios();
+                this.tipo_vivienda = respuesta.data.tipo_vivienda;
+                this.cantidad_viviendas = respuesta.data.cantidad_viviendas;
+                this.generarGraficoTipoVivienda();
                 this.loading = false;
             });
         },
@@ -1563,7 +1629,147 @@ export default {
 
                 index++;
             });
-        }
+        },
+        generarGraficasServicios() {
+            var chart = am4core.create('grafico_servicios', am4charts.XYChart)
+            chart.colors.step = 2;
+
+            chart.legend = new am4charts.Legend()
+            chart.legend.position = 'top'
+            chart.legend.paddingBottom = 20
+            chart.legend.labels.template.maxWidth = 95
+
+            var xAxis = chart.xAxes.push(new am4charts.CategoryAxis())
+            xAxis.dataFields.category = 'category'
+            xAxis.renderer.cellStartLocation = 0.1
+            xAxis.renderer.cellEndLocation = 0.9
+            xAxis.renderer.grid.template.location = 0;
+
+            var yAxis = chart.yAxes.push(new am4charts.ValueAxis());
+            yAxis.min = 0;
+
+            function createSeries(value, name) {
+                var series = chart.series.push(new am4charts.ColumnSeries())
+                series.dataFields.valueY = value
+                series.dataFields.categoryX = 'category'
+                series.name = name
+
+                series.events.on("hidden", arrangeColumns);
+                series.events.on("shown", arrangeColumns);
+
+                var bullet = series.bullets.push(new am4charts.LabelBullet())
+                bullet.interactionsEnabled = false
+                bullet.dy = 30;
+                bullet.label.text = '{valueY}'
+                bullet.label.fill = am4core.color('#ffffff')
+
+                return series;
+            }
+
+            chart.data = [
+                {
+                    category: this.servicios[0][2],
+                    first: this.servicios[0][0],
+                    second: this.servicios[0][1],
+                },
+                {
+                    category: this.servicios[1][2],
+                    first: this.servicios[1][0],
+                    second: this.servicios[1][1],
+                },
+                {
+                    category: this.servicios[2][2],
+                    first: this.servicios[2][0],
+                    second: this.servicios[2][1],
+                },
+                {
+                    category: this.servicios[3][2],
+                    first: this.servicios[3][0],
+                    second: this.servicios[3][1],
+                },
+                {
+                    category: this.servicios[4][2],
+                    first: this.servicios[4][0],
+                    second: this.servicios[4][1],
+                },
+                {
+                    category: this.servicios[5][2],
+                    first: this.servicios[5][0],
+                    second: this.servicios[5][1],
+                },
+            ]
+
+            
+            createSeries('first', 'Si');
+            createSeries('second', 'No');
+
+            function arrangeColumns() {
+                var series = chart.series.getIndex(0);
+                var w = 1 - xAxis.renderer.cellStartLocation - (1 - xAxis.renderer.cellEndLocation);
+                if (series.dataItems.length > 1) {
+                    var x0 = xAxis.getX(series.dataItems.getIndex(0), "categoryX");
+                    var x1 = xAxis.getX(series.dataItems.getIndex(1), "categoryX");
+                    var delta = ((x1 - x0) / chart.series.length) * w;
+                    if (am4core.isNumber(delta)) {
+                        var middle = chart.series.length / 2;
+
+                        var newIndex = 0;
+                        chart.series.each(function(series) {
+                            if (!series.isHidden && !series.isHiding) {
+                                series.dummyData = newIndex;
+                                newIndex++;
+                            }
+                            else {
+                                series.dummyData = chart.series.indexOf(series);
+                            }
+                        })
+                        var visibleCount = newIndex;
+                        var newMiddle = visibleCount / 2;
+
+                        chart.series.each(function(series) {
+                            var trueIndex = chart.series.indexOf(series);
+                            var newIndex = series.dummyData;
+
+                            var dx = (newIndex - trueIndex + middle - newMiddle) * delta
+
+                            series.animate({ property: "dx", to: dx }, series.interpolationDuration, series.interpolationEasing);
+                            series.bulletsContainer.animate({ property: "dx", to: dx }, series.interpolationDuration, series.interpolationEasing);
+                        })
+                    }
+                }
+            }
+
+            this.chart_desplazados = chart; 
+        },
+        generarGraficoTipoVivienda() {
+            var chart = am4core.create("grafica_tipo_vivienda", am4charts.PieChart);
+
+            // Add data
+            chart.data = [];
+
+            this.tipo_vivienda.forEach(element => {
+                chart.data.push(
+                    {
+                        "country": element.tipo_vivienda,
+                        "litres": element.cantidad,
+                    }
+                );
+            });
+
+            var pieSeries = chart.series.push(new am4charts.PieSeries());
+            pieSeries.dataFields.value = "litres";
+            pieSeries.dataFields.category = "country";
+            pieSeries.slices.template.stroke = am4core.color("#fff");
+            pieSeries.slices.template.strokeOpacity = 1;
+
+            pieSeries.hiddenState.properties.opacity = 1;
+            pieSeries.hiddenState.properties.endAngle = -90;
+            pieSeries.hiddenState.properties.startAngle = -90;
+
+            chart.hiddenState.properties.radius = am4core.percent(0);
+
+            this.char_poblacion_inactiva = chart;
+        },
     }
 }
 </script>

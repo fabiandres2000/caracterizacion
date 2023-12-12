@@ -750,6 +750,7 @@ class DashboardController extends Controller
         #endregion pertaña_empleo
 
         #region pestaña_vivienda
+
         $posesion_vivienda_si = DB::connection('mysql')->table('vivienda_hogar')
         ->join("informacion_personal", "informacion_personal.identificacion", "vivienda_hogar.identificacion_jefe")
         ->where("informacion_personal.estado", "1")
@@ -806,8 +807,81 @@ class DashboardController extends Controller
         ->where("informacion_personal.estado", 1)
         ->groupBy("actividades_vivienda_hogar.linea", "actividades_vivienda_hogar.actividad")
         ->selectRaw('SUM(actividades_vivienda_hogar.area_destinada) as area_destinada, actividades_vivienda_hogar.linea, actividades_vivienda_hogar.actividad')
-        ->orderBy("linea")
+        ->orderBy("area_destinada", "DESC")
         ->get();
+
+        $electricidad = [0, 0, "Electricidad"];
+        $agua_potable = [0, 0, "Agua Potable"];
+        $alcantarillado = [0, 0, "Alcantarillado"];
+        $gas_natural = [0, 0, "Gas Natural"];
+        $aseo = [0, 0, "Aseo"];
+        $otro = [0, 0, "Otro"];
+
+        $viviendas = DB::connection('mysql')->table('vivienda_hogar')
+        ->join("informacion_personal", "informacion_personal.identificacion", "vivienda_hogar.identificacion_jefe")
+        ->where("informacion_personal.estado", "1")
+        ->get();
+
+        foreach ($viviendas as $item) {
+            if($item->electricidad == "Si"){
+                $electricidad[0] += 1;
+            }else{
+                $electricidad[1] += 1;
+            }
+
+            if($item->agua_potable == "Si"){
+                $agua_potable[0] += 1;
+            }else{
+                $agua_potable[1] += 1;
+            }
+
+            if($item->alcantarillado == "Si"){
+                $alcantarillado[0] += 1;
+            }else{
+                $alcantarillado[1] += 1;
+            }
+
+            if($item->gas_natural == "Si"){
+                $gas_natural[0] += 1;
+            }else{
+                $gas_natural[1] += 1;
+            }
+
+            if($item->aseo == "Si"){
+                $aseo[0] += 1;
+            }else{
+                $aseo[1] += 1;
+            }
+
+            if($item->otro == "Si"){
+                $otro[0] += 1;
+            }else{
+                $otro[1] += 1;
+            }
+        }
+
+        $servicios = [
+            $electricidad,
+            $agua_potable,
+            $alcantarillado,
+            $gas_natural,
+            $aseo,
+            $otro
+        ];
+
+
+        $tipo_vivienda = DB::connection('mysql')->table('informacion_personal')
+        ->join("vivienda_hogar", "vivienda_hogar.identificacion_jefe", "informacion_personal.identificacion")
+        ->where("informacion_personal.estado", 1)
+        ->selectRaw('COUNT(vivienda_hogar.id) as cantidad, vivienda_hogar.tipo_vivienda')
+        ->groupBy("tipo_vivienda",)
+        ->orderBy("cantidad", "DESC")
+        ->get();
+
+        $cantidad_viviendas = DB::connection('mysql')->table('informacion_personal')
+        ->join("vivienda_hogar", "vivienda_hogar.identificacion_jefe", "informacion_personal.identificacion")
+        ->where("informacion_personal.estado", 1)
+        ->count();
 
         #endregion pestaña_vivienda
 
@@ -838,6 +912,9 @@ class DashboardController extends Controller
             "posesion_baldios" => $posesion_baldios,
             "cultivos" => $cultivos,
             "datos_desplazados" => $datos_desplazados,
+            "servicios" => $servicios,
+            "tipo_vivienda" => $tipo_vivienda,
+            "cantidad_viviendas" => $cantidad_viviendas
         ];
 
         return response()->json($datos);

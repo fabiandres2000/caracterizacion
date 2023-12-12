@@ -76,6 +76,7 @@ class CaracterizacionController extends Controller
 
         $datos = [
             'rol' => $request->input('rol'),
+            'parentesco' => $request->input('parentesco'),
             'id_jefe' => $request->input('id_jefe') != "" ?  $request->input('id_jefe') : null,
             'direccion' => $request->input('direccion'),
             'nombre_completo' => $request->input('nombre_completo'),

@@ -66,6 +66,27 @@
                                             <select v-model="informacion_personal.rol" class="form-control form-control-lg mb-1" name="" id="">
                                                 <option value=""><strong>Seleccione el rol del individuo</strong></option>
                                                 <option value="Jefe de hogar">Jefe de Hogar</option>
+                                                <option value="Integrante">Integrante de hogar</option>
+                                            </select>
+                                            <div class="form-control-position">
+                                                <i style ="font-size: 14px" class="feather icon-unlock  font-medium-4"></i>
+                                            </div>
+                                        </fieldset>
+                                    </div>                                    
+                                    <div class="col-lg-6" v-if="informacion_personal.rol != 'Jefe de hogar'">
+                                        <label for=""><strong>Jefe de Hogar</strong></label>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <input data-toggle="modal" data-target="#exampleModalCenter"  v-model="informacion_personal.nombre_jefe" style="cursor: pointer" type="text" class="form-control form-control-lg mb-1"  placeholder="Seleccione su jefe de hogar">
+                                            <div class="form-control-position">
+                                                <i style="font-size: 19px" class="fas fa-user-tie"></i>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label for=""><strong>Parentesco</strong></label>
+                                        <fieldset class="form-group position-relative has-icon-left">
+                                            <select v-model="informacion_personal.parentesco" class="form-control form-control-lg mb-1" name="" id="">
+                                                <option value=""><strong>Seleccione el parentesco del individuo</strong></option>
                                                 <option value="Esposo(a), Compañero(a)">Esposo(a), Compañero(a)</option>
                                                 <option value="Hijo(a)">Hijo(a)</option>
                                                 <option value="Hijastro(a)">Hijastro(a)</option>
@@ -85,15 +106,6 @@
                                             </select>
                                             <div class="form-control-position">
                                                 <i style ="font-size: 14px" class="feather icon-unlock  font-medium-4"></i>
-                                            </div>
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-lg-6" v-if="informacion_personal.rol != 'Jefe de hogar'">
-                                        <label for=""><strong>Jefe de Hogar</strong></label>
-                                        <fieldset class="form-group position-relative has-icon-left">
-                                            <input data-toggle="modal" data-target="#exampleModalCenter"  v-model="informacion_personal.nombre_jefe" style="cursor: pointer" type="text" class="form-control form-control-lg mb-1"  placeholder="Seleccione su jefe de hogar">
-                                            <div class="form-control-position">
-                                                <i style="font-size: 19px" class="fas fa-user-tie"></i>
                                             </div>
                                         </fieldset>
                                     </div>
@@ -1021,6 +1033,7 @@ export default {
                 rol: "",
                 id_jefe: "",
                 nombre_jefe: "",
+                parentesco: "",
                 direccion: "",
                 nombre_completo: "",
                 fecha_nacimiento: "",
@@ -1307,6 +1320,7 @@ export default {
                 var data = respuesta.data;
                 this.informacion_personal.rol = data.informacion_personal.rol;
                 this.informacion_personal.id_jefe = data.informacion_personal.id_jefe;
+                this.informacion_personal.parentesco = data.informacion_personal.parentesco;
                 this.informacion_personal.direccion = data.informacion_personal.direccion;
                 this.informacion_personal.nombre_completo = data.informacion_personal.nombre_completo;
                 this.informacion_personal.fecha_nacimiento = data.informacion_personal.fecha_nacimiento;
@@ -1500,7 +1514,10 @@ export default {
                 this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  rol </strong> no puede estar vacío <br>`;
             }
 
-
+            if (!this.informacion_personal.parentesco) {
+                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  parentesco </strong> no puede estar vacío <br>`;
+            }
+            
             if (!this.informacion_personal.direccion) {
                 this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  dirección </strong> no puede estar vacío <br>`;
             }
