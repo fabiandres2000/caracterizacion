@@ -12,22 +12,7 @@ MySQL - 8.0.30 : Database - caracterizacion
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`caracterizacion` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-
 USE `caracterizacion`;
-
-/*Table structure for table `actividades_vivienda_hogar` */
-
-DROP TABLE IF EXISTS `actividades_vivienda_hogar`;
-
-CREATE TABLE `actividades_vivienda_hogar` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `identificacion_jefe` text,
-  `linea` text,
-  `actividad` text,
-  `area_destinada` double DEFAULT NULL,
-  KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `actividades_vivienda_hogar` */
 
@@ -42,19 +27,6 @@ insert  into `actividades_vivienda_hogar`(`id`,`identificacion_jefe`,`linea`,`ac
 (31,'43423423423','Pecuarias - especie animal con perspectiva comercial','Ganado equino',12000),
 (32,'43423423423','Cultivos agrícolas','Maíz',2000);
 
-/*Table structure for table `corregimientos` */
-
-DROP TABLE IF EXISTS `corregimientos`;
-
-CREATE TABLE `corregimientos` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `departamento` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
-  `municipio` int NOT NULL,
-  `nombre` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
-  `estado` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
-
 /*Data for the table `corregimientos` */
 
 insert  into `corregimientos`(`id`,`departamento`,`municipio`,`nombre`,`estado`) values 
@@ -63,22 +35,6 @@ insert  into `corregimientos`(`id`,`departamento`,`municipio`,`nombre`,`estado`)
 (3,'20',340,'El Vallito','Activo'),
 (4,'20',340,'La Loma de Calenturas','Activo'),
 (5,'20',340,'Potrerillo','Activo');
-
-/*Table structure for table `cultura_tradiciones` */
-
-DROP TABLE IF EXISTS `cultura_tradiciones`;
-
-CREATE TABLE `cultura_tradiciones` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `identificacion_individuo` double NOT NULL,
-  `practica_actividades` text,
-  `habla_lengua` text,
-  `cual_lengua` text,
-  `practicas_religiosas` text,
-  `concejo` text,
-  PRIMARY KEY (`identificacion_individuo`),
-  KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `cultura_tradiciones` */
 
@@ -90,6 +46,7 @@ insert  into `cultura_tradiciones`(`id`,`identificacion_individuo`,`practica_act
 (12,523423454,'Casi nunca','No',NULL,'Sincretismo Religioso','CONCEJO COMUNITARIO \"JULIO CESAR ALTAMAR MUÑOS\"'),
 (9,967897897,'Si','Si','Creole','Música y Danza','CONCEJO COMUNITARIO \"ALEJO DURAN\"'),
 (6,4234234234,'Si','Si','Creole','Santería y Palenque','CONCEJO COMUNITARIO \"JULIO CESAR ALTAMAR MUÑOS\"'),
+(15,4545767867,'Si','No',NULL,'Prácticas médicas tradicionales','CONCEJO COMUNITARIO \"JULIO CESAR ALTAMAR MUÑOS\"'),
 (10,7547546546,'Si','Si','Creole','Música y Danza','CONCEJO COMUNITARIO \"JULIO CESAR ALTAMAR MUÑOS\"'),
 (3,10090908978,'Si','No',NULL,'Música y Danza','CONCEJO COMUNITARIO \"ALEJO DURAN\"'),
 (5,23123123123,'Si','No',NULL,'Música y Danza','CONCEJO COMUNITARIO \"ALEJO DURAN\"'),
@@ -97,17 +54,6 @@ insert  into `cultura_tradiciones`(`id`,`identificacion_individuo`,`practica_act
 (2,43423423423,'Nunca','No',NULL,'Música y Danza','CONCEJO COMUNITARIO \"JULIO CESAR ALTAMAR MUÑOS\"'),
 (13,77777777777,'Si','No',NULL,'Música y Danza','CONCEJO COMUNITARIO \"ALEJO DURAN\"'),
 (7,213412321321,'Si','Si','Palenquero','Santería y Palenque','CONCEJO COMUNITARIO \"JULIO CESAR ALTAMAR MUÑOS\"');
-
-/*Table structure for table `dptos` */
-
-DROP TABLE IF EXISTS `dptos`;
-
-CREATE TABLE `dptos` (
-  `codigo` varchar(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
-  `descripcion` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `id` smallint unsigned NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
 /*Data for the table `dptos` */
 
@@ -146,23 +92,6 @@ insert  into `dptos`(`codigo`,`descripcion`,`id`) values
 ('97','Vaupes',32),
 ('99','Vichada',33);
 
-/*Table structure for table `educacion` */
-
-DROP TABLE IF EXISTS `educacion`;
-
-CREATE TABLE `educacion` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `identificacion_individuo` double NOT NULL,
-  `nivel_educativo` text,
-  `cual_nivel_educativo` text,
-  `educacion_especifica` text,
-  `barreras_educacion` text,
-  `descriminacion_racial` text,
-  `apoyo_educativo` text,
-  PRIMARY KEY (`identificacion_individuo`),
-  KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
 /*Data for the table `educacion` */
 
 insert  into `educacion`(`id`,`identificacion_individuo`,`nivel_educativo`,`cual_nivel_educativo`,`educacion_especifica`,`barreras_educacion`,`descriminacion_racial`,`apoyo_educativo`) values 
@@ -173,6 +102,7 @@ insert  into `educacion`(`id`,`identificacion_individuo`,`nivel_educativo`,`cual
 (12,523423454,'22',NULL,'No','No','N.A','N.A'),
 (9,967897897,'5',NULL,'Si','No','Si','Si'),
 (6,4234234234,'12',NULL,'Si','Si','No','No'),
+(15,4545767867,'12',NULL,'Si','Si','Si','Si'),
 (10,7547546546,'5',NULL,'Si','Si','No','Si'),
 (3,10090908978,'12',NULL,'No','No','Si','Si'),
 (5,23123123123,'3',NULL,'Si','Si','Si','No'),
@@ -180,16 +110,6 @@ insert  into `educacion`(`id`,`identificacion_individuo`,`nivel_educativo`,`cual
 (2,43423423423,'6',NULL,'Si','Si','Si','Si'),
 (13,77777777777,'12',NULL,'No','No','No','No'),
 (7,213412321321,'6',NULL,'Si','No','No','No');
-
-/*Table structure for table `escolaridad` */
-
-DROP TABLE IF EXISTS `escolaridad`;
-
-CREATE TABLE `escolaridad` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
 /*Data for the table `escolaridad` */
 
@@ -218,71 +138,24 @@ insert  into `escolaridad`(`id`,`descripcion`) values
 (22,'No Aplica'),
 (23,'Otro');
 
-/*Table structure for table `informacion_personal` */
-
-DROP TABLE IF EXISTS `informacion_personal`;
-
-CREATE TABLE `informacion_personal` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `identificacion` double NOT NULL,
-  `tipo_identificacion` text,
-  `rol` text,
-  `direccion` text,
-  `nombre_completo` text,
-  `fecha_nacimiento` text,
-  `direccion_residencia` text,
-  `sexo` text,
-  `cual_sexo` text,
-  `orientacion_sexual` text,
-  `estado_civil` text,
-  `cual_estado_civil` text,
-  `tiempo_municipio` text,
-  `desplazado` text,
-  `numero_caracterizacion` text,
-  `anio_caracterizacion` int DEFAULT NULL,
-  `mes_caracterizacion` int DEFAULT NULL,
-  `dia_caracterizacion` int DEFAULT NULL,
-  `fecha_caracterizacion` text,
-  `hora_caracterizacion` text,
-  `id_jefe` double DEFAULT NULL,
-  `departamento` int DEFAULT NULL,
-  `municipio` int DEFAULT NULL,
-  `corregimiento` int DEFAULT NULL,
-  `estado` int DEFAULT '1',
-  PRIMARY KEY (`identificacion`),
-  KEY `id_jefe` (`id_jefe`),
-  KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
 /*Data for the table `informacion_personal` */
 
-insert  into `informacion_personal`(`id`,`identificacion`,`tipo_identificacion`,`rol`,`direccion`,`nombre_completo`,`fecha_nacimiento`,`direccion_residencia`,`sexo`,`cual_sexo`,`orientacion_sexual`,`estado_civil`,`cual_estado_civil`,`tiempo_municipio`,`desplazado`,`numero_caracterizacion`,`anio_caracterizacion`,`mes_caracterizacion`,`dia_caracterizacion`,`fecha_caracterizacion`,`hora_caracterizacion`,`id_jefe`,`departamento`,`municipio`,`corregimiento`,`estado`) values 
-(14,99999999,'CC','Jefe de hogar','manzana 2 casa 8, urbanizacion ciudad tayrona','Nicolas Arrieta','1995-07-05','manzana 2 casa 8, urbanizacion ciudad tayrona','Masculino',NULL,'Heterosexual','Casado',NULL,'10','Si','CA0014',2023,12,7,'07-12-2023','08:06:26',NULL,20,340,2,1),
-(4,100212124,'TI','Hijo(a)','transversal 28a #45-87','Andres gaviria','2020-01-22','transversal 28a #45-87','Masculino',NULL,'Heterosexual','Soltero',NULL,'12','Si','CA0004',2023,11,21,'21-11-2023','10:19:36',10090908978,20,340,4,1),
-(1,134543433,'CC','Jefe de hogar','manzana 2 casa 8 - Fundadores','Fabian Andres Quintero Mendez','2001-01-22','manzana 2 casa 8 - Fundadores','Masculino',NULL,'Heterosexual','Unión Libre',NULL,'22','Si','CA0001',2023,12,7,'07-12-2023','07:55:57',NULL,20,340,5,1),
-(11,432423423,'TI','Nieto(a)','manzana 2 casa 8 - Fundadores','Juan Jole Lopez','2021-01-22','manzana 2 casa 8 - Fundadores','Femenino',NULL,'Heterosexual','Soltero',NULL,'10','Si','CA0011',2023,11,24,'24-11-2023','07:20:38',134543433,20,340,5,1),
-(12,523423454,'Registro Civil','Hijo(a)','calle principal - casa 4','Andres Jose Madrid Madrid','2017-12-05','calle principal - casa 4','Masculino',NULL,'Heterosexual','Soltero',NULL,'12','No','CA0012',2023,11,25,'25-11-2023','08:34:48',967897897,20,340,3,1),
-(9,967897897,'CC','Jefe de hogar','calle principal - casa 4','Andrea Madrid','1987-04-22','calle principal - casa 4','Femenino',NULL,'Heterosexual','Soltero',NULL,'12','Si','CA0009',2023,12,7,'07-12-2023','08:03:31',NULL,20,340,3,1),
-(6,4234234234,'CC','Hermano(a)','transversal 28a #45-87','Juana Gaviria','1985-06-25','transversal 28a #45-87','Femenino',NULL,'Heterosexual','Divorciado',NULL,'25','No','CA0006',2023,11,21,'21-11-2023','10:20:07',10090908978,20,340,4,1),
-(10,7547546546,'CC','Yerno(a)','manzana 2 casa 8 - Fundadores','Juana de arcos','2003-08-22','manzana 2 casa 8 - Fundadores','Femenino',NULL,'Heterosexual','Soltero',NULL,'12','Si','CA0010',2023,11,23,'23-11-2023','15:34:09',134543433,20,340,5,1),
-(3,10090908978,'CC','Jefe de hogar','transversal 28a #45-87','Obdulio Josefino Gaviria','1965-05-22','transversal 28a #45-87','Masculino',NULL,'Heterosexual','Viudo(a)',NULL,'84','Si','CA0003',2023,11,21,'21-11-2023','10:14:32',NULL,20,340,4,1),
-(5,23123123123,'TI','Hijastro(a)','manzana 2 casa 8 - Fundadores','Juan Camilo Quiñones','2006-01-22','manzana 2 casa 8 - Fundadores','Masculino',NULL,'Heterosexual','Soltero',NULL,'12','Si','CA0005',2023,11,21,'21-11-2023','10:19:56',134543433,20,340,5,1),
-(8,42324234234,'CC','Abuelo(a)','calle 34 #12-13','Abuela Miguel Angel','1940-05-12','calle 34 #12-13','Femenino',NULL,'Heterosexual','Viudo(a)',NULL,'120','Si','CA0008',2023,11,21,'21-11-2023','15:20:36',213412321321,20,340,4,1),
-(2,43423423423,'TI','Jefe de hogar','manzana 12 casa 18 - Primero de mayo','Daniela Quintero','2005-01-22','manzana 12 casa 18 - Primero de mayo','Femenino',NULL,'Homosexual','Soltero',NULL,'23','Si','CA0002',2023,12,1,'01-12-2023','07:20:14',NULL,20,340,4,1),
-(13,77777777777,'CC','Cuñado(a)','transversal 28a #45-87','Xiamir Josefino Gaviria','1985-05-12','transversal 28a #45-87','Masculino',NULL,'Heterosexual','Soltero',NULL,'26','No','CA0013',2023,11,28,'28-11-2023','11:01:37',10090908978,20,340,4,1),
-(7,213412321321,'CC','Jefe de hogar','calle 34 #12-13','Miguel Ángel López','1978-06-15','calle 34 #12-13','Masculino',NULL,'Heterosexual','Soltero',NULL,'3','Si','CA0007',2023,11,22,'22-11-2023','15:04:54',NULL,20,340,4,1);
-
-/*Table structure for table `muni` */
-
-DROP TABLE IF EXISTS `muni`;
-
-CREATE TABLE `muni` (
-  `codmun` varchar(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
-  `descripcion` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
-  `coddep` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
-  `id` smallint unsigned NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1120 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+insert  into `informacion_personal`(`id`,`identificacion`,`tipo_identificacion`,`rol`,`parentesco`,`direccion`,`nombre_completo`,`fecha_nacimiento`,`direccion_residencia`,`sexo`,`cual_sexo`,`orientacion_sexual`,`estado_civil`,`cual_estado_civil`,`tiempo_municipio`,`desplazado`,`numero_caracterizacion`,`anio_caracterizacion`,`mes_caracterizacion`,`dia_caracterizacion`,`fecha_caracterizacion`,`hora_caracterizacion`,`id_jefe`,`departamento`,`municipio`,`corregimiento`,`estado`) values 
+(14,99999999,'CC','Jefe de hogar','Abuelo(a)','manzana 2 casa 8, urbanizacion ciudad tayrona','Nicolas Arrieta','1995-07-05','manzana 2 casa 8, urbanizacion ciudad tayrona','Masculino',NULL,'Heterosexual','Casado',NULL,'10','Si','CA0014',2023,12,12,'12-12-2023','15:55:25',NULL,20,340,2,1),
+(4,100212124,'TI','Integrante','Hijastro(a)','transversal 28a #45-87','Andres gaviria','2020-01-22','transversal 28a #45-87','Masculino',NULL,'Heterosexual','Soltero',NULL,'12','Si','CA0004',2023,12,12,'12-12-2023','15:52:57',10090908978,20,340,4,1),
+(1,134543433,'CC','Jefe de hogar','Padre','manzana 2 casa 8 - Fundadores','Fabian Andres Quintero Mendez','2001-01-22','manzana 2 casa 8 - Fundadores','Masculino',NULL,'Heterosexual','Unión Libre',NULL,'22','Si','CA0001',2023,12,12,'12-12-2023','15:51:40',NULL,20,340,5,1),
+(11,432423423,'TI','Integrante','Hijastro(a)','manzana 2 casa 8 - Fundadores','Juan Jole Lopez','2021-01-22','manzana 2 casa 8 - Fundadores','Femenino',NULL,'Heterosexual','Soltero',NULL,'10','Si','CA0011',2023,12,12,'12-12-2023','15:54:46',134543433,20,340,5,1),
+(12,523423454,'Registro Civil','Integrante','Hermano(a)','calle principal - casa 4','Andres Jose Madrid Madrid','2017-12-05','calle principal - casa 4','Masculino',NULL,'Heterosexual','Soltero',NULL,'12','No','CA0012',2023,12,12,'12-12-2023','15:54:59',967897897,20,340,3,1),
+(9,967897897,'CC','Jefe de hogar','Madre','calle principal - casa 4','Andrea Madrid','1987-04-22','calle principal - casa 4','Femenino',NULL,'Heterosexual','Soltero',NULL,'12','Si','CA0009',2023,12,12,'12-12-2023','15:54:13',NULL,20,340,3,1),
+(6,4234234234,'CC','Integrante','Yerno(a)','transversal 28a #45-87','Juana Gaviria','1985-06-25','transversal 28a #45-87','Femenino',NULL,'Heterosexual','Divorciado',NULL,'25','No','CA0006',2023,12,12,'12-12-2023','15:53:30',10090908978,20,340,4,1),
+(15,4545767867,'CC','Integrante','Hermano(a)','calle 34 #12-13','Eustaquio López','1955-12-11','calle 34 #12-13','Masculino',NULL,'Heterosexual','Viudo(a)',NULL,'120','Si','CA0015',2023,12,12,'12-12-2023','15:55:39',213412321321,20,340,4,1),
+(10,7547546546,'CC','Integrante','Hijo(a)','manzana 2 casa 8 - Fundadores','Juana de arcos','2003-08-22','manzana 2 casa 8 - Fundadores','Femenino',NULL,'Heterosexual','Soltero',NULL,'12','Si','CA0010',2023,12,12,'12-12-2023','15:54:25',134543433,20,340,5,1),
+(3,10090908978,'CC','Jefe de hogar','Abuelo(a)','transversal 28a #45-87','Obdulio Josefino Gaviria','1965-05-22','transversal 28a #45-87','Masculino',NULL,'Heterosexual','Viudo(a)',NULL,'84','Si','CA0003',2023,12,12,'12-12-2023','15:52:04',NULL,20,340,4,1),
+(5,23123123123,'TI','Integrante','Nieto(a)','manzana 2 casa 8 - Fundadores','Juan Camilo Quiñones','2006-01-22','manzana 2 casa 8 - Fundadores','Masculino',NULL,'Heterosexual','Soltero',NULL,'12','Si','CA0005',2023,12,12,'12-12-2023','15:53:19',134543433,20,340,5,1),
+(8,42324234234,'CC','Integrante','Abuelo(a)','calle 34 #12-13','Abuela Miguel Angel','1940-05-12','calle 34 #12-13','Femenino',NULL,'Heterosexual','Viudo(a)',NULL,'120','Si','CA0008',2023,12,12,'12-12-2023','15:54:01',213412321321,20,340,4,1),
+(2,43423423423,'TI','Jefe de hogar','Madre Soltera','manzana 12 casa 18 - Primero de mayo','Daniela Quintero','2005-01-22','manzana 12 casa 18 - Primero de mayo','Femenino',NULL,'Homosexual','Soltero',NULL,'23','Si','CA0002',2023,12,12,'12-12-2023','15:51:00',NULL,20,340,4,1),
+(13,77777777777,'CC','Integrante','Padre soltero','transversal 28a #45-87','Xiamir Josefino Gaviria','1985-05-12','transversal 28a #45-87','Masculino',NULL,'Heterosexual','Soltero',NULL,'26','No','CA0013',2023,12,12,'12-12-2023','15:55:10',10090908978,20,340,4,1),
+(7,213412321321,'CC','Jefe de hogar','Padrastro o Madrastra','calle 34 #12-13','Miguel Ángel López','1978-06-15','calle 34 #12-13','Masculino',NULL,'Heterosexual','Soltero',NULL,'3','Si','CA0007',2023,12,12,'12-12-2023','15:53:48',NULL,20,340,4,1);
 
 /*Data for the table `muni` */
 
@@ -1406,16 +1279,6 @@ insert  into `muni`(`codmun`,`descripcion`,`coddep`,`id`) values
 ('899','ZIPAQUIRA','25',1117),
 ('960','ZAPAYAN','47',1118),
 ('980','ZONA BANANERA','47',1119);
-
-/*Table structure for table `ocupaciones` */
-
-DROP TABLE IF EXISTS `ocupaciones`;
-
-CREATE TABLE `ocupaciones` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `descripcion` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9999 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
 /*Data for the table `ocupaciones` */
 
@@ -11418,21 +11281,6 @@ insert  into `ocupaciones`(`id`,`descripcion`) values
 (9996,'ing. sistemas'),
 (9997,'Estudiante');
 
-/*Table structure for table `origen_etnia` */
-
-DROP TABLE IF EXISTS `origen_etnia`;
-
-CREATE TABLE `origen_etnia` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `identificacion_individuo` double NOT NULL,
-  `pais_nacimiento` text,
-  `departamento_nacimiento` text,
-  `municipio_nacimiento` text,
-  `etnia` text,
-  PRIMARY KEY (`identificacion_individuo`),
-  KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
 /*Data for the table `origen_etnia` */
 
 insert  into `origen_etnia`(`id`,`identificacion_individuo`,`pais_nacimiento`,`departamento_nacimiento`,`municipio_nacimiento`,`etnia`) values 
@@ -11443,6 +11291,7 @@ insert  into `origen_etnia`(`id`,`identificacion_individuo`,`pais_nacimiento`,`d
 (12,523423454,'COLOMBIA','20','340','Afrocolombianos'),
 (9,967897897,'COLOMBIA','47','367','Afrocolombianos'),
 (6,4234234234,'COLOMBIA','23','407','Afrocolombianos'),
+(15,4545767867,'COLOMBIA','20','985','Afrocolombianos'),
 (10,7547546546,'COLOMBIA','27','267','Afrocolombianos'),
 (3,10090908978,'COLOMBIA','27','267','Negritudes'),
 (5,23123123123,'COLOMBIA','27','267','Afrocolombianos'),
@@ -11450,22 +11299,6 @@ insert  into `origen_etnia`(`id`,`identificacion_individuo`,`pais_nacimiento`,`d
 (2,43423423423,'COLOMBIA','27','478','Negritudes'),
 (13,77777777777,'COLOMBIA','20','340','Afrocolombianos'),
 (7,213412321321,'COLOMBIA','47','711','Negritudes');
-
-/*Table structure for table `salud` */
-
-DROP TABLE IF EXISTS `salud`;
-
-CREATE TABLE `salud` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `identificacion_individuo` double NOT NULL,
-  `estado_salud` text,
-  `condicion_discapacidad` text,
-  `acceso_salud` text,
-  `regimen` text,
-  `discriminacion_salud` text,
-  PRIMARY KEY (`identificacion_individuo`),
-  KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `salud` */
 
@@ -11477,6 +11310,7 @@ insert  into `salud`(`id`,`identificacion_individuo`,`estado_salud`,`condicion_d
 (12,523423454,'Bueno','Ninguna','Frecuente','Subsidiado','N.A'),
 (9,967897897,'Bueno','Ninguna','Ocasional','Subsidiado','No'),
 (6,4234234234,'Bueno','Ninguna','Frecuente','Subsidiado','Si'),
+(15,4545767867,'Regular','Discapacidad Física','Frecuente','Subsidiado','Si'),
 (10,7547546546,'Bueno','Discapacidad Física','Ocasional','Contributivo','Si'),
 (3,10090908978,'Bueno','Ninguna','Frecuente','Subsidiado','Si'),
 (5,23123123123,'Regular','Ninguna','Frecuente','Subsidiado','No'),
@@ -11484,21 +11318,6 @@ insert  into `salud`(`id`,`identificacion_individuo`,`estado_salud`,`condicion_d
 (2,43423423423,'Bueno','Discapacidad Física','Frecuente','Contributivo','Si'),
 (13,77777777777,'Regular','Ninguna','Ocasional','Subsidiado','Si'),
 (7,213412321321,'Bueno','Discapacidad Física','Frecuente','Contributivo','Si');
-
-/*Table structure for table `situacion_laboral` */
-
-DROP TABLE IF EXISTS `situacion_laboral`;
-
-CREATE TABLE `situacion_laboral` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `identificacion_individuo` double NOT NULL,
-  `ocupacion` text,
-  `situacion_laboral` text,
-  `discriminacion_laboral` text,
-  `ingreso_mensual` text,
-  PRIMARY KEY (`identificacion_individuo`),
-  KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `situacion_laboral` */
 
@@ -11510,6 +11329,7 @@ insert  into `situacion_laboral`(`id`,`identificacion_individuo`,`ocupacion`,`si
 (12,523423454,'NO APLICA','N.A','N.A','N.A'),
 (9,967897897,'Ayudante de cocina no domestica','Empleado/a tiempo completo','Si','No responde'),
 (6,4234234234,'Cocinero de restaurante','Empleado/a tiempo parcial','No','Si'),
+(15,4545767867,'Chatarrero','Trabajador informal','Si','Si'),
 (10,7547546546,'Modisto','Empleado/a tiempo completo','Si','Si'),
 (3,10090908978,'Agricultor cultivador','Trabajador/a independiente','Si','Si'),
 (5,23123123123,'Estudiante','N.A','N.A','N.A'),
@@ -11517,18 +11337,6 @@ insert  into `situacion_laboral`(`id`,`identificacion_individuo`,`ocupacion`,`si
 (2,43423423423,'Desempleado Sin Busqueda de Empleo','Desempleado/a (sin búsqueda activa de empleo en el momento)','Si','No'),
 (13,77777777777,'Recolector de caucho','Trabajador informal','Si','No'),
 (7,213412321321,'Ingeniero agrícola','Empleado/a tiempo completo','No','Si');
-
-/*Table structure for table `user_encuesta` */
-
-DROP TABLE IF EXISTS `user_encuesta`;
-
-CREATE TABLE `user_encuesta` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `usuario_encuesta` text,
-  `numero_caracterizacion` text,
-  `estado` int DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `user_encuesta` */
 
@@ -11544,64 +11352,17 @@ insert  into `user_encuesta`(`id`,`usuario_encuesta`,`numero_caracterizacion`,`e
 (9,'1','CA0009',1),
 (10,'1','CA0010',1),
 (11,'1','CA0011',1),
-(12,'1','CA0012',1),
+(12,'2','CA0012',1),
 (13,'1','CA0013',1),
-(14,'1','CA0014',1);
-
-/*Table structure for table `users` */
-
-DROP TABLE IF EXISTS `users`;
-
-CREATE TABLE `users` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `identificacion` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nombre` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `usuario` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `celular` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `direccion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `rol` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `imagen` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `estado` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+(14,'1','CA0014',1),
+(15,'1','CA0015',1);
 
 /*Data for the table `users` */
 
 insert  into `users`(`id`,`identificacion`,`nombre`,`usuario`,`email`,`password`,`celular`,`direccion`,`rol`,`imagen`,`estado`,`created_at`,`updated_at`) values 
 (1,'1111222','admin','admin','admin@gmail.com','81dc9bdb52d04dc20036dbd8313ed055','3012321546','manzana 2 casa 8 - valledupar','administrador','1701523908_fabian.jpg','1',NULL,NULL),
-(2,'213213123','Fabian Quintero','fabian','fabian222000@live.com','2b1e84480019a2289d11981937cf550b','3048493940','manzana 2 casa 8-65','encuestador','default.png','1',NULL,NULL),
+(2,'213213123','Fabian Quintero','fabian','fabian222000@live.com','81dc9bdb52d04dc20036dbd8313ed055','3048493940','manzana 2 casa 8-65','encuestador','default.png','1',NULL,NULL),
 (11,'1009090898','Cristian Quintero','cristian','cristian@gmail.com','e91b02d11a10b17a88ebfcfa76db3517','3012032215','transversal 27 a','encuestador','default.png','1',NULL,NULL);
-
-/*Table structure for table `vivienda_hogar` */
-
-DROP TABLE IF EXISTS `vivienda_hogar`;
-
-CREATE TABLE `vivienda_hogar` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `identificacion_jefe` double NOT NULL,
-  `tipo_vivienda` text,
-  `cual_tipo_vivienda` text,
-  `tenencia` text,
-  `numero_personas_hogar` text,
-  `electricidad` text,
-  `agua_potable` text,
-  `alcantarillado` text,
-  `gas_natural` text,
-  `aseo` text,
-  `otro` text,
-  `numero_personas_trabajan` text,
-  `ingresos_mensuales_hogar` text,
-  `posecion_baldia` text,
-  `propiedad_titulo` text,
-  `area_total` text,
-  PRIMARY KEY (`identificacion_jefe`),
-  KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `vivienda_hogar` */
 
