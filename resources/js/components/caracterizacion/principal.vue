@@ -681,6 +681,7 @@
                                                 <option value="Sincretismo Religioso">Sincretismo Religioso</option>
                                                 <option value="Santería y Palenque">Santería y Palenque</option>
                                                 <option value="Prácticas médicas tradicionales">Prácticas médicas tradicionales</option>
+                                                <option value="Ninguna">Ninguna</option>
                                             </select>  
                                             <div class="form-control-position">
                                                 <i style="font-size: 19px" class="fas fa-question"></i>

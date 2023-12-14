@@ -134,6 +134,7 @@ export default {
     },
     mounted() {
         this.verificarTamanio();
+        this.verificarLogin();
         this.misDatos();
         setTimeout(()=>{
             const rutaActual = this.$route.path;
@@ -167,7 +168,14 @@ export default {
             if(screenHeight <= 740){
                 document.body.style.zoom = "75%";
             }
-        }
+        },
+        async verificarLogin(){
+            await usuarioService.verificarLogin().then(respuesta => {
+                if(respuesta.data == 0){
+                    window.location.href = '/';
+                }
+            });
+        },
     }
 }
 </script>

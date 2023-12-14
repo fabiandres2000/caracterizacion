@@ -885,6 +885,12 @@ class DashboardController extends Controller
 
         #endregion pestaña_vivienda
 
+
+        #region afro y negritudes
+            $afrocolombianos_negritudes = self::afrocolombianosyNegritudes();
+        #endregion afro
+
+
         $datos = [
             "piramide_edad" => $piramide_edad,
             "numero_masculino" => $masculino,
@@ -914,7 +920,8 @@ class DashboardController extends Controller
             "datos_desplazados" => $datos_desplazados,
             "servicios" => $servicios,
             "tipo_vivienda" => $tipo_vivienda,
-            "cantidad_viviendas" => $cantidad_viviendas
+            "cantidad_viviendas" => $cantidad_viviendas,
+            "afrocolombianos_negritudes" => $afrocolombianos_negritudes
         ];
 
         return response()->json($datos);
@@ -986,5 +993,68 @@ class DashboardController extends Controller
         ];
 
         return $desplazados;
+    }
+
+    public function afrocolombianosyNegritudes(){
+
+        $cantidad_poblacion = DB::connection('mysql')->table('informacion_personal')
+        ->where("informacion_personal.estado", 1)
+        ->count();
+
+        $por_concejo = DB::connection('mysql')->table('cultura_tradiciones')
+        ->join("informacion_personal", "informacion_personal.identificacion", "cultura_tradiciones.identificacion_individuo")
+        ->where("informacion_personal.estado", "1")
+        ->selectRaw('COUNT(cultura_tradiciones.identificacion_individuo) as cantidad, cultura_tradiciones.concejo')
+        ->groupBy("cultura_tradiciones.concejo")
+        ->get();
+
+        $por_etnia = DB::connection('mysql')->table('origen_etnia')
+        ->join("informacion_personal", "informacion_personal.identificacion", "origen_etnia.identificacion_individuo")
+        ->where("informacion_personal.estado", "1")
+        ->selectRaw('COUNT(origen_etnia.identificacion_individuo) as cantidad, origen_etnia.etnia')
+        ->groupBy("origen_etnia.etnia")
+        ->get();
+
+        $por_practicas_religiosas = DB::connection('mysql')->table('cultura_tradiciones')
+        ->join("informacion_personal", "informacion_personal.identificacion", "cultura_tradiciones.identificacion_individuo")
+        ->where("informacion_personal.estado", "1")
+        ->selectRaw('COUNT(cultura_tradiciones.identificacion_individuo) as cantidad, cultura_tradiciones.practicas_religiosas')
+        ->groupBy("cultura_tradiciones.practicas_religiosas")
+        ->get();
+
+        $por_practica_culturales = DB::connection('mysql')->table('cultura_tradiciones')
+        ->join("informacion_personal", "informacion_personal.identificacion", "cultura_tradiciones.identificacion_individuo")
+        ->where("informacion_personal.estado", "1")
+        ->selectRaw('COUNT(cultura_tradiciones.identificacion_individuo) as cantidad, cultura_tradiciones.practica_actividades')
+        ->groupBy("cultura_tradiciones.practica_actividades")
+        ->get();
+
+        $habla_lenguas = DB::connection('mysql')->table('cultura_tradiciones')
+        ->join("informacion_personal", "informacion_personal.identificacion", "cultura_tradiciones.identificacion_individuo")
+        ->where("informacion_personal.estado", "1")
+        ->selectRaw('COUNT(cultura_tradiciones.identificacion_individuo) as cantidad, cultura_tradiciones.habla_lengua')
+        ->groupBy("cultura_tradiciones.habla_lengua")
+        ->get();
+
+        $cual_lengua_habla = DB::connection('mysql')->table('cultura_tradiciones')
+        ->join("informacion_personal", "informacion_personal.identificacion", "cultura_tradiciones.identificacion_individuo")
+        ->where("informacion_personal.estado", "1")
+        ->where("cultura_tradiciones.cual_lengua", "<>", null)
+        ->selectRaw('COUNT(cultura_tradiciones.identificacion_individuo) as cantidad, cultura_tradiciones.cual_lengua')
+        ->groupBy("cultura_tradiciones.cual_lengua")
+        ->get();
+
+
+        $afrocolombianos_negritudes = [
+            "por_concejo" => $por_concejo,
+            "por_etnia" => $por_etnia,
+            "por_practicas_religiosas" => $por_practicas_religiosas,
+            "por_practica_culturales" => $por_practica_culturales,
+            "habla_lenguas" => $habla_lenguas,
+            "cual_lengua_habla" => $cual_lengua_habla,
+            "cantidad_poblacion" => $cantidad_poblacion
+        ];
+
+        return $afrocolombianos_negritudes;
     }
 }

@@ -19,6 +19,12 @@
                     <div class="card-body">
                         <ul class="nav nav-tabs nav-underline" role="tablist">
                             <li style ="font-size: 14px" class="nav-item">
+                                <a class="nav-link" id="baseIcon-tab20" data-toggle="tab" aria-controls="tabIcon20" href="#tabIcon20" role="tab" aria-selected="false">
+                                    <i style ="font-size: 18px" class="fas fa-child"></i>
+                                    <p style ="font-size: 18px">Afrocolombianos y Negritudes</p>
+                                </a>
+                            </li>
+                            <li style ="font-size: 14px" class="nav-item">
                                 <a class="nav-link active" id="baseIcon-tab21" data-toggle="tab" aria-controls="tabIcon21" href="#tabIcon21" role="tab" aria-selected="false">
                                     <i style ="font-size: 18px" class="fas fa-user"></i>
                                     <p style ="font-size: 18px">Sociodemografico</p>
@@ -36,8 +42,63 @@
                                     <p style ="font-size: 18px">Vivienda y Hogar</p>
                                 </a>
                             </li>
+                            <li style ="font-size: 14px" class="nav-item">
+                                <a class="nav-link" id="baseIcon-tab24" data-toggle="tab" aria-controls="tabIcon24" href="#tabIcon24" role="tab" aria-selected="false">
+                                    <i style ="font-size: 18px" class="fas fa-ambulance"></i>
+                                    <p style ="font-size: 18px">Salud</p>
+                                </a>
+                            </li>
                         </ul>
                         <div style="position: relative" class="tab-content px-1 pt-1">
+                            <div class="tab-pane" id="tabIcon20" role="tabpanel" aria-labelledby="baseIcon-tab20">
+                                <button style="border-radius: 50%; width: 60px; height: 60px; position: absolute; right: 100px; top: 20px" class="btn btn-danger" @click="generateReport">
+                                    <i class="fas fa-2x fa-file-pdf"></i>
+                                </button>
+                                <button style="border-radius: 50%; width: 60px; height: 60px; position: absolute; right: 20px; top: 20px" class="btn btn-success" @click="generateReport">
+                                    <i class="fas fa-2x fa-file-excel"></i>
+                                </button>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-2"></div>
+                                    <div class="col-lg-8">
+                                        <div>
+                                            <vue3-html2pdf
+                                                :show-layout="true"
+                                                :float-layout="false"
+                                                :enable-download="true"
+                                                :preview-modal="true"
+                                                :paginate-elements-by-height="1200"
+                                                :pdf-quality="2"
+                                                :manual-pagination="false"
+                                                pdf-content-width="100%"
+                                                ref="html2Pdf"
+                                                :html-to-pdf-options=htmlToPdfOptions
+                                                @hasDownloaded = "loading = false"
+                                            >
+                                                <template v-slot:pdf-content>
+                                                    <h3 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">DISTRIBUCIÓN POBLACIÓN POR CONCEJO</h3>
+                                                    <br>
+                                                    <h3 style="line-height: 1.6;" v-if="afrocolombianos_negritudes != null">
+                                                        Se tiene que de un total de <strong>{{afrocolombianos_negritudes.cantidad_poblacion}}</strong> personas caracterizadas, se tiene que:
+                                                    </h3>
+                                                    <h5 v-if="afrocolombianos_negritudes != null" v-for="(item, index) in afrocolombianos_negritudes.por_concejo" :key="index">
+                                                        <strong>{{ item.cantidad }} personas</strong> pertenecen al concejo comunitario <strong>{{ item.concejo }}</strong>.  
+                                                    </h5>
+                                                    <br><br>
+                                                    <h3 style="width: 100%; text-align: center; font-weight: bold;">PORCENTAJE DE POBLACIÓN POR CONCEJO COMUNITARIO</h3>
+                                                    <div id="grafica_concejo" style="height: 300px"></div>
+                                                    <br><br>
+                                                    <h3 style="width: 100%; text-align: center; font-weight: bold;">PORCENTAJE DE POBLACIÓN POR ETNIA</h3>
+                                                    <div id="grafica_etnia" style="height: 300px"></div>
+                                                </template>
+                                            </vue3-html2pdf>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="tab-pane active" id="tabIcon21" role="tabpanel" aria-labelledby="baseIcon-tab21">
                                 <button style="border-radius: 50%; width: 60px; height: 60px; position: absolute; right: 100px; top: 20px" class="btn btn-danger" @click="generateReport">
                                     <i class="fas fa-2x fa-file-pdf"></i>
@@ -737,7 +798,7 @@
                                                     <table style="width: 100%" class="situacion_laboral" v-if="posesion_vivienda != null">
                                                         <thead>
                                                             <tr>
-                                                                <th colspan="3">SERVICIOS BÁSICOS</th>
+                                                                <th colspan="3">VIVIENDAS CON SERVICIOS BÁSICOS</th>
                                                             </tr>
                                                             <tr>
                                                                 <th>SERVICIO</th>
@@ -978,7 +1039,8 @@ export default {
             cultivosPorLinea : [],
             servicios: [],
             tipo_vivienda: null,
-            cantidad_viviendas: null
+            cantidad_viviendas: null,
+            afrocolombianos_negritudes: null
         }
     },
     mounted() {
@@ -1042,6 +1104,9 @@ export default {
                 this.tipo_vivienda = respuesta.data.tipo_vivienda;
                 this.cantidad_viviendas = respuesta.data.cantidad_viviendas;
                 this.generarGraficoTipoVivienda();
+                this.afrocolombianos_negritudes = respuesta.data.afrocolombianos_negritudes;
+                this.generarGraficoConcejo();
+                this.generarGraficoEtnia();
                 this.loading = false;
             });
         },
@@ -1769,6 +1834,66 @@ export default {
             chart.hiddenState.properties.radius = am4core.percent(0);
 
             this.char_poblacion_inactiva = chart;
+        },
+        generarGraficoConcejo() {
+            var chart = am4core.create("grafica_concejo", am4charts.PieChart);
+
+            // Add data
+            chart.data = [];
+
+            this.afrocolombianos_negritudes.por_concejo.forEach(element => {
+                chart.data.push(
+                    {
+                        "country": element.concejo,
+                        "litres": element.cantidad,
+                    }
+                );
+            });
+
+            var pieSeries = chart.series.push(new am4charts.PieSeries());
+            pieSeries.dataFields.value = "litres";
+            pieSeries.dataFields.category = "country";
+            pieSeries.slices.template.stroke = am4core.color("#fff");
+            pieSeries.slices.template.strokeOpacity = 1;
+
+            pieSeries.labels.template.maxWidth = 160;
+            pieSeries.labels.template.wrap = true;
+
+            pieSeries.hiddenState.properties.opacity = 1;
+            pieSeries.hiddenState.properties.endAngle = -90;
+            pieSeries.hiddenState.properties.startAngle = -90;
+
+            chart.hiddenState.properties.radius = am4core.percent(0);
+        },
+        generarGraficoEtnia() {
+            var chart = am4core.create("grafica_etnia", am4charts.PieChart);
+
+            // Add data
+            chart.data = [];
+
+            this.afrocolombianos_negritudes.por_etnia.forEach(element => {
+                chart.data.push(
+                    {
+                        "country": element.etnia,
+                        "litres": element.cantidad,
+                    }
+                );
+            });
+
+            var pieSeries = chart.series.push(new am4charts.PieSeries());
+            pieSeries.dataFields.value = "litres";
+            pieSeries.dataFields.category = "country";
+            pieSeries.slices.template.stroke = am4core.color("#fff");
+            pieSeries.slices.template.strokeOpacity = 1;
+
+            pieSeries.labels.template.maxWidth = 160;
+            pieSeries.labels.template.wrap = true;
+
+            pieSeries.hiddenState.properties.opacity = 1;
+            pieSeries.hiddenState.properties.endAngle = -90;
+            pieSeries.hiddenState.properties.startAngle = -90;
+
+            chart.hiddenState.properties.radius = am4core.percent(0);
         },
     }
 }
