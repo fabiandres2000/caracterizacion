@@ -316,7 +316,7 @@
                                         <label for=""><strong>País</strong></label>
                                         <fieldset class="form-group position-relative has-icon-left">
                                             <select v-model="origen_identidad.pais" class="form-control form-control-lg mb-1" name="" id="">
-                                                <option value="COLOMBIA">COLOMBIA</option>
+                                                <option v-for="(item, index) in paises_latinoamericanos" :key="index" :value="item">{{item}}</option>
                                             </select>                                            
                                             <div class="form-control-position">
                                                 <i style="font-size: 19px" class="fas fa-globe-africa"></i>
@@ -326,7 +326,7 @@
                                     <div class="col-lg-4">
                                         <label for=""><strong>Departamento</strong></label>
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <select @change="consultarMunicipios()" v-model="origen_identidad.departamento" class="form-control form-control-lg mb-1" name="" id="">
+                                            <select :disabled="origen_identidad.pais !== 'COLOMBIA'" @change="consultarMunicipios()" v-model="origen_identidad.departamento" class="form-control form-control-lg mb-1" name="" id="">
                                                 <option value="">Seleccione una opción</option>
                                                 <option v-for="(item, index) in departamentos" :key="index" :value="item.codigo">{{ item.descripcion }}</option>
                                             </select>                                            
@@ -338,7 +338,7 @@
                                     <div class="col-lg-4">
                                         <label for=""><strong>Municipio</strong></label>
                                         <fieldset class="form-group position-relative has-icon-left">
-                                            <select v-model="origen_identidad.municipio" class="form-control form-control-lg mb-1" name="" id="">
+                                            <select :disabled="origen_identidad.pais !== 'COLOMBIA'" v-model="origen_identidad.municipio" class="form-control form-control-lg mb-1" name="" id="">
                                                 <option value="">Seleccione una opción</option>
                                                 <option v-for="(item, index) in municipios" :key="index" :value="item.id">{{ item.descripcion }}</option>
                                             </select>                                            
@@ -1301,7 +1301,37 @@ export default {
             areaDestinada: "",
             datoslineaSeleccionada: [],
             corregimientos: [],
-            municipiosIP: []
+            municipiosIP: [],
+            paises_latinoamericanos: [
+                "COLOMBIA",
+                "VENEZUELA",
+                "MÉXICO",
+                "GUATEMALA",
+                "BELICE",
+                "EL SALVADOR",
+                "HONDURAS",
+                "NICARAGUA",
+                "COSTA RICA",
+                "PANAMÁ",
+                "CUBA",
+                "REPÚBLICA DOMINICANA",
+                "PUERTO RICO",
+                "HAITÍ",
+                "JAMAICA",
+                "TRINIDAD Y TOBAGO",
+                "BARBADOS",
+                "GUYANA",
+                "SURINAM",
+                "GUYANA FRANCESA",
+                "ECUADOR",
+                "PERÚ",
+                "BOLIVIA",
+                "PARAGUAY",
+                "BRASIL",
+                "CHILE",
+                "ARGENTINA",
+                "URUGUAY"
+            ]
         }
     },
     methods: {
@@ -1624,13 +1654,14 @@ export default {
         validarCamposOrigenIdentidad(){
             this.errores = "";
 
-            if (!this.origen_identidad.departamento) {
-                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  departamento </strong> no puede estar vacío <br>`;
-            }
+            if (this.origen_identidad.pais == "COLOMBIA") {
+                if (!this.origen_identidad.departamento) {
+                    this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  departamento </strong> no puede estar vacío <br>`;
+                }
 
-
-            if (!this.origen_identidad.municipio) {
-                this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  municipio </strong> no puede estar vacío <br>`;
+                if (!this.origen_identidad.municipio) {
+                    this.errores += `<i style ="font-size: 8px" class="fas fa-circle"></i> El campo <strong style="color: #2f95a2">  municipio </strong> no puede estar vacío <br>`;
+                }
             }
 
             if (!this.origen_identidad.etnia) {

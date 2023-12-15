@@ -19,13 +19,13 @@
                     <div class="card-body">
                         <ul class="nav nav-tabs nav-underline" role="tablist">
                             <li style ="font-size: 14px" class="nav-item">
-                                <a class="nav-link" id="baseIcon-tab20" data-toggle="tab" aria-controls="tabIcon20" href="#tabIcon20" role="tab" aria-selected="false">
+                                <a class="nav-link active" id="baseIcon-tab20" data-toggle="tab" aria-controls="tabIcon20" href="#tabIcon20" role="tab" aria-selected="false">
                                     <i style ="font-size: 18px" class="fas fa-child"></i>
                                     <p style ="font-size: 18px">Afrocolombianos y Negritudes</p>
                                 </a>
                             </li>
                             <li style ="font-size: 14px" class="nav-item">
-                                <a class="nav-link active" id="baseIcon-tab21" data-toggle="tab" aria-controls="tabIcon21" href="#tabIcon21" role="tab" aria-selected="false">
+                                <a class="nav-link" id="baseIcon-tab21" data-toggle="tab" aria-controls="tabIcon21" href="#tabIcon21" role="tab" aria-selected="false">
                                     <i style ="font-size: 18px" class="fas fa-user"></i>
                                     <p style ="font-size: 18px">Sociodemografico</p>
                                 </a>
@@ -50,7 +50,7 @@
                             </li>
                         </ul>
                         <div style="position: relative" class="tab-content px-1 pt-1">
-                            <div class="tab-pane" id="tabIcon20" role="tabpanel" aria-labelledby="baseIcon-tab20">
+                            <div class="tab-pane active" id="tabIcon20" role="tabpanel" aria-labelledby="baseIcon-tab20">
                                 <button style="border-radius: 50%; width: 60px; height: 60px; position: absolute; right: 100px; top: 20px" class="btn btn-danger" @click="generateReport">
                                     <i class="fas fa-2x fa-file-pdf"></i>
                                 </button>
@@ -93,13 +93,35 @@
                                                     <br><br>
                                                     <h3 style="width: 100%; text-align: center; font-weight: bold;">PORCENTAJE DE POBLACIÓN POR ETNIA</h3>
                                                     <div id="grafica_etnia" style="height: 300px"></div>
+                                                    <br>
+                                                    <div class="html2pdf__page-break"></div>
+                                                    <h3 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">PRÁCTICAS CULTURALES Y RELIGIOSAS</h3>
+                                                    <br>
+                                                    <table style="width: 100%" class="tabla_informe" v-if="afrocolombianos_negritudes != null">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="background-color: #5df3c5;">Actividad Cultural y religiosa</th>
+                                                                <th style="background-color: #5df3c5;"># Personas</th>
+                                                                <th style="background-color: #5df3c5;">% Total</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr v-for="(item, index) in afrocolombianos_negritudes.por_practicas_religiosas" :key="index">
+                                                                <td>{{ item.practicas_religiosas }}</td>
+                                                                <td>{{ item.cantidad }}</td>
+                                                                <td>{{ ((item.cantidad / afrocolombianos_negritudes.cantidad_poblacion) * 100).toFixed(2) }} %</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <br>
+                                                    <div id="grafica_practicas" style="height: 300px"></div>
                                                 </template>
                                             </vue3-html2pdf>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane active" id="tabIcon21" role="tabpanel" aria-labelledby="baseIcon-tab21">
+                            <div class="tab-pane" id="tabIcon21" role="tabpanel" aria-labelledby="baseIcon-tab21">
                                 <button style="border-radius: 50%; width: 60px; height: 60px; position: absolute; right: 100px; top: 20px" class="btn btn-danger" @click="generateReport">
                                     <i class="fas fa-2x fa-file-pdf"></i>
                                 </button>
@@ -1107,6 +1129,7 @@ export default {
                 this.afrocolombianos_negritudes = respuesta.data.afrocolombianos_negritudes;
                 this.generarGraficoConcejo();
                 this.generarGraficoEtnia();
+                this.generarGraficoPracticas();
                 this.loading = false;
             });
         },
@@ -1875,6 +1898,36 @@ export default {
                 chart.data.push(
                     {
                         "country": element.etnia,
+                        "litres": element.cantidad,
+                    }
+                );
+            });
+
+            var pieSeries = chart.series.push(new am4charts.PieSeries());
+            pieSeries.dataFields.value = "litres";
+            pieSeries.dataFields.category = "country";
+            pieSeries.slices.template.stroke = am4core.color("#fff");
+            pieSeries.slices.template.strokeOpacity = 1;
+
+            pieSeries.labels.template.maxWidth = 160;
+            pieSeries.labels.template.wrap = true;
+
+            pieSeries.hiddenState.properties.opacity = 1;
+            pieSeries.hiddenState.properties.endAngle = -90;
+            pieSeries.hiddenState.properties.startAngle = -90;
+
+            chart.hiddenState.properties.radius = am4core.percent(0);
+        },
+        generarGraficoPracticas() {
+            var chart = am4core.create("grafica_practicas", am4charts.PieChart);
+
+            // Add data
+            chart.data = [];
+
+            this.afrocolombianos_negritudes.por_practicas_religiosas.forEach(element => {
+                chart.data.push(
+                    {
+                        "country": element.practicas_religiosas,
                         "litres": element.cantidad,
                     }
                 );

@@ -609,21 +609,23 @@ class DashboardController extends Controller
                 $situacion_laboral = DB::connection('mysql')->table('situacion_laboral')
                 ->where("identificacion_individuo", $item->identificacion)
                 ->first();
-
-                if($situacion_laboral->situacion_laboral != "Desempleado/a (sin búsqueda activa de empleo en el momento)"){
-                    if($item->sexo == "Masculino"){
-                        $poblacion_e_activa[0] += 1;
+                
+                if($situacion_laboral != null){
+                   if($situacion_laboral->situacion_laboral != "Desempleado/a (sin búsqueda activa de empleo en el momento)"){
+                        if($item->sexo == "Masculino"){
+                            $poblacion_e_activa[0] += 1;
+                        }else{
+                            $poblacion_e_activa[1] += 1;
+                        }
+                        $poblacion_e_activa[2] += 1;
                     }else{
-                        $poblacion_e_activa[1] += 1;
-                    }
-                    $poblacion_e_activa[2] += 1;
-                }else{
-                    if($item->sexo == "Masculino"){
-                        $poblacion_e_inactiva[0] += 1;
-                    }else{
-                        $poblacion_e_inactiva[1] += 1;
-                    }
-                    $poblacion_e_inactiva[2] += 1;
+                        if($item->sexo == "Masculino"){
+                            $poblacion_e_inactiva[0] += 1;
+                        }else{
+                            $poblacion_e_inactiva[1] += 1;
+                        }
+                        $poblacion_e_inactiva[2] += 1;
+                    } 
                 }
             }
         }
