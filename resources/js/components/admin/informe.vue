@@ -115,6 +115,29 @@
                                                     </table>
                                                     <br>
                                                     <div id="grafica_practicas" style="height: 300px"></div>
+                                                    <br>
+                                                    <h3 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">PERSONAS QUE HABLAN Y NO HABLAN ALGUNA LENGUA AFROCOLOMBIANA</h3>
+                                                    <br>
+                                                    <table style="width: 100%" class="tabla_informe" v-if="afrocolombianos_negritudes != null">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="background-color: #5df3c5;">¿Habla alguna lengua afrocolombiana?</th>
+                                                                <th style="background-color: #5df3c5;">Respuesta</th>
+                                                                <th style="background-color: #5df3c5;">% Total</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr v-for="(item, index) in afrocolombianos_negritudes.habla_lenguas" :key="index">
+                                                                <td>{{ item.habla_lengua }}</td>
+                                                                <td>{{ item.cantidad }}</td>
+                                                                <td>{{ ((item.cantidad / afrocolombianos_negritudes.cantidad_poblacion) * 100).toFixed(2) }} %</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <br>
+                                                    <h3 style="width: 100%; text-align: center; font-weight: bold; color: #ff425c; ">PORCENTAJE DE POBLACIÓN</h3>
+                                                    <h5  style="width: 100%; text-align: center; font-weight: bold;">(Habla lengua afrocolombiana)</h5>
+                                                    <div id="grafica_lengua" style="height: 300px"></div>
                                                 </template>
                                             </vue3-html2pdf>
                                         </div>
@@ -1130,6 +1153,7 @@ export default {
                 this.generarGraficoConcejo();
                 this.generarGraficoEtnia();
                 this.generarGraficoPracticas();
+                this.generarGraficoLenguaHabla();
                 this.loading = false;
             });
         },
@@ -1919,15 +1943,61 @@ export default {
             chart.hiddenState.properties.radius = am4core.percent(0);
         },
         generarGraficoPracticas() {
-            var chart = am4core.create("grafica_practicas", am4charts.PieChart);
+            var chart = am4core.create("grafica_practicas", am4charts.XYChart);
+           
+            var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+            categoryAxis.renderer.grid.template.location = 0;
+            categoryAxis.dataFields.category = "category";
+            categoryAxis.renderer.minGridDistance = 1;
+            categoryAxis.renderer.inversed = true;
+            categoryAxis.renderer.grid.template.disabled = true;
+
+            var valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
+            valueAxis.min = 0;
+
+            var series = chart.series.push(new am4charts.ColumnSeries());
+            series.dataFields.categoryY = "category";
+            series.dataFields.valueX = "first";
+            series.tooltipText = "{valueX.value}"
+            series.columns.template.strokeOpacity = 0;
+            series.columns.template.column.cornerRadiusBottomRight = 5;
+            series.columns.template.column.cornerRadiusTopRight = 5;
+
+            var labelBullet = series.bullets.push(new am4charts.LabelBullet())
+            labelBullet.label.horizontalCenter = "left";
+            labelBullet.label.dx = 10;
+            labelBullet.label.text = "{values.valueX.workingValue}";
+            labelBullet.label.fill = am4core.color("#ffffff"); // Set label text color to white
+            labelBullet.label.fontWeight = "bold";
+            labelBullet.locationX = 1;
+
+            // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+            series.columns.template.adapter.add("fill", function(fill, target){
+                return chart.colors.getIndex(target.dataItem.index);
+            });
+
+            categoryAxis.sortBySeries = series;
+
+            chart.data = [];
+
+            this.afrocolombianos_negritudes.por_practicas_religiosas.forEach(element => {
+                chart.data.push({
+                    category: element.practicas_religiosas,
+                    first: element.cantidad,
+                });
+            });
+
+        },
+        generarGraficoLenguaHabla() {
+            var chart = am4core.create("grafica_lengua", am4charts.PieChart);
 
             // Add data
             chart.data = [];
 
-            this.afrocolombianos_negritudes.por_practicas_religiosas.forEach(element => {
+            this.afrocolombianos_negritudes.cual_lengua_habla.forEach(element => {
                 chart.data.push(
                     {
-                        "country": element.practicas_religiosas,
+                        "country": element.cual_lengua,
                         "litres": element.cantidad,
                     }
                 );

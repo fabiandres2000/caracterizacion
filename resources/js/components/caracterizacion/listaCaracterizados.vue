@@ -23,6 +23,7 @@
                             <table id="tablaCaracterizados" style="width: 100%" v-if="loading == false">
                                 <thead>
                                     <tr>
+                                        <th>Estado <br> registro</th>
                                         <th>#</th>
                                         <th>Identificación</th>
                                         <th>Nombre Completo</th>
@@ -34,6 +35,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="(item, index) in lista_caracterizados" :key="index">
+                                        <td><span @click="mostrarpestanasFaltantes(item.estado_registro_data)" :class="item.estado_registro_data.cod_estado == 1 ? 'badge badge-success' : 'badge badge-danger'">{{ item.estado_registro_data.estado }}</span></td>
                                         <td>{{ item.numero_caracterizacion }}</td>
                                         <td>{{ item.tipo_identificacion+" : "+item.identificacion }}</td>
                                         <td>{{ item.nombre_completo }}</td>
@@ -54,6 +56,26 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="pestanasFaltantes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Pestañas faltantes</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 id="errores_faltantes"></h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">cerrar</button>
+            </div>
+            </div>
+        </div>
+        </div>
+
 </template>
 <script>
 
@@ -91,14 +113,16 @@ export default {
             this.loading = false;
             setTimeout(() => {
                 $("#tablaCaracterizados").DataTable({
-                    ordering: true,
+                    ordering: false,
                     "columnDefs": [
+                        { "orderable": false, "targets": 0 },
                         { "orderable": false, "targets": 1 },
                         { "orderable": false, "targets": 2 },
                         { "orderable": false, "targets": 3 },
                         { "orderable": false, "targets": 4 },
                         { "orderable": false, "targets": 5 },
-                        { "orderable": false, "targets": 6 }
+                        { "orderable": false, "targets": 6 },
+                        { "orderable": false, "targets": 7 }
                     ],
                     language: {
                         "decimal": "",
@@ -123,6 +147,10 @@ export default {
                 });
             }, 10);
         },
+        mostrarpestanasFaltantes(item_errores){
+            $("#pestanasFaltantes").modal("show");
+            document.getElementById("errores_faltantes").innerHTML = item_errores.mensaje;
+        }
     },
 }
 </script>
@@ -158,5 +186,9 @@ export default {
     .btn-info {
         background-color: #328691 !important;
         border-color: #328691 !important;
+    }
+
+    .badge:hover{
+        cursor: pointer;
     }
 </style>

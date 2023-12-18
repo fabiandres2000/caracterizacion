@@ -321,16 +321,102 @@ class CaracterizacionController extends Controller
         if($rolUsuario == "administrador"){
             $caracterizados = DB::connection('mysql')->table('informacion_personal')
             ->where("estado", 1)
+            ->orderBy("informacion_personal.numero_caracterizacion", "DESC")
             ->get();
         }else{
             $caracterizados = DB::connection('mysql')->table('informacion_personal')
             ->leftJoin("user_encuesta", "user_encuesta.numero_caracterizacion", "informacion_personal.numero_caracterizacion")
             ->where("user_encuesta.usuario_encuesta", $idUsuario)
             ->where("informacion_personal.estado", 1)
+            ->orderBy("informacion_personal.numero_caracterizacion", "DESC")
             ->get();
+        }
+
+        foreach ($caracterizados as $key) {
+            $key->estado_registro_data = self::verificarEstadoCaracterizacion($key);
         }
        
         return response()->json($caracterizados);
+    }
+
+    public function verificarEstadoCaracterizacion($objeto){
+        $origen_identidad = DB::connection('mysql')->table('origen_etnia')
+        ->where("identificacion_individuo", $objeto->identificacion)
+        ->count();
+
+        $educacion = DB::connection('mysql')->table('educacion')
+        ->where("identificacion_individuo", $objeto->identificacion)
+        ->count();
+
+        $situacion_laboral = DB::connection('mysql')->table('situacion_laboral')
+        ->where("identificacion_individuo", $objeto->identificacion)
+        ->count();
+
+        $salud = DB::connection('mysql')->table('salud')
+        ->where("identificacion_individuo", $objeto->identificacion)
+        ->count();
+
+        $cultura_tradiciones = DB::connection('mysql')->table('cultura_tradiciones')
+        ->where("identificacion_individuo", $objeto->identificacion)
+        ->count();
+
+        $vivienda_hogar = DB::connection('mysql')->table('vivienda_hogar')
+        ->where("identificacion_jefe", $objeto->identificacion)
+        ->count();
+
+        $bandera = false;
+        $estado = "";
+        $cod_estado = 0;
+        $mensaje = "";
+
+        if($origen_identidad == 0){
+            $bandera = true;
+            $mensaje .= "<i class='fas fa-exclamation-circle'></i> Falta la pestaña <strong>Origen e Identidad</strong><br>";
+        }
+
+        if($educacion == 0){
+            $bandera = true;
+            $mensaje .= "<i class='fas fa-exclamation-circle'></i> Falta la pestaña <strong>Educación</strong><br>";
+        }
+
+        if($situacion_laboral == 0){
+            $bandera = true;
+            $mensaje .= "<i class='fas fa-exclamation-circle'></i> Falta la pestaña <strong>Situación Laboral</strong><br>";
+        }
+
+        if($salud == 0){
+            $bandera = true;
+            $mensaje .= "<i class='fas fa-exclamation-circle'></i> Falta la pestaña <strong>Salud</strong><br>";
+        }
+
+        if($cultura_tradiciones == 0){
+            $bandera = true;
+            $mensaje .= "<i class='fas fa-exclamation-circle'></i> Falta la pestaña <strong>Cultura y Tradiciones</strong><br>";
+        }
+
+        if($objeto->rol == "Jefe de hogar"){
+            if($vivienda_hogar == 0){
+                $bandera = true;
+                $mensaje .= "<i class='fas fa-exclamation-circle'></i> Falta la pestaña <strong>Vivienda y Hogar</strong><br>";
+            }
+        }    
+        
+        if($bandera === true){
+            $estado = "Incompleto";
+            $cod_estado = 0;
+        }else{
+            $estado = "Completo";
+            $cod_estado = 1;
+            $mensaje = "Todas las pestañas fueron llenadas correctamente.";
+        }
+
+        $objeto = [
+            "estado" => $estado,
+            "cod_estado" => $cod_estado,
+            "mensaje" => $mensaje
+        ];
+
+        return $objeto;
     }
 
     public function consultarDatosIndividuo(Request $request)
