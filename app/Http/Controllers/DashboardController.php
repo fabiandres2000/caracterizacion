@@ -893,6 +893,11 @@ class DashboardController extends Controller
         #endregion afro
 
 
+        #region salud
+            $salud = self::datosSalud();
+        #endregion salud
+
+
         $datos = [
             "piramide_edad" => $piramide_edad,
             "numero_masculino" => $masculino,
@@ -923,7 +928,8 @@ class DashboardController extends Controller
             "servicios" => $servicios,
             "tipo_vivienda" => $tipo_vivienda,
             "cantidad_viviendas" => $cantidad_viviendas,
-            "afrocolombianos_negritudes" => $afrocolombianos_negritudes
+            "afrocolombianos_negritudes" => $afrocolombianos_negritudes,
+            "salud" => $salud
         ];
 
         return response()->json($datos);
@@ -1058,5 +1064,62 @@ class DashboardController extends Controller
         ];
 
         return $afrocolombianos_negritudes;
+    }
+
+    public function datosSalud(){
+        $cantidad_poblacion = DB::connection('mysql')->table('informacion_personal')
+        ->where("informacion_personal.estado", 1)
+        ->count();
+
+        $estado_salud = DB::connection('mysql')->table('salud')
+        ->join("informacion_personal", "informacion_personal.identificacion", "salud.identificacion_individuo")
+        ->where("informacion_personal.estado", "1")
+        ->selectRaw('COUNT(salud.identificacion_individuo) as cantidad, salud.estado_salud')
+        ->groupBy("salud.estado_salud")
+        ->orderBy("cantidad", "DESC")
+        ->get();
+
+        $condicion_discapacidad = DB::connection('mysql')->table('salud')
+        ->join("informacion_personal", "informacion_personal.identificacion", "salud.identificacion_individuo")
+        ->where("informacion_personal.estado", "1")
+        ->selectRaw('COUNT(salud.identificacion_individuo) as cantidad, salud.condicion_discapacidad')
+        ->groupBy("salud.condicion_discapacidad")
+        ->orderBy("cantidad", "DESC")
+        ->get();
+
+        $acceso_salud = DB::connection('mysql')->table('salud')
+        ->join("informacion_personal", "informacion_personal.identificacion", "salud.identificacion_individuo")
+        ->where("informacion_personal.estado", "1")
+        ->selectRaw('COUNT(salud.identificacion_individuo) as cantidad, salud.acceso_salud')
+        ->groupBy("salud.acceso_salud")
+        ->orderBy("cantidad", "DESC")
+        ->get();
+
+        $regimen = DB::connection('mysql')->table('salud')
+        ->join("informacion_personal", "informacion_personal.identificacion", "salud.identificacion_individuo")
+        ->where("informacion_personal.estado", "1")
+        ->selectRaw('COUNT(salud.identificacion_individuo) as cantidad, salud.regimen')
+        ->groupBy("salud.regimen")
+        ->orderBy("cantidad", "DESC")
+        ->get();
+
+        $discriminacion_salud = DB::connection('mysql')->table('salud')
+        ->join("informacion_personal", "informacion_personal.identificacion", "salud.identificacion_individuo")
+        ->where("informacion_personal.estado", "1")
+        ->selectRaw('COUNT(salud.identificacion_individuo) as cantidad, salud.discriminacion_salud')
+        ->groupBy("salud.discriminacion_salud")
+        ->orderBy("cantidad", "DESC")
+        ->get();
+
+        $salud = [
+            "estado_salud" => $estado_salud,
+            "condicion_discapacidad" => $condicion_discapacidad,
+            "acceso_salud" => $acceso_salud,
+            "regimen" => $regimen,
+            "discriminacion_salud" => $discriminacion_salud,
+            "cantidad_poblacion" => $cantidad_poblacion
+        ];
+
+        return $salud;
     }
 }

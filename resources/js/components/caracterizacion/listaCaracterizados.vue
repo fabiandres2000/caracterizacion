@@ -44,7 +44,7 @@
                                         <td>{{ item.fecha_caracterizacion }}</td>
                                         <td style="display: flex; justify-content: space-around;">
                                             <router-link :to="{ name: 'editarCaracterizacion', params: { identificacion_editar: item.identificacion } }"><button class="btn btn-success btn_opciones"><i class="fas fa-user-edit"></i></button></router-link>
-                                            <button class="btn btn-danger btn_opciones"><i class="fas fa-trash-alt"></i></button>
+                                            <button @click="eliminarCaracterizacion(item.identificacion)" class="btn btn-danger btn_opciones"><i class="fas fa-trash-alt"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -82,6 +82,9 @@
 import * as caracterizacionService from "../../services/caracterizacion_service";
 import Loading from 'vue3-loading-overlay';
 import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
+import Swal from 'sweetalert2';
+
+
 export default {
     components: {
         Loading
@@ -150,6 +153,32 @@ export default {
         mostrarpestanasFaltantes(item_errores){
             $("#pestanasFaltantes").modal("show");
             document.getElementById("errores_faltantes").innerHTML = item_errores.mensaje;
+        },
+        eliminarCaracterizacion(identificacion){
+            Swal.fire({
+                title: "¿Esta seguro de eliminar esta caracterización?",
+                text: "No podrá revertir esta acción",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, eliminar",
+                cancelButtonText: "No, cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.confirmarEliminarCaracterizacion(identificacion);
+                }
+            });
+        },
+        async confirmarEliminarCaracterizacion(identificacion){
+            this.loading = true;
+            try {
+                await caracterizacionService.eliminarCaracterizacion(identificacion).then(respuesta => {
+                    location.reload();
+                });
+            } catch (error) {
+                console.log(error);
+            }
         }
     },
 }

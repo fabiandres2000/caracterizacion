@@ -45,12 +45,14 @@ Route::prefix('api')->group(function () {
     Route::post('/guardar-salud', [CaracterizacionController::class, 'guardarSalud'])->name('guardarSalud');
     Route::post('/guardar-cultura-tradiciones', [CaracterizacionController::class, 'guardarCulturaTradiciones'])->name('guardarCulturaTradiciones');
     Route::post('/guardar-vivienda-hogar', [CaracterizacionController::class, 'guardarViviendaHogar'])->name('guardarViviendaHogar');
+    Route::get('/eliminar-caracterizacion', [CaracterizacionController::class, 'eliminarCaracterizacion'])->name('eliminarCaracterizacion');
 
     Route::get('/jefes-hogar', [CaracterizacionController::class, 'consultarJefesHogar'])->name('consultarJefesHogar');
     Route::get('/departamentos', [CaracterizacionController::class, 'consultarDepartamentos'])->name('consultarDepartamentos');
     Route::get('/municipios', [CaracterizacionController::class, 'consultarMunicipios'])->name('consultarMunicipios');
     Route::get('/escolaridad', [CaracterizacionController::class, 'consultarEscolaridad'])->name('consultarEscolaridad');
     Route::get('/ocupaciones', [CaracterizacionController::class, 'consultarOcupaciones'])->name('consultarOcupaciones');
+    
     Route::get('/consolidado', [ConsolidadoController::class, 'consolidadoCensados'])->name('consolidadoCensados');
     Route::get('/municipios-consolidado', [ConsolidadoController::class, 'municipiosConsolidado'])->name('municipiosConsolidado');
     Route::get('/paginacion-consolidado', [ConsolidadoController::class, 'paginacionConsolidado'])->name('paginacionConsolidado');

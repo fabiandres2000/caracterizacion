@@ -474,4 +474,14 @@ class CaracterizacionController extends Controller
 
         return response()->json($datos);
     }
+
+    public function eliminarCaracterizacion(Request $request){
+        $identificacion = $request->input('identificacion');
+
+        $informacion_personal = DB::connection('mysql')->table('informacion_personal')
+        ->where("identificacion", $identificacion)
+        ->update([
+            "estado" => 0
+        ]);
+    }
 }

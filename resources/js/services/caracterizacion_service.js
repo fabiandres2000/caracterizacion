@@ -141,3 +141,7 @@ export function paginacionConsolidadoConcejo(concejo, pagina) {
 export function exportarConsolidadoExcelConcejo(concejo) {
     return http().get('/api/exportar-consolidado-concejo?concejo='+concejo);
 }
+
+export function eliminarCaracterizacion(identificacion) {
+    return http().get('/api/eliminar-caracterizacion?identificacion='+identificacion);
+}

@@ -652,7 +652,7 @@ export default {
     }
 
     .pagination_style {
-        width: 50% !important;
+        width: auto !important;
         justify-content: center !important;
         align-items: center !important;
         background-color: #f3f3f3 !important;

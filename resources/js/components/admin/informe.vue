@@ -51,7 +51,7 @@
                         </ul>
                         <div style="position: relative" class="tab-content px-1 pt-1">
                             <div class="tab-pane active" id="tabIcon20" role="tabpanel" aria-labelledby="baseIcon-tab20">
-                                <button style="border-radius: 50%; width: 60px; height: 60px; position: absolute; right: 100px; top: 20px" class="btn btn-danger" @click="generateReport">
+                                <button style="border-radius: 50%; width: 60px; height: 60px; position: absolute; right: 100px; top: 20px" class="btn btn-danger" @click="generateReportAfro">
                                     <i class="fas fa-2x fa-file-pdf"></i>
                                 </button>
                                 <button style="border-radius: 50%; width: 60px; height: 60px; position: absolute; right: 20px; top: 20px" class="btn btn-success" @click="generateReport">
@@ -74,7 +74,7 @@
                                                 :pdf-quality="2"
                                                 :manual-pagination="false"
                                                 pdf-content-width="100%"
-                                                ref="html2Pdf"
+                                                ref="html2PdfAfro"
                                                 :html-to-pdf-options=htmlToPdfOptions
                                                 @hasDownloaded = "loading = false"
                                             >
@@ -136,7 +136,7 @@
                                                     </table>
                                                     <br>
                                                     <h3 style="width: 100%; text-align: center; font-weight: bold; color: #ff425c; ">PORCENTAJE DE POBLACIÓN</h3>
-                                                    <h5  style="width: 100%; text-align: center; font-weight: bold;">(Habla lengua afrocolombiana)</h5>
+                                                    <h5 style="width: 100%; text-align: center; font-weight: bold;">(Habla lengua afrocolombiana)</h5>
                                                     <div id="grafica_lengua" style="height: 300px"></div>
                                                 </template>
                                             </vue3-html2pdf>
@@ -801,7 +801,7 @@
                                                     <br>
                                                     <div class="html2pdf__page-break"></div>
                                                     <h3 style="width: 100%; text-align: center; font-weight: bold;">DISTRIBUCIÓN DE LA POBLACIÓN POR NIVEL ACADÉMICO Y SEXO</h3>
-                                                    <div id="grafica_nivel_academico_sexo" style="height: 500px"></div>
+                                                    <div id="grafica_nivel_academico_sexo" style="height: 600px"></div>
                                                 </template>
                                             </vue3-html2pdf>
                                         </div>
@@ -1010,6 +1010,108 @@
                                     <div class="col-lg-2"></div>  
                                 </div>
                             </div>
+                            <div class="tab-pane" id="tabIcon24" role="tabpanel" aria-labelledby="baseIcon-tab24">
+                                <button style="border-radius: 50%; width: 60px; height: 60px; position: absolute; right: 100px; top: 20px" class="btn btn-danger" @click="generateReport3">
+                                    <i class="fas fa-2x fa-file-pdf"></i>
+                                </button>
+                                <button style="border-radius: 50%; width: 60px; height: 60px; position: absolute; right: 20px; top: 20px" class="btn btn-success" @click="generateReport">
+                                    <i class="fas fa-2x fa-file-excel"></i>
+                                </button>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-2"></div>  
+                                    <div class="col-lg-8">
+                                        <div>
+                                            <vue3-html2pdf
+                                                :show-layout="true"
+                                                :float-layout="false"
+                                                :enable-download="true"
+                                                :preview-modal="true"
+                                                :paginate-elements-by-height="1200"
+                                                :pdf-quality="2"
+                                                :manual-pagination="false"
+                                                @beforeDownload = "loading = false"
+                                                pdf-content-width="100%"
+                                                ref="html2PdfSalud"
+                                                :html-to-pdf-options=htmlToPdfOptions
+                                            >
+                                                <template v-slot:pdf-content>
+                                                    <h3 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">ESTADO DE SALUD GENERAL DE LA POBLACIÓN</h3>
+                                                    <br>
+                                                    <table style="width: 100%" class="situacion_laboral" v-if="salud != null">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Estado de salud</th>
+                                                                <th>Numero de personas</th>
+                                                                <th>%</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr v-for="(item, index) in salud.estado_salud" :key="index">
+                                                                <td>{{ item.estado_salud }}</td>
+                                                                <td>{{ item.cantidad }}</td>
+                                                                <td>{{ ((item.cantidad / salud.cantidad_poblacion) * 100).toFixed(2) }}</td>  
+                                                            </tr>
+                                                        </tbody>
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Total</th>
+                                                                <th>{{ salud.cantidad_poblacion }}</th>
+                                                                <th>100%</th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                    <br>
+                                                    <br>
+                                                    <h3 style="width: 100%; text-align: center; font-weight: bold;">PORCENTAJE DE PERSONAS POR ESTADO DE SALUD</h3>
+                                                    <div id="grafica_estado_salud" style="height: 300px"></div>
+                                                    <br>
+                                                    <h3 style="color: #ff425c; width: 100%; text-align: center; font-weight: bold;">PERSONAS POR TIPO DE ACCESO A LA SALUD</h3>
+                                                    <div id="grafica_acceso_salud" style="height: 300px"></div>
+                                                    <br>
+                                                    <div class="html2pdf__page-break"></div>
+                                                    <h3 style="color: #ff425c; width: 100%; text-align: center; font-weight: bold;">PERSONAS POR TIPO DE ACCESO REGIMEN EN SALUD</h3>
+                                                    <div id="grafica_regimen_salud" style="height: 300px"></div>
+                                                    <br>
+                                                    <h3 style="width: 100%; color: #ff425c; text-align: center; font-weight: bold;">PORCENTAJE DE PERSONAS QUE POSEE ALGUNA DISCAPACIDAD</h3>
+                                                    <br>
+                                                    <table style="width: 100%" class="situacion_laboral" v-if="salud != null">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Discapacidad</th>
+                                                                <th>Numero de personas</th>
+                                                                <th>%</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr v-for="(item, index) in salud.condicion_discapacidad" :key="index">
+                                                                <td>{{ item.condicion_discapacidad }}</td>
+                                                                <td>{{ item.cantidad }}</td>
+                                                                <td>{{ ((item.cantidad / salud.cantidad_poblacion) * 100).toFixed(2) }}</td>  
+                                                            </tr>
+                                                        </tbody>
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Total</th>
+                                                                <th>{{ salud.cantidad_poblacion }}</th>
+                                                                <th>100%</th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                    <br>
+                                                    <br>
+                                                    <h3 style="width: 100%; text-align: center; font-weight: bold;">NUMERO DE PERSONAS POR DISCAPACIDAD</h3>
+                                                    <div id="grafica_discapacidad" style="height: 300px"></div>
+                                                </template>
+                                            </vue3-html2pdf>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2"></div>  
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1085,7 +1187,8 @@ export default {
             servicios: [],
             tipo_vivienda: null,
             cantidad_viviendas: null,
-            afrocolombianos_negritudes: null
+            afrocolombianos_negritudes: null,
+            salud: null
         }
     },
     mounted() {
@@ -1108,6 +1211,12 @@ export default {
             this.loading = true;
             setTimeout(()=>{
                 this.$refs.html2Pdf3.generatePdf()
+            }, 1000)
+        },
+        generateReportAfro() {
+            this.loading = true;
+            setTimeout(()=>{
+                this.$refs.html2PdfAfro.generatePdf()
             }, 1000)
         },
         async consultarDatos(){
@@ -1154,6 +1263,11 @@ export default {
                 this.generarGraficoEtnia();
                 this.generarGraficoPracticas();
                 this.generarGraficoLenguaHabla();
+                this.salud = respuesta.data.salud;
+                this.generarGraficoEstadoSalud();
+                this.generarGraficoDiscapacidad();
+                this.generarGraficaAccesoSalud();
+                this.generarGraficaRegimenSalud();
                 this.loading = false;
             });
         },
@@ -2018,6 +2132,164 @@ export default {
 
             chart.hiddenState.properties.radius = am4core.percent(0);
         },
+        generarGraficoEstadoSalud() {
+            var chart = am4core.create("grafica_estado_salud", am4charts.PieChart);
+
+            // Add data
+            chart.data = [];
+
+            this.salud.estado_salud.forEach(element => {
+                chart.data.push(
+                    {
+                        "country": element.estado_salud,
+                        "litres": element.cantidad,
+                    }
+                );
+            });
+
+            var pieSeries = chart.series.push(new am4charts.PieSeries());
+            pieSeries.dataFields.value = "litres";
+            pieSeries.dataFields.category = "country";
+            pieSeries.slices.template.stroke = am4core.color("#fff");
+            pieSeries.slices.template.strokeOpacity = 1;
+
+            pieSeries.labels.template.maxWidth = 160;
+            pieSeries.labels.template.wrap = true;
+
+            pieSeries.hiddenState.properties.opacity = 1;
+            pieSeries.hiddenState.properties.endAngle = -90;
+            pieSeries.hiddenState.properties.startAngle = -90;
+
+            chart.hiddenState.properties.radius = am4core.percent(0);
+        },
+        generarGraficoDiscapacidad() {
+            var chart = am4core.create("grafica_discapacidad", am4charts.XYChart);
+           
+            var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+            categoryAxis.renderer.grid.template.location = 0;
+            categoryAxis.dataFields.category = "category";
+            categoryAxis.renderer.minGridDistance = 1;
+            categoryAxis.renderer.inversed = true;
+            categoryAxis.renderer.grid.template.disabled = true;
+
+            var valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
+            valueAxis.min = 0;
+
+            var series = chart.series.push(new am4charts.ColumnSeries());
+            series.dataFields.categoryY = "category";
+            series.dataFields.valueX = "first";
+            series.tooltipText = "{valueX.value}"
+            series.columns.template.strokeOpacity = 0;
+            series.columns.template.column.cornerRadiusBottomRight = 5;
+            series.columns.template.column.cornerRadiusTopRight = 5;
+
+            var labelBullet = series.bullets.push(new am4charts.LabelBullet())
+            labelBullet.label.horizontalCenter = "left";
+            labelBullet.label.dx = 10;
+            labelBullet.label.text = "{values.valueX.workingValue}";
+            labelBullet.label.fill = am4core.color("#ffffff"); // Set label text color to white
+            labelBullet.label.fontWeight = "bold";
+            labelBullet.locationX = 1;
+
+            // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+            series.columns.template.adapter.add("fill", function(fill, target){
+                return chart.colors.getIndex(target.dataItem.index);
+            });
+
+            categoryAxis.sortBySeries = series;
+
+            chart.data = [];
+
+            this.salud.condicion_discapacidad.forEach(element => {
+                chart.data.push({
+                    category: element.condicion_discapacidad,
+                    first: element.cantidad,
+                });
+            });
+
+        },
+        generarGraficaAccesoSalud() {
+            var chart = am4core.create("grafica_acceso_salud", am4charts.XYChart);
+
+            chart.data = [];
+
+            this.salud.acceso_salud.forEach(element => {
+                chart.data.push({
+                    category: element.acceso_salud,
+                    first: element.cantidad,
+                });
+            });
+
+            // Create axes
+
+            var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+            categoryAxis.dataFields.category = "category";
+            categoryAxis.renderer.grid.template.location = 0;
+            categoryAxis.renderer.minGridDistance = 30;
+
+            categoryAxis.renderer.labels.template.adapter.add("dy", function(dy, target) {
+            if (target.dataItem && target.dataItem.index & 2 == 2) {
+                return dy + 25;
+            }
+            return dy;
+            });
+
+            var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+
+            // Create series
+            var series = chart.series.push(new am4charts.ColumnSeries());
+            series.dataFields.valueY = "first";
+            series.dataFields.categoryX = "category";
+            series.name = "first";
+            series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/]";
+            series.columns.template.fillOpacity = 1;
+            series.columns.template.column.cornerRadiusBottomRight = 5;
+            series.columns.template.column.cornerRadiusTopRight = 5;
+
+            // Add labelBullet
+            var labelBullet = series.bullets.push(new am4charts.LabelBullet());
+            labelBullet.label.text = "{valueY}";
+            labelBullet.label.dy = -15; 
+
+            // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+            series.columns.template.adapter.add("fill", function(fill, target){
+                return chart.colors.getIndex(target.dataItem.index);
+            });
+
+            var columnTemplate = series.columns.template;
+            columnTemplate.strokeWidth = 2;
+            columnTemplate.strokeOpacity = 1;                                                       
+        },
+        generarGraficaRegimenSalud() {
+            var chart = am4core.create("grafica_regimen_salud", am4charts.PieChart);
+
+            // Add data
+            chart.data = [];
+
+            this.salud.regimen.forEach(element => {
+                chart.data.push(
+                    {
+                        "country": element.regimen,
+                        "litres": element.cantidad,
+                    }
+                );
+            });
+
+            var pieSeries = chart.series.push(new am4charts.PieSeries());
+            pieSeries.dataFields.value = "litres";
+            pieSeries.dataFields.category = "country";
+            pieSeries.slices.template.stroke = am4core.color("#fff");
+            pieSeries.slices.template.strokeOpacity = 1;
+
+            pieSeries.labels.template.maxWidth = 160;
+            pieSeries.labels.template.wrap = true;
+
+            pieSeries.hiddenState.properties.opacity = 1;
+            pieSeries.hiddenState.properties.endAngle = -90;
+            pieSeries.hiddenState.properties.startAngle = -90;
+
+            chart.hiddenState.properties.radius = am4core.percent(0);                                                  
+        }
     }
 }
 </script>
