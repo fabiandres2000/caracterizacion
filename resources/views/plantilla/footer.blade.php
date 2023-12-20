@@ -31,6 +31,7 @@
 <script src="{{ asset('app-assets/js/scripts/extensions/toastr.js') }}"></script>
 <script src="{{ asset('app-assets/js/scripts/tooltip/tooltip.js') }}"></script>
 <script src="{{ asset('app-assets/js/html2pdf.bundle.min.js') }}"></script>
+<script src="{{ asset('app-assets/js/printThis.js') }}"></script>
 <!-- END: Page JS-->
 
 <script src="{{ asset('app-assets/vendors/js/tables/datatable/datatables.min.js') }}"></script>
