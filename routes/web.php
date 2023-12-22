@@ -34,8 +34,10 @@ Route::prefix('api')->group(function () {
     Route::post('/editar-usuario-admin', [UsuarioController::class, 'editarUsuarioAdmin'])->name('editarUsuarioAdmin');
     Route::get('/cambiar-estado-usuario', [UsuarioController::class, 'cambiarEstadoUsuario'])->name('cambiarEstadoUsuario');
     Route::get('/cerrar-sesion', [UsuarioController::class, 'cerrarSesion'])->name('cerrarSesion');
+    Route::get('/listar-usuarios', [UsuarioController::class, 'listarUsuarios'])->name('listarUsuarios');
 
     Route::get('/caracterizados', [CaracterizacionController::class, 'listarCaracterizados'])->name('listarCaracterizados');
+    Route::get('/caracterizados-digitador', [CaracterizacionController::class, 'consultarCaracterizadosDigitador'])->name('consultarCaracterizadosDigitador');
     Route::get('/datos-individuo', [CaracterizacionController::class, 'consultarDatosIndividuo'])->name('consultarDatosIndividuo');
 
     Route::post('/guardar-informacion-personal', [CaracterizacionController::class, 'guardarInformacionPersonal'])->name('guardarInformacionPersonal');

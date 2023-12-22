@@ -67,6 +67,14 @@
                                 </a>
                             </router-link>
                         </li>
+                        <li v-if="datos.rol == 'administrador'" :class="tipo_ruta == '/lista-caracterizados-digitador' ? 'nav-item open' : 'nav-item'">
+                            <router-link to="/lista-caracterizados-digitador">
+                                <a href="#">
+                                    <i class="fas fa-user-shield"></i>
+                                    <span class="menu-title" data-i18n="Email Application">Caracterizados User</span>
+                                </a>
+                            </router-link>
+                        </li>
                         <li :class="tipo_ruta == '/consolidado' ? 'nav-item open' : 'nav-item'">
                             <router-link to="/consolidado">
                                 <a href="#">

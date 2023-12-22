@@ -210,4 +210,12 @@ class UsuarioController extends Controller
         Session::flush();
         return 1;
     }
+
+    public function listarUsuarios(){
+        $usuarios = DB::connection("mysql")->table("users")
+        ->where("estado", 1)
+        ->get();
+
+        return response()->json($usuarios);
+    }
 }

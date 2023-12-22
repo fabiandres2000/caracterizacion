@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import principal from './components/caracterizacion/principal';
 import editarCaracterizacion from './components/caracterizacion/editarCaracterizacion';
 import listaCaracterizados from './components/caracterizacion/listaCaracterizados';
+import listaCaracterizadosPorDigitador from './components/caracterizacion/porDigitador';
 import dashboard from './components/admin/dashboard';
 import miPerfil from './components/miPerfil';
 import usuarios from './components/usuarios/usuarios';
@@ -59,6 +60,11 @@ const routes = [
     path: '/informe',
     name: 'informe',
     component: informe
+  },
+  {
+    path: '/lista-caracterizados-digitador',
+    name: 'listaCaracterizadosPorDigitador',
+    component: listaCaracterizadosPorDigitador
   },
 ]
 

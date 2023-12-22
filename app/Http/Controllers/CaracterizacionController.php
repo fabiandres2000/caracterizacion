@@ -339,6 +339,24 @@ class CaracterizacionController extends Controller
         return response()->json($caracterizados);
     }
 
+    public function consultarCaracterizadosDigitador(Request $request){
+        $id_usuario = $request->input("id_usuario");
+
+        $caracterizados = DB::connection('mysql')->table('informacion_personal')
+        ->join("user_encuesta", "user_encuesta.numero_caracterizacion", "informacion_personal.numero_caracterizacion")
+        ->where("informacion_personal.estado", 1)
+        ->where("user_encuesta.usuario_encuesta", $id_usuario)
+        ->select("informacion_personal.*")
+        ->orderBy("informacion_personal.numero_caracterizacion", "DESC")
+        ->get();
+
+        foreach ($caracterizados as $key) {
+            $key->estado_registro_data = self::verificarEstadoCaracterizacion($key);
+        }
+
+        return response()->json($caracterizados);
+    }
+
     public function verificarEstadoCaracterizacion($objeto){
         $origen_identidad = DB::connection('mysql')->table('origen_etnia')
         ->where("identificacion_individuo", $objeto->identificacion)

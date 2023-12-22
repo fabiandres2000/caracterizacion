@@ -67,3 +67,7 @@ export function cambiarEstadoUsuario(id, estado) {
 export function cerrarSesion() {
     return http().get('/api/cerrar-sesion');
 }
+
+export function listarUsuarios() {
+    return http().get('/api/listar-usuarios');
+}

@@ -108,6 +108,10 @@ export function consultarCaracterizados() {
     return http().get('/api/caracterizados');
 }
 
+export function consultarCaracterizadosDigitador(idDigitador){
+    return http().get('/api/caracterizados-digitador?id_usuario='+idDigitador);
+}
+
 export function consultarDatosIndividuo(id) {
     return http().get('/api/datos-individuo?identificacion='+id);
 }
